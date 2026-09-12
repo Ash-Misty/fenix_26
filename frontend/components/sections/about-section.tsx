@@ -2,12 +2,20 @@
 
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
+import { useRef } from "react";
 
 export function AboutSection() {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-60px" });
+
   return (
-    <section id="about" className="about section-grid">
+    <section id="about" className="about section-grid" ref={ref}>
       <div className="section-label">01 / The awakening</div>
-      <div>
+      <motion.div
+        initial={{ opacity: 0, x: -40, filter: "blur(8px)" }}
+        animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <p className="eyebrow">Where technology meets imagination</p>
         <h2>
           The spark
@@ -20,11 +28,21 @@ export function AboutSection() {
           competitive minds, curious creators, and fearless dreamers come
           together to rise beyond the ordinary.
         </p>
-        <a className="text-link" href="#events">
+        <motion.a
+          className="text-link"
+          href="#events"
+          whileHover={{ gap: "12px", color: "var(--gold)" }}
+        >
           Enter the realms <ArrowUpRight size={16} />
-        </a>
-      </div>
-      <div className="about-stamp">
+        </motion.a>
+      </motion.div>
+      <motion.div
+        className="about-stamp"
+        initial={{ opacity: 0, scale: 0.8, rotate: 8, filter: "blur(6px)" }}
+        animate={inView ? { opacity: 1, scale: 1, rotate: 8, filter: "blur(0px)" } : {}}
+        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+        whileHover={{ rotate: 0, scale: 1.05 }}
+      >
         CSE
         <br />
         <span>26</span>
@@ -33,7 +51,7 @@ export function AboutSection() {
           <br />
           CHAPTER
         </small>
-      </div>
+      </motion.div>
     </section>
   );
 }

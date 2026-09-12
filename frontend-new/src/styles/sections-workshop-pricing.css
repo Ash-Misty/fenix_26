@@ -1,0 +1,75 @@
+/* Workshop */
+.workshop{padding:100px clamp(22px,6vw,100px);border-top:1px solid var(--line);background:radial-gradient(circle at 70% 50%,rgba(255,45,26,.1),transparent 50%);display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center}
+.workshop-graphic{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:20px;padding:60px 40px;border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,45,26,.1),rgba(5,3,3,.6));position:relative;overflow:hidden}
+.workshop-phoenix{width:100%;max-width:320px;height:auto;filter:drop-shadow(0 0 30px rgba(255,45,26,.4))}
+.workshop-graphic span{color:var(--gold);font:800 2rem 'Syne';letter-spacing:.1em;text-align:center;line-height:1.2}
+.workshop-copy .eyebrow{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;margin:0 0 14px}
+.workshop-copy h2{font:800 clamp(1.8rem,4vw,3rem) 'Syne';letter-spacing:-.06em;line-height:1;margin:0 0 20px}
+.workshop-copy h2 span{color:var(--red)}
+.workshop-copy .large{color:var(--muted);font-size:1rem;line-height:1.7;margin:0 0 28px;max-width:480px}
+.detail-pills{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:30px}
+.detail-pills span{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.82rem;padding:8px 14px;border:1px solid var(--line);background:rgba(5,3,3,.5)}
+
+/* Timeline */
+.timeline{max-width:700px;margin:0 auto}
+.timeline-wrap{display:flex;flex-direction:column;gap:0}
+.timeline-item{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:24px 0;border-top:1px solid var(--line);position:relative}
+.timeline-item:first-child{border-top:none}
+.timeline-item span{color:var(--gold);font:700 .9rem 'DM Mono';letter-spacing:.05em}
+.timeline-item i{position:absolute;left:6px;top:30px;width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 12px var(--red)}
+.timeline-item strong{font:700 1.1rem 'Syne';margin-bottom:6px;display:block}
+.timeline-item p{color:var(--muted);font-size:.82rem;margin:0}
+
+/* Team */
+.team{padding:100px clamp(22px,6vw,100px);border-top:1px solid var(--line)}
+.team .eyebrow{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;text-align:center;margin:0 0 14px}
+.team h2{text-align:center;font:800 clamp(2rem,5vw,4rem) 'Syne';letter-spacing:-.06em;line-height:1;margin:0 0 50px}
+.team h2 span{color:var(--red)}
+.team-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:16px}
+.person{padding:24px 18px;border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,45,26,.06),rgba(5,3,3,.6));text-align:center;transition:.3s}
+.person:hover{border-color:var(--red);transform:translateY(-4px)}
+.avatar{width:60px;height:60px;margin:0 auto 14px;border-radius:50%;background:linear-gradient(135deg,var(--red),var(--gold));display:grid;place-items:center;font:800 1.5rem 'Syne';color:var(--black)}
+.person h3{font:700 .95rem 'Syne';margin:0 0 4px}
+.person p{color:var(--gold);font-size:.72rem;margin:0 0 6px}
+.person small{color:var(--muted);font-size:.62rem;display:block}
+
+/* Pricing */
+.pricing{padding:100px clamp(22px,6vw,100px);border-top:1px solid var(--line);background:radial-gradient(circle at 50% 0%,rgba(255,45,26,.1),transparent 60%)}
+.pricing .eyebrow{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;text-align:center;margin:0 0 14px}
+.pricing h2{text-align:center;font:800 clamp(2rem,5vw,4rem) 'Syne';letter-spacing:-.06em;line-height:1;margin:0 0 50px}
+.pricing h2 span{color:var(--red)}
+.price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:900px;margin:0 auto}
+.price-card{padding:40px 32px;border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,45,26,.08),rgba(5,3,3,.7));text-align:center;position:relative;transition:.3s}
+.price-card:hover{border-color:var(--red);transform:translateY(-6px)}
+.price-card.featured{border-color:var(--red);background:linear-gradient(150deg,rgba(255,45,26,.18),rgba(5,3,3,.8))}
+.price-card label{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:var(--black);font:700 .62rem 'DM Mono';letter-spacing:.1em;padding:4px 14px;text-transform:uppercase}
+.price-card p{color:var(--muted);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 12px}
+.price-card strong{display:block;font:900 clamp(2.5rem,6vw,4rem) 'Syne';color:var(--gold);line-height:1;margin-bottom:8px}
+.price-card span{color:var(--muted);font-size:.82rem;display:block;margin-bottom:6px}
+.price-card small{color:var(--muted);font-size:.72rem;display:block;margin-bottom:24px}
+
+/* Responsive for Workshop, Timeline, Team, Pricing */
+@media(max-width:920px){
+  .workshop{grid-template-columns:1fr;gap:40px}
+  .workshop-graphic{padding:40px 30px}
+  .team-grid{grid-template-columns:repeat(3,1fr)}
+  .price-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .workshop{padding:60px 16px}
+  .workshop-copy h2{font-size:clamp(1.6rem,5vw,2.5rem)}
+  .detail-pills{justify-content:center}
+  .timeline-item{grid-template-columns:1fr;gap:8px;padding:16px 0}
+  .timeline-item span{font-size:.8rem}
+  .timeline-item i{left:0;top:16px}
+  .team{padding:60px 16px}
+  .team-grid{grid-template-columns:repeat(2,1fr);gap:12px}
+  .person{padding:20px 14px}
+  .pricing{padding:60px 16px}
+  .price-grid{grid-template-columns:1fr;gap:16px}
+  .price-card{padding:30px 24px}
+}
+@media(max-width:480px){
+  .team-grid{grid-template-columns:1fr}
+  .price-card{padding:24px 20px}
+}

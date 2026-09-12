@@ -1,0 +1,51 @@
+/* Brochure */
+.brochure{padding:100px clamp(22px,6vw,100px);border-top:1px solid var(--line);text-align:center}
+.brochure .eyebrow{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;margin:0 0 14px}
+.brochure h2{font:800 clamp(2rem,5vw,4rem) 'Syne';letter-spacing:-.06em;line-height:1;margin:0 0 20px}
+.brochure h2 span{color:var(--red)}
+.brochure p{color:var(--muted);font-size:1rem;max-width:500px;margin:0 auto 30px}
+.brochure .hero-actions{justify-content:center;flex-wrap:wrap;gap:12px}
+.brochure-paper{margin:60px auto 0;max-width:360px;padding:50px 40px;border:1px solid var(--red);background:linear-gradient(150deg,rgba(255,45,26,.15),rgba(5,3,3,.8));text-align:center;position:relative;overflow:hidden}
+.brochure-paper::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,rgba(255,176,32,.1),transparent 70%)}
+.brochure-paper small{color:var(--gold);font-size:.78rem;letter-spacing:.2em;display:block;margin-bottom:20px}
+.brochure-paper strong{font:900 clamp(2.5rem,6vw,4rem) 'Syne';color:var(--ink);line-height:1.1}
+.brochure-paper strong span{color:var(--red)}
+.brochure-paper i{color:var(--muted);font-size:.85rem;letter-spacing:.15em;display:block;margin-top:20px}
+
+.poster-placeholder{margin:60px auto 0;max-width:500px;padding:40px 30px;border:2px dashed var(--line);background:rgba(5,3,3,.4);border-radius:4px;text-align:center}
+.poster-placeholder .eyebrow{color:var(--gold);margin-bottom:8px}
+.poster-frame{margin-top:20px}
+.poster-upload-area{padding:40px 20px;border:1px solid var(--line);background:rgba(5,3,3,.5);border-radius:2px;display:flex;flex-direction:column;align-items:center;gap:12px;transition:.25s}
+.poster-upload-area:hover{border-color:var(--gold)}
+.poster-upload-area p{color:var(--ink);font-weight:500;margin:0}
+.poster-upload-area small{font-size:.75rem}
+
+/* FAQ */
+.faq{padding:100px clamp(22px,6vw,100px);border-top:1px solid var(--line)}
+.faq .eyebrow{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;margin:0 0 14px}
+.faq h2{font:800 clamp(2rem,5vw,4rem) 'Syne';letter-spacing:-.06em;line-height:1;margin:0 0 40px}
+.faq h2 span{color:var(--red)}
+.faq-grid{max-width:800px;margin:0 auto;display:flex;flex-direction:column;gap:12px}
+.faq-item{border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,45,26,.05),rgba(5,3,3,.6));overflow:hidden;transition:.3s}
+.faq-item:hover{border-color:var(--red)}
+.faq-header{width:100%;display:flex;justify-content:space-between;align-items:center;padding:20px 24px;background:none;border:0;color:var(--ink);cursor:pointer;font:inherit;font-size:.95rem;text-align:left;gap:20px}
+.faq-header svg{color:var(--red);transition:transform .3s;flex-shrink:0}
+.faq-item.open .faq-header svg{transform:rotate(180deg)}
+.faq-body{max-height:0;overflow:hidden;transition:max-height .35s ease}
+.faq-item.open .faq-body{max-height:400px}
+.faq-body p{color:var(--muted);font-size:.9rem;line-height:1.65;padding:0 24px 24px;margin:0}
+
+/* Social */
+.social{padding:80px clamp(22px,6vw,100px);border-top:1px solid var(--line);text-align:center;background:radial-gradient(circle at 50% 0%,rgba(255,45,26,.08),transparent 60%)}
+.social .eyebrow{color:var(--gold);font-size:.72rem;letter-spacing:.3em;text-transform:uppercase;font-weight:700;margin:0 0 14px}
+.social h2{font:800 clamp(2rem,5vw,4rem) 'Syne';letter-spacing:-.06em;line-height:1;margin:0 0 30px}
+.social h2 span{color:var(--red)}
+.social div{display:flex;gap:16px;flex-wrap:wrap;justify-content:center}
+.social a{color:var(--ink);font-size:.9rem;font-weight:600;padding:10px 22px;border:1px solid var(--line);border-radius:2px;transition:.25s}
+.social a:hover{border-color:var(--red);color:var(--red);transform:translateY(-2px)}
+
+/* Countdown */
+.countdown{display:flex;gap:clamp(16px,4vw,40px);justify-content:center;flex-wrap:wrap;margin-top:30px}
+.countdown .time{display:flex;flex-direction:column;align-items:center;gap:8px;min-width:70px;padding:16px 12px;border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,45,26,.1),rgba(5,3,3,.6))}
+.countdown strong{font:800 clamp(1.8rem,4vw,2.8rem) 'Syne';color:var(--gold);line-height:1;text-shadow:0 0 16px rgba(255,176,32,.4)}
+.countdown span{color:var(--muted);font-size:.6rem;letter-spacing:.15em;text-transform:uppercase}

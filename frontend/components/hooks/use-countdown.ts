@@ -3,10 +3,12 @@ import { useEffect, useMemo, useState } from "react";
 export function useCountdown(targetISO: string) {
   const target = useMemo(() => new Date(targetISO).getTime(), [targetISO]);
   const [mounted, setMounted] = useState(false);
-  const [now, setNow] = useState(() => Date.now());
+  // Start at 0 for SSR safety — server and first client render match.
+  const [now, setNow] = useState(0);
 
   useEffect(() => {
     setMounted(true);
+    setNow(Date.now());
     const id = setInterval(() => setNow(Date.now()), 1000);
     return () => clearInterval(id);
   }, []);

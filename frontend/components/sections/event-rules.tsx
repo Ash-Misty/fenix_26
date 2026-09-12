@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef, useState } from "react";
 import { motion, useInView, AnimatePresence } from "framer-motion";
 import { Minus, Plus } from "lucide-react";
 import { eventRules } from "@/data/eventRules";
+import { useRef, useState } from "react";
 
 interface RuleData {
   id: string;
@@ -33,16 +33,16 @@ export function EventRules() {
         <div>
           <motion.p
             className="eyebrow"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             The codex
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
           >
             EVENT <em>RULES</em>
           </motion.h2>
@@ -90,7 +90,7 @@ function RuleCategory({
     <div className="rules-category">
       <h3>{title}</h3>
       <div className="rules-list">
-        {rules.map((rule) => (
+        {rules.map((rule, i) => (
           <RuleCard
             key={rule.id}
             rule={rule}
@@ -99,6 +99,7 @@ function RuleCategory({
               setOpenId(openId === rule.id ? null : rule.id)
             }
             inView={inView}
+            index={i}
           />
         ))}
       </div>
@@ -111,18 +112,20 @@ function RuleCard({
   isOpen,
   onClick,
   inView,
+  index,
 }: {
   rule: RuleData;
   isOpen: boolean;
   onClick: () => void;
   inView: boolean;
+  index: number;
 }) {
   return (
     <motion.div
-      className="rule-card"
-      initial={{ opacity: 0, y: 20 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5 }}
+      className={`rule-card${isOpen ? " open" : ""}`}
+      initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
+      animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: "easeOut" }}
     >
       <button
         className="rule-header"
@@ -141,7 +144,7 @@ function RuleCard({
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: "auto", opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.3 }}
+            transition={{ duration: 0.35, ease: "easeOut" }}
           >
             <p>{rule.description}</p>
             <div className="rule-meta">

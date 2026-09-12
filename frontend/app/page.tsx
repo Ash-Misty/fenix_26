@@ -29,6 +29,7 @@ const nav = ["Home", "Events", "Posters", "Workshop", "Schedule", "Prizes", "Rul
 export default function Page() {
   const [loading, setLoading] = useState(true);
   const [menu, setMenu] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [category, setCategory] = useState("technical");
   const [poster, setPoster] = useState<number | null>(null);
 
@@ -44,14 +45,22 @@ export default function Page() {
     };
   }, [loading]);
 
+  useEffect(() => {
+    const onScroll = () => {
+      setScrolled(window.scrollY > 40);
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
   return (
     <>
       {loading && (
         <div className="loading-screen">
           <EmberField />
-          <div className="loading-phoenix">♨</div>
+          <div className="loading-phoenix">✦</div>
           <div className="loading-mark">
-            FENIX<span>'26</span>
+            FENIX<span>&apos;26</span>
           </div>
           <p>RISE. RECODE. REIGN.</p>
           <button className="loading-skip" onClick={() => setLoading(false)}>
@@ -62,16 +71,17 @@ export default function Page() {
       <ScrollProgress />
       <div className="site-shell">
         <EmberField />
-        <header className="navbar">
+        <header className={`navbar${scrolled ? " scrolled" : ""}`}>
           <a href="#home" className="brand">
-            <span className="brand-flame">✦</span> FENIX<span>'26</span>
+            <span className="brand-flame">✦</span> FENIX<span>&apos;26</span>
           </a>
           <button
             className="menu-button"
             onClick={() => setMenu(!menu)}
             aria-label="Toggle navigation"
+            aria-expanded={menu}
           >
-            {menu ? <X /> : <Menu />}
+            {menu ? <X size={20} /> : <Menu size={20} />}
           </button>
           <nav className={menu ? "open" : ""}>
             {nav.map((item) => (
@@ -83,7 +93,7 @@ export default function Page() {
                 {item}
               </a>
             ))}
-            <a className="nav-register" href="#register">
+            <a className="nav-register" href="#register" onClick={() => setMenu(false)}>
               Register <ArrowUpRight size={15} />
             </a>
           </nav>
@@ -115,7 +125,7 @@ export default function Page() {
 
         <footer>
           <a className="brand" href="#home">
-            <span className="brand-flame">✦</span> FENIX<span>'26</span>
+            <span className="brand-flame">✦</span> FENIX<span>&apos;26</span>
           </a>
           <span>Rise. Recode. Reign.</span>
           <span>Department of Computer Science and Engineering</span>
@@ -127,7 +137,7 @@ export default function Page() {
               </a>
             ))}
           </div>
-          <span>© 2026 FENIX'26. All Rights Reserved.</span>
+          <span>© 2026 FENIX&apos;26. All Rights Reserved.</span>
         </footer>
       </div>
       <PosterViewer poster={poster} setPoster={setPoster} />

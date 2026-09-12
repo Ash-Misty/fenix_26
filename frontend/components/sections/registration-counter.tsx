@@ -30,24 +30,24 @@ export function RegistrationCounter() {
       <div className="registration-inner">
         <motion.p
           className="eyebrow"
-          initial={{ opacity: 0, y: 20 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.6 }}
+          initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.6, ease: "easeOut" }}
         >
           The rise has begun
         </motion.p>
         <motion.h2
-          initial={{ opacity: 0, y: 30 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ duration: 0.7, delay: 0.1 }}
+          initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+          animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
         >
           JOIN THE PHOENIX
         </motion.h2>
         <motion.div
           className="registration-counter"
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          initial={{ opacity: 0, scale: 0.95, filter: "blur(8px)" }}
+          animate={inView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
         >
           <div className="registration-flame" aria-hidden="true">
             🔥

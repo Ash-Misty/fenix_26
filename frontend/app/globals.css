@@ -15,10 +15,22 @@
     --ink: #080706;
     --paper: #f5ead8;
     --ember: #f04a18;
+    --ember-bright: #ff6b2a;
     --gold: #e9a52e;
+    --gold-bright: #f5c96a;
     --crimson: #7b1618;
+    --crimson-bright: #a82024;
     --muted: #a99d8a;
     --line: rgba(245, 234, 216, .16);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: .01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important;
+        scroll-behavior: auto !important;
+    }
 }
 
 * {
@@ -85,6 +97,11 @@ footer {
     z-index: 20;
     background: rgba(8, 7, 6, .8);
     backdrop-filter: blur(14px);
+    transition: box-shadow .3s ease;
+}
+
+.navbar.scrolled {
+    box-shadow: 0 2px 20px rgba(0, 0, 0, .5);
 }
 
 .brand {
@@ -113,8 +130,28 @@ nav {
     color: var(--muted);
 }
 
+nav a {
+    position: relative;
+    transition: color .25s ease;
+}
+
 nav a:hover {
     color: var(--paper);
+}
+
+nav a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -4px;
+    width: 0;
+    height: 1px;
+    background: var(--ember);
+    transition: width .25s ease;
+}
+
+nav a:hover::after {
+    width: 100%;
 }
 
 .nav-register {
@@ -124,6 +161,13 @@ nav a:hover {
     gap: 5px;
     border: 1px solid rgba(233, 165, 46, .5);
     padding: 12px 15px;
+    transition: all .25s ease;
+}
+
+.nav-register:hover {
+    background: var(--ember);
+    color: var(--ink);
+    border-color: var(--ember);
 }
 
 .menu-button {
@@ -147,6 +191,8 @@ nav a:hover {
     align-items: center;
     background: radial-gradient(ellipse at 73% 58%, rgba(240, 74, 24, .23), transparent 24rem), radial-gradient(ellipse at 55% 100%, rgba(123, 22, 24, .3), transparent 32rem);
     scroll-margin-top: 78px;
+    position: relative;
+    overflow: hidden;
 }
 
 .hero-copy {
@@ -207,18 +253,29 @@ nav a:hover {
     letter-spacing: .14em;
     font-weight: 800;
     font-size: .68rem;
+    transition: all .25s ease;
 }
 
 .button-fire {
     color: var(--ink);
     background: var(--gold);
     box-shadow: 7px 7px 0 var(--crimson);
-    transition: .25s;
 }
 
 .button-fire:hover {
     transform: translate(3px, 3px);
     box-shadow: 3px 3px 0 var(--ember);
+}
+
+.button-ghost {
+    color: var(--paper);
+    border: 1px solid var(--line);
+    background: transparent;
+}
+
+.button-ghost:hover {
+    border-color: var(--gold);
+    color: var(--gold);
 }
 
 .text-link {
@@ -231,6 +288,13 @@ nav a:hover {
     color: var(--paper);
     border-bottom: 1px solid var(--ember);
     padding-bottom: 6px;
+    transition: all .25s ease;
+}
+
+.text-link:hover {
+    color: var(--gold);
+    border-color: var(--gold);
+    gap: 12px;
 }
 
 .hero-meta {
@@ -396,22 +460,6 @@ h2 em {
     margin-bottom: 28px;
 }
 
-.events-section,
-.schedule-section,
-.team-section,
-.poster-section,
-.brochure-section,
-.rules-section,
-.instructions-section,
-.payment-section,
-.contact-section,
-.campus-section {
-    padding: 130px 9vw;
-    border-top: 1px solid var(--line);
-    position: relative;
-    scroll-margin-top: 78px;
-}
-
 .section-heading {
     display: flex;
     justify-content: space-between;
@@ -424,6 +472,7 @@ h2 em {
     text-align: right;
     line-height: 1.6;
     font-size: .8rem;
+    max-width: 220px;
 }
 
 .tabs {
@@ -441,6 +490,12 @@ h2 em {
     letter-spacing: .12em;
     font-size: .62rem;
     cursor: pointer;
+    transition: all .25s ease;
+}
+
+.tabs button:hover {
+    border-color: var(--gold);
+    color: var(--paper);
 }
 
 .tabs button.active {
@@ -461,12 +516,30 @@ h2 em {
     border: 1px solid var(--line);
     background: linear-gradient(150deg, rgba(123, 22, 24, .2), rgba(8, 7, 6, .7));
     position: relative;
-    transition: .3s;
+    transition: all .3s ease;
+    overflow: hidden;
+}
+
+.event-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ember), transparent);
+    opacity: 0;
+    transition: opacity .3s ease;
 }
 
 .event-card:hover {
     transform: translateY(-7px);
     border-color: var(--gold);
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .5);
+}
+
+.event-card:hover::before {
+    opacity: 1;
 }
 
 .event-number {
@@ -532,6 +605,12 @@ h2 em {
     display: flex;
     align-items: center;
     gap: 4px;
+    transition: all .25s ease;
+}
+
+.card-actions button:hover,
+.card-actions a:hover {
+    color: var(--ember);
 }
 
 .card-actions a {
@@ -557,11 +636,27 @@ h2 em {
     justify-content: space-between;
     text-align: center;
     cursor: pointer;
-    transition: .3s;
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.poster-art-large::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(240, 74, 24, .3), transparent 60%);
+    opacity: 0;
+    transition: opacity .3s ease;
 }
 
 .poster-art-large:hover {
-    transform: translateY(-6px);
+    transform: translateY(-6px) scale(1.02);
+    box-shadow: 0 0 100px rgba(240, 74, 24, .4);
+}
+
+.poster-art-large:hover::before {
+    opacity: 1;
 }
 
 .poster-art-large p {
@@ -602,13 +697,14 @@ h2 em {
     text-transform: uppercase;
     letter-spacing: .1em;
     cursor: pointer;
-    transition: .25s;
+    transition: all .25s ease;
 }
 
 .poster-actions button:hover,
 .poster-actions a:hover {
     border-color: var(--gold);
     color: var(--paper);
+    background: rgba(233, 165, 46, .1);
 }
 
 .workshop {
@@ -639,6 +735,7 @@ h2 em {
     line-height: 1.3;
     letter-spacing: .2em;
     box-shadow: inset 0 0 40px rgba(240, 74, 24, .25), 0 0 50px rgba(240, 74, 24, .25);
+    animation: rise 4s ease-in-out infinite;
 }
 
 .workshop>div:last-child {
@@ -704,6 +801,18 @@ h2 em {
     margin: auto;
     border-left: 1px solid var(--ember);
     scroll-margin-top: 78px;
+    position: relative;
+}
+
+.timeline::before {
+    content: '';
+    position: absolute;
+    left: -2px;
+    top: 0;
+    bottom: 0;
+    width: 3px;
+    background: linear-gradient(180deg, var(--ember), var(--gold), var(--ember));
+    border-radius: 2px;
 }
 
 .timeline-item {
@@ -726,6 +835,8 @@ h2 em {
     background: var(--ember);
     border-radius: 50%;
     box-shadow: 0 0 18px var(--ember);
+    margin-top: 4px;
+    animation: rise 3s ease-in-out infinite;
 }
 
 .timeline-item h3 {
@@ -763,6 +874,29 @@ h2 em {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.prize-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(233, 165, 46, .1), transparent);
+    transition: left .5s ease;
+}
+
+.prize-card:hover {
+    transform: translateY(-5px);
+    border-color: var(--gold);
+}
+
+.prize-card:hover::before {
+    left: 100%;
 }
 
 .prize-card span {
@@ -793,37 +927,6 @@ h2 em {
 
 .prize-card.featured strong {
     font-size: 2rem;
-}
-
-.team-grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 12px;
-}
-
-.team-card {
-    border-top: 1px solid var(--line);
-    padding-top: 16px;
-}
-
-.avatar {
-    height: 130px;
-    display: grid;
-    place-items: center;
-    background: linear-gradient(135deg, var(--crimson), #18100b);
-    color: var(--gold);
-    font: 3rem Georgia, serif;
-}
-
-.team-card p {
-    font-size: .75rem;
-    color: var(--paper);
-}
-
-.team-card span {
-    color: var(--muted);
-    font-size: .58rem;
-    letter-spacing: .12em;
 }
 
 .venue {
@@ -936,6 +1039,8 @@ footer {
     font-size: .65rem;
     text-transform: uppercase;
     letter-spacing: .1em;
+    position: relative;
+    z-index: 1;
 }
 
 .ember-field {
@@ -1021,7 +1126,7 @@ footer {
     position: fixed;
     top: 0;
     left: 0;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(90deg, var(--ember), var(--gold));
     z-index: 10;
     transform-origin: left;
@@ -1115,11 +1220,14 @@ footer {
     overflow: hidden;
     background: radial-gradient(circle at 50% 50%, rgba(123, 22, 24, .2), transparent 30rem);
     scroll-margin-top: 78px;
+    padding: 100px 6vw;
 }
 
 .countdown-inner {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 1100px;
 }
 
 .countdown-subtitle {
@@ -1135,6 +1243,7 @@ footer {
     gap: clamp(20px, 4vw, 48px);
     justify-content: center;
     margin: 0 auto 28px;
+    flex-wrap: wrap;
 }
 
 .countdown-unit {
@@ -1143,6 +1252,10 @@ footer {
     align-items: center;
     gap: 10px;
     min-width: 80px;
+    padding: 20px 16px;
+    border: 1px solid var(--line);
+    background: linear-gradient(150deg, rgba(123, 22, 24, .2), rgba(8, 7, 6, .7));
+    border-radius: 4px;
 }
 
 .countdown-value {
@@ -1151,6 +1264,7 @@ footer {
     line-height: 1;
     letter-spacing: -.02em;
     text-shadow: 0 0 24px rgba(240, 74, 24, .35);
+    font-variant-numeric: tabular-nums;
 }
 
 .countdown-label {
@@ -1230,11 +1344,14 @@ footer {
     overflow: hidden;
     background: radial-gradient(circle at 50% 50%, rgba(240, 74, 24, .18), transparent 28rem);
     scroll-margin-top: 78px;
+    padding: 100px 6vw;
 }
 
 .registration-inner {
     position: relative;
     z-index: 1;
+    width: 100%;
+    max-width: 900px;
 }
 
 .registration-counter {
@@ -1266,6 +1383,7 @@ footer {
     color: var(--gold);
     line-height: 1;
     text-shadow: 0 0 20px rgba(240, 74, 24, .3);
+    font-variant-numeric: tabular-nums;
 }
 
 .registration-note {
@@ -1278,6 +1396,8 @@ footer {
 .instructions-section {
     background: radial-gradient(circle at 30% 70%, rgba(233, 165, 46, .08), transparent 28rem);
     scroll-margin-top: 78px;
+    padding: 130px 9vw;
+    border-top: 1px solid var(--line);
 }
 
 .instructions-grid {
@@ -1291,11 +1411,30 @@ footer {
     border: 1px solid var(--line);
     padding: 22px;
     background: linear-gradient(150deg, rgba(123, 22, 24, .15), rgba(8, 7, 6, .7));
-    transition: .3s;
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.instruction-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, var(--ember), transparent);
+    opacity: 0;
+    transition: opacity .3s ease;
 }
 
 .instruction-card:hover {
     border-color: var(--gold);
+    transform: translateY(-4px);
+}
+
+.instruction-card:hover::before {
+    opacity: 1;
 }
 
 .instruction-number {
@@ -1333,6 +1472,8 @@ footer {
 .payment-section {
     background: radial-gradient(circle at 70% 30%, rgba(123, 22, 24, .15), transparent 30rem);
     scroll-margin-top: 78px;
+    padding: 130px 9vw;
+    border-top: 1px solid var(--line);
 }
 
 .payment-fees {
@@ -1347,11 +1488,33 @@ footer {
     padding: 26px;
     text-align: center;
     background: linear-gradient(150deg, rgba(123, 22, 24, .15), rgba(8, 7, 6, .7));
-    transition: .3s;
+    transition: all .3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.fee-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(233, 165, 46, .1), transparent);
+    transition: left .5s ease;
+}
+
+.fee-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+}
+
+.fee-card:hover::before {
+    left: 100%;
 }
 
 .fee-label {
@@ -1417,6 +1580,7 @@ footer {
 .payment-qr {
     display: flex;
     justify-content: center;
+    margin-top: 20px;
 }
 
 .qr-placeholder {
@@ -1467,6 +1631,14 @@ footer {
     padding: 18px;
     text-align: center;
     background: linear-gradient(150deg, rgba(123, 22, 24, .1), rgba(8, 7, 6, .7));
+    transition: all .3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.process-step:hover {
+    border-color: var(--gold);
+    transform: translateY(-3px);
 }
 
 .process-number {
@@ -1487,6 +1659,8 @@ footer {
 .brochure-section {
     background: radial-gradient(circle at 50% 50%, rgba(233, 165, 46, .06), transparent 30rem);
     scroll-margin-top: 78px;
+    padding: 130px 9vw;
+    border-top: 1px solid var(--line);
 }
 
 .brochure-card {
@@ -1496,16 +1670,33 @@ footer {
     padding: 30px;
     text-align: center;
     background: linear-gradient(150deg, rgba(123, 22, 24, .12), rgba(8, 7, 6, .7));
-    transition: .3s;
+    transition: all .3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 12px;
+    position: relative;
+    overflow: hidden;
+}
+
+.brochure-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(233, 165, 46, .1), transparent);
+    transition: left .5s ease;
 }
 
 .brochure-card:hover {
     border-color: var(--gold);
     transform: translateY(-4px);
+}
+
+.brochure-card:hover::before {
+    left: 100%;
 }
 
 .brochure-icon {
@@ -1545,17 +1736,20 @@ footer {
     letter-spacing: .1em;
     text-transform: uppercase;
     color: var(--gold);
-    transition: .25s;
+    transition: all .25s ease;
 }
 
 .brochure-actions a:hover {
     border-color: var(--gold);
     color: var(--paper);
+    background: rgba(233, 165, 46, .1);
 }
 
 .rules-section {
     background: radial-gradient(circle at 30% 30%, rgba(123, 22, 24, .12), transparent 30rem);
     scroll-margin-top: 78px;
+    padding: 130px 9vw;
+    border-top: 1px solid var(--line);
 }
 
 .rules-content {
@@ -1570,6 +1764,8 @@ footer {
     letter-spacing: .14em;
     text-transform: uppercase;
     margin: 0 0 18px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--line);
 }
 
 .rules-list {
@@ -1581,7 +1777,7 @@ footer {
     border: 1px solid var(--line);
     background: linear-gradient(150deg, rgba(123, 22, 24, .1), rgba(8, 7, 6, .7));
     overflow: hidden;
-    transition: .3s;
+    transition: all .3s ease;
 }
 
 .rule-card:hover {
@@ -1612,11 +1808,17 @@ footer {
     color: var(--ember);
     display: flex;
     align-items: center;
+    transition: transform .3s ease;
+}
+
+.rule-card.open .rule-icon {
+    transform: rotate(180deg);
 }
 
 .rule-body {
     padding: 0 20px;
     overflow: hidden;
+    transition: max-height .35s ease, padding .3s ease;
 }
 
 .rule-body p {
@@ -1700,6 +1902,8 @@ footer {
 .contact-section {
     background: radial-gradient(circle at 50% 50%, rgba(240, 74, 24, .12), transparent 30rem);
     scroll-margin-top: 78px;
+    padding: 130px 9vw;
+    border-top: 1px solid var(--line);
 }
 
 .contact-grid {
@@ -1714,12 +1918,34 @@ footer {
     padding: 22px;
     text-align: center;
     background: linear-gradient(150deg, rgba(123, 22, 24, .1), rgba(8, 7, 6, .7));
-    transition: .3s;
+    transition: all .3s ease;
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 8px;
     color: var(--foreground);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(233, 165, 46, .1), transparent);
+    transition: left .5s ease;
+}
+
+.contact-card:hover {
+    border-color: var(--gold);
+    transform: translateY(-5px);
+}
+
+.contact-card:hover::before {
+    left: 100%;
 }
 
 .contact-icon {
@@ -1753,11 +1979,27 @@ footer {
     font-size: .6rem;
     letter-spacing: .1em;
     text-transform: uppercase;
-    transition: .25s;
+    transition: all .25s ease;
+    position: relative;
 }
 
 .footer-links a:hover {
     color: var(--gold);
+}
+
+.footer-links a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -3px;
+    width: 0;
+    height: 1px;
+    background: var(--gold);
+    transition: width .25s ease;
+}
+
+.footer-links a:hover::after {
+    width: 100%;
 }
 
 @keyframes ember {
@@ -1795,49 +2037,82 @@ footer {
     }
 }
 
-.carousel {
-    max-width: 900px;
-    margin: 40px auto 0;
+@keyframes phoenix-rise {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+        filter: blur(10px);
+    }
+
+    50% {
+        transform: scale(1.05);
+        opacity: .8;
+        filter: blur(2px);
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+        filter: blur(0);
+    }
 }
-.carousel-viewport {
-    position: relative;
-    width: 100%;
-    aspect-ratio: 16 / 9;
-    overflow: hidden;
-    border: 1px solid var(--line);
-    background: #050403;
+
+@keyframes count-up {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-.carousel-image {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    display: block;
+
+@keyframes slide-up {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
-.carousel-controls {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 18px;
+
+@keyframes fade-blur-in {
+    from {
+        opacity: 0;
+        filter: blur(12px);
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        filter: blur(0);
+        transform: translateY(0);
+    }
 }
-.carousel-controls button {
-    background: none;
-    border: 1px solid var(--line);
-    color: var(--gold);
-    padding: 10px 18px;
-    font-size: .62rem;
-    text-transform: uppercase;
-    letter-spacing: .12em;
-    cursor: pointer;
-    transition: .25s;
+
+@keyframes clip-reveal {
+    from {
+        clip-path: inset(100% 0 0 0);
+    }
+
+    to {
+        clip-path: inset(0 0 0 0);
+    }
 }
-.carousel-controls button:hover {
-    border-color: var(--gold);
-    color: var(--paper);
-}
-.carousel-counter {
-    color: var(--muted);
-    font-size: .68rem;
-    letter-spacing: .12em;
+
+@keyframes shimmer {
+    from {
+        background-position: -200% 0;
+    }
+
+    to {
+        background-position: 200% 0;
+    }
 }
 
 @media(max-width:900px) {
@@ -1888,6 +2163,26 @@ footer {
     .rules-list {
         grid-template-columns: repeat(2, 1fr)
     }
+
+    .contact-grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .instructions-grid {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .payment-fees {
+        grid-template-columns: 1fr
+    }
+
+    .process-steps {
+        grid-template-columns: repeat(2, 1fr)
+    }
+
+    .prize-card.featured {
+        grid-column: span 2;
+    }
 }
 
 @media(max-width:640px) {
@@ -1910,26 +2205,30 @@ footer {
         background: rgba(8, 7, 6, .98);
         border-bottom: 1px solid var(--line);
         flex-direction: column;
-        align-items: flex-start
+        align-items: flex-start;
+        gap: 16px;
+        z-index: 19;
     }
 
     nav.open {
         display: flex
     }
 
-     .section-grid,
-        .events-section,
-        .schedule-section,
-        .team-section,
-        .poster-section,
-        .brochure-section,
-        .rules-section,
-        .instructions-section,
-        .payment-section,
-        .contact-section,
-        .campus-section {
-            padding: 92px 6vw
-        }
+    .section-grid,
+    .events-section,
+    .schedule-section,
+    .team-section,
+    .poster-section,
+    .brochure-section,
+    .rules-section,
+    .instructions-section,
+    .payment-section,
+    .contact-section,
+    .campus-section,
+    .countdown-section,
+    .registration-section {
+        padding: 92px 6vw
+    }
 
     .hero {
         padding-top: 130px;
@@ -1949,7 +2248,8 @@ footer {
     .phoenix-wrap {
         width: 100%;
         min-height: 300px;
-        order: 2
+        order: 2;
+        margin-top: 40px;
     }
 
     .phoenix {
@@ -1997,121 +2297,135 @@ footer {
 
     .section-note {
         text-align: left;
-        margin-top: -15px
-    }
-
-    .event-grid {
-        grid-template-columns: 1fr
-    }
-
-    .workshop {
-        display: grid;
-        gap: 45px
-    }
-
-    .forge-art {
-        min-height: 280px
-    }
-
-    .timeline-item {
-        grid-template-columns: 80px 15px 1fr;
-        gap: 12px
-    }
-
-    .prize-grid {
-        grid-template-columns: 1fr 1fr
-    }
-
-    .prize-card.featured {
-        grid-column: span 2
-    }
-
-    .team-grid {
-        grid-template-columns: repeat(2, 1fr)
-    }
-
-    .venue {
-        display: grid;
-        gap: 40px
-    }
-
-    .map-art {
-        min-height: 220px
-    }
-
-    footer {
-        display: grid;
-        gap: 16px
-    }
-
-    .modal-arrow {
-        display: none
-    }
-
-    .poster-art {
-        width: 82vw
-    }
-
-    .modal-register {
-        bottom: 22px
+        margin-top: -15px;
+        margin-bottom: 30px;
     }
 
     .hero-actions {
-        flex-wrap: wrap
+        flex-wrap: wrap;
     }
 
-    .hero-intro {
-        font-size: .88rem
+    .footer {
+        flex-direction: column;
+        gap: 14px;
+        text-align: center;
     }
 
-    .rules-list {
-        grid-template-columns: 1fr
+    .footer-links {
+        margin-top: 0;
+    }
+
+    .contact-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .instructions-grid {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .payment-fees {
+        grid-template-columns: 1fr;
+        max-width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .process-steps {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .prize-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .prize-card.featured {
+        grid-column: span 1;
+    }
+
+    .timeline {
+        padding-left: 30px;
+    }
+
+    .timeline-item {
+        grid-template-columns: 80px 20px 1fr;
+        gap: 14px;
+        padding: 22px 0;
     }
 
     .countdown-clock {
-        flex-direction: column;
-        align-items: center;
-        gap: 18px
+        gap: 12px;
     }
 
     .countdown-unit {
-        flex-direction: row;
-        justify-content: center;
-        gap: 14px;
-        min-width: auto;
-        width: 100%
+        min-width: 70px;
+        padding: 14px 8px;
     }
 
     .countdown-value {
-        font-size: 2.6rem
-    }
-
-    .registration-counter {
-        min-width: auto;
-        width: 100%;
-        padding: 30px 24px
-    }
-
-    .registration-number {
-        font-size: 2.8rem
-    }
-
-    .loading-skip {
-        bottom: 24px;
-        right: 24px;
-        padding: 8px 14px;
-        font-size: .58rem
+        font-size: 2.2rem;
     }
 }
 
-@media(prefers-reduced-motion:reduce) {
+.carousel {
+    max-width: 900px;
+    margin: 40px auto 0;
+}
 
-    *,
-    *:before,
-    *:after {
-        animation-duration: .01ms !important;
-        animation-iteration-count: 1 !important;
-        scroll-behavior: auto !important;
-        transition-duration: .01ms !important
-    }
+.carousel-viewport {
+    position: relative;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    overflow: hidden;
+    border: 1px solid var(--line);
+    background: #050403;
+}
+
+.carousel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+.carousel-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 18px;
+}
+
+.carousel-controls button {
+    background: none;
+    border: 1px solid var(--line);
+    color: var(--gold);
+    padding: 10px 18px;
+    font-size: .62rem;
+    text-transform: uppercase;
+    letter-spacing: .12em;
+    cursor: pointer;
+    transition: all .25s ease;
+}
+
+.carousel-controls button:hover {
+    border-color: var(--gold);
+    color: var(--paper);
+    background: rgba(233, 165, 46, .1);
+}
+
+.carousel-counter {
+    color: var(--muted);
+    font-size: .68rem;
+    letter-spacing: .12em;
+}
+
+.campus-section {
+    padding: 130px 9vw;
+    border-top: 1px solid var(--line);
+    scroll-margin-top: 78px;
 }

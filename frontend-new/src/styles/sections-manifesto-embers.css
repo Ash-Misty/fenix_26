@@ -1,0 +1,47 @@
+/* Manifesto */
+.section-pad{padding:clamp(90px,13vw,190px) clamp(24px,8vw,128px)}
+.manifesto{background:var(--cream);color:var(--ink)}
+.manifesto .eyebrow{color:#b33e28}
+.manifesto-grid{display:grid;grid-template-columns:1.35fr .65fr;gap:8vw;align-items:end}
+.manifesto h2{font-size:clamp(3.1rem,6.4vw,7rem);max-width:800px}
+.manifesto h2 em{color:#b8432c}
+.manifesto-text{max-width:400px}
+.manifesto-text p{font-size:1rem;line-height:1.8;margin:0 0 2.2rem;color:#5d4b4c}
+.stat-line{display:flex;align-items:center;gap:1.2rem;margin-top:clamp(90px,12vw,190px);font-family:"DM Mono",monospace;font-size:clamp(.55rem,.8vw,.72rem);letter-spacing:.17em;color:#806c69}
+.stat-line i{height:1px;background:#cdbdb3;flex:1}
+
+/* Embers / Collective */
+.embers{position:relative;min-height:850px;background:#4a101d;display:flex;align-items:center;overflow:hidden}
+.embers-art{position:absolute;inset:0 0 0 44%;opacity:.65}
+.embers-art:after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,#4a101d 0%,rgba(74,16,29,.2) 45%,rgba(74,16,29,.1))}
+.embers-art img{width:100%;height:100%;object-fit:cover;object-position:center 37%;filter:hue-rotate(-10deg) saturate(.9)}
+.embers-copy{padding:clamp(90px,12vw,175px) clamp(24px,8vw,128px);max-width:min(55%,730px);z-index:2}
+.embers h2{font-size:clamp(3.6rem,7.1vw,7.7rem);margin-bottom:2rem}
+.embers-copy>p:not(.eyebrow){max-width:370px;color:#e6cfc7;font-size:.95rem;line-height:1.8;margin-bottom:2.3rem}
+.orbit{border:1px solid rgba(255,189,102,.19);border-radius:50%;position:absolute;z-index:1;pointer-events:none}
+.orbit-one{width:490px;height:490px;left:-220px;bottom:-215px}
+.orbit-two{width:790px;height:790px;left:-405px;bottom:-350px}
+
+/* Responsive for Manifesto & Embers */
+@media(max-width:920px){
+  .manifesto-grid{grid-template-columns:1fr;gap:40px;text-align:center}
+  .manifesto-text{max-width:none}
+  .stat-line{justify-content:center}
+  .embers-art{display:none}
+  .embers-copy{max-width:100%;padding:80px 40px}
+}
+@media(max-width:768px){
+  .section-pad{padding:60px 16px}
+  .manifesto h2{font-size:clamp(2.5rem,12vw,5rem)}
+  .manifesto-text p{font-size:.95rem}
+  .stat-line{margin-top:60px;font-size:.55rem}
+  .embers{min-height:600px}
+  .embers-copy{padding:60px 16px}
+  .embers h2{font-size:clamp(2.5rem,14vw,5rem)}
+  .embers-copy>p:not(.eyebrow){max-width:none;font-size:.9rem}
+  .orbit{display:none}
+}
+@media(max-width:480px){
+  .manifesto h2{font-size:clamp(2rem,16vw,3.5rem)}
+  .embers h2{font-size:clamp(2rem,18vw,3.5rem)}
+}

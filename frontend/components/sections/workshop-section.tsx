@@ -1,9 +1,9 @@
 "use client";
 
-import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight, CalendarDays, Clock3, MapPin } from "lucide-react";
 import { workshop } from "@/data/workshop";
+import { useRef } from "react";
 
 export function WorkshopSection() {
   const ref = useRef(null);
@@ -11,14 +11,23 @@ export function WorkshopSection() {
 
   return (
     <section id="workshop" className="workshop section-grid" ref={ref}>
-      <div className="forge-art">
+      <motion.div
+        className="forge-art"
+        initial={{ opacity: 0, scale: 0.9, filter: "blur(10px)" }}
+        animate={inView ? { opacity: 1, scale: 1, filter: "blur(0px)" } : {}}
+        transition={{ duration: 0.9, ease: "easeOut" }}
+      >
         <div className="forge-ring">
           THE
           <br />
           FORGE
         </div>
-      </div>
-      <div>
+      </motion.div>
+      <motion.div
+        initial={{ opacity: 0, x: 40, filter: "blur(8px)" }}
+        animate={inView ? { opacity: 1, x: 0, filter: "blur(0px)" } : {}}
+        transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
+      >
         <p className="eyebrow">Special workshop</p>
         <h2>
           {workshop.title}
@@ -47,15 +56,25 @@ export function WorkshopSection() {
         )}
         <div className="workshop-list">
           {workshop.highlights.map((item: string, i: number) => (
-            <span key={i}>
+            <motion.span
+              key={i}
+              initial={{ opacity: 0, x: -20 }}
+              animate={inView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.5, delay: 0.4 + i * 0.1 }}
+            >
               {String(i + 1).padStart(2, "0")} / {item}
-            </span>
+            </motion.span>
           ))}
         </div>
         <div className="workshop-actions">
-          <a className="button button-fire" href="#register">
+          <motion.a
+            className="button button-fire"
+            href="#register"
+            whileHover={{ transform: "translate(3px, 3px)", boxShadow: "3px 3px 0 var(--ember)" }}
+            whileTap={{ transform: "translate(5px, 5px)" }}
+          >
             Reserve your seat <ArrowUpRight size={17} />
-          </a>
+          </motion.a>
           {workshop.poster && (
             <a
               className="text-link"
@@ -67,7 +86,7 @@ export function WorkshopSection() {
             </a>
           )}
         </div>
-      </div>
+      </motion.div>
     </section>
   );
 }

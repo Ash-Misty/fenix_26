@@ -32,21 +32,21 @@ export function EventsSection({
   const visible = eventData.filter((event) => event.category === category);
 
   return (
-    <section id="events" className="events-section">
+    <section id="events" className="events-section" ref={ref}>
       <div className="section-heading">
         <div>
           <motion.p
             className="eyebrow"
-            initial={{ opacity: 0, y: 20 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, y: 20, filter: "blur(8px)" }}
+            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.6, ease: "easeOut" }}
           >
             02 / Choose your challenge
           </motion.p>
           <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            animate={inView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.7, delay: 0.1 }}
+            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
+            animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
+            transition={{ duration: 0.7, delay: 0.1, ease: "easeOut" }}
           >
             The <em>realms.</em>
           </motion.h2>
@@ -113,9 +113,13 @@ function EventCard({
     <motion.article
       className="event-card"
       ref={ref}
-      initial={{ opacity: 0, y: 30, filter: "blur(6px)" }}
+      initial={{ opacity: 0, y: 40, filter: "blur(8px)" }}
       animate={inView ? { opacity: 1, y: 0, filter: "blur(0px)" } : {}}
-      transition={{ duration: 0.6, delay: index * 0.08 }}
+      transition={{ duration: 0.6, delay: index * 0.08, ease: "easeOut" }}
+      whileHover={{
+        y: -8,
+        transition: { type: "spring", stiffness: 400, damping: 25 },
+      }}
     >
       <div className="event-number">0{index + 1}</div>
       <div className="event-icon">

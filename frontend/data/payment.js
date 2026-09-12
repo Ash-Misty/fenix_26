@@ -19,6 +19,12 @@ export const payment = {
       description: "Team registration for 3 members.",
     },
   ],
+  upiId: "UPI_ID_HERE",
+  accountName: "ACCOUNT_NAME_HERE",
+  bankName: "BANK_NAME_HERE",
+  accountNumber: "ACCOUNT_NUMBER_HERE",
+  ifsc: "IFSC_CODE_HERE",
+  qrCode: "/images/payment-qr.png",
 }
 
 export const paymentSteps = [
