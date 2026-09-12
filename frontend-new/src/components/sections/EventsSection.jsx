@@ -43,9 +43,14 @@ export function EventsSection({ setPage }) {
             </div>
             <h3>{e.name}</h3>
             <p>{e.description}</p>
-            <button onClick={() => setPage('event:' + e.slug)}>
-              View details <ArrowRight size={16} />
-            </button>
+            <div className="card-actions">
+              <button className="details-link" onClick={() => setPage('event:' + e.slug)}>
+                View details <ArrowRight size={16} />
+              </button>
+              <a className="register-link" href="#register" onClick={(event) => { event.preventDefault(); setPage('register'); }}>
+                Register now <ArrowRight size={16} />
+              </a>
+            </div>
             <div className="card-number">0{i + 1}</div>
           </article>
         ))}

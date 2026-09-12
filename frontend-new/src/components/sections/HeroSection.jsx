@@ -1,10 +1,36 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Clock } from 'lucide-react';
 import { Countdown } from '../ui/Countdown';
 import { Button } from '../ui/Button';
 import { Reveal } from '../ui/Reveal';
 
-export function HeroSection({ setPage }) {
+export function HeroSection({ setPage, registrationCount = 60 }) {
+  const [displayedCount, setDisplayedCount] = useState(0);
+  const countRef = useRef(0);
+
+  useEffect(() => {
+    const from = countRef.current;
+    const to = registrationCount;
+    if (from === to) return;
+
+    const start = performance.now();
+    const duration = 1100;
+    let frame;
+
+    const updateCount = (now) => {
+      const progress = Math.min((now - start) / duration, 1);
+      const easedProgress = 1 - Math.pow(1 - progress, 3);
+      const value = Math.round(from + (to - from) * easedProgress);
+      setDisplayedCount(value);
+      countRef.current = value;
+
+      if (progress < 1) frame = requestAnimationFrame(updateCount);
+    };
+
+    frame = requestAnimationFrame(updateCount);
+    return () => cancelAnimationFrame(frame);
+  }, [registrationCount]);
+
   return (
     <section className="hero">
       <div className="hero-grid" />
@@ -37,6 +63,13 @@ export function HeroSection({ setPage }) {
             <Button secondary onClick={() => document.getElementById('events')?.scrollIntoView({ behavior: 'smooth' })}>
               Explore events
             </Button>
+          </div>
+        </Reveal>
+        <Reveal delay={500}>
+          <div className="hero-registration registration-counter" aria-live="polite" aria-label={`${displayedCount} registrations`}>
+            <span>Registrations</span>
+            <strong className="registration-count-value">{displayedCount}</strong>
+            <span>and rising</span>
           </div>
         </Reveal>
         <Reveal delay={500}>

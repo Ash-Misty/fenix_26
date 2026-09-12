@@ -23,14 +23,19 @@ import { CampusSignature } from './components/ui/CampusSignature';
 
 function App() {
   const [page, setPage] = React.useState('home');
+  const [registrationCount, setRegistrationCount] = React.useState(60);
 
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
+
+  const completeRegistration = () => {
+    setRegistrationCount((count) => count + 1);
+  };
 
   if (page === 'register') {
     return (
       <>
         <Header setPage={setPage} registerMode />
-        <RegisterPage setPage={setPage} />
+        <RegisterPage setPage={setPage} onRegistrationComplete={completeRegistration} />
       </>
     );
   }
@@ -51,7 +56,7 @@ function App() {
       <SiteLoader />
       <Header setPage={setPage} />
       <FlightScene>
-        <HeroSection setPage={setPage} />
+        <HeroSection setPage={setPage} registrationCount={registrationCount} />
         <PhoenixCarousel />
       </FlightScene>
       <AboutSection />

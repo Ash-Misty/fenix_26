@@ -1,9 +1,41 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Check, ArrowRight, QrCode, Camera, Users, Plus, Minus } from 'lucide-react';
 import { events } from '../../data';
 import { Button } from '../ui/Button';
 
-export function RegisterPage({ setPage }) {
+function RegistrationNewsTicker({ setPage }) {
+  const goToRegistration = (clickEvent) => {
+    clickEvent.preventDefault();
+    document.getElementById('register-form')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const goToAbout = (clickEvent) => {
+    clickEvent.preventDefault();
+    setPage('home');
+    window.setTimeout(() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }), 30);
+  };
+
+  const tickerContent = (
+    <>
+      <span>FENIX'26 registrations are open</span>
+      <span className="ticker-separator">•</span>
+      <span>About this event: one day of technical and creative challenges</span>
+      <a href="#register-form" onClick={goToRegistration}>Register now <ArrowRight size={12} /></a>
+      <a href="#about" onClick={goToAbout}>About this event</a>
+    </>
+  );
+
+  return (
+    <div className="news-ticker" aria-label="Registration updates">
+      <div className="news-ticker-track">
+        <div className="news-ticker-group">{tickerContent}</div>
+        <div className="news-ticker-group" aria-hidden="true">{tickerContent}</div>
+      </div>
+    </div>
+  );
+}
+
+export function RegisterPage({ setPage, onRegistrationComplete }) {
   const [step, setStep] = useState(1);
   const [type, setType] = useState('Individual');
   const [selected, setSelected] = useState([]);
@@ -12,14 +44,6 @@ export function RegisterPage({ setPage }) {
   const [form, setForm] = useState({ college: '', name: '', phone: '', email: '', food: 'Vegetarian', payment: 'QR' });
   const [errors, setErrors] = useState({});
   const [done, setDone] = useState(false);
-  const [regCount, setRegCount] = useState(60);
-
-  useEffect(() => {
-    const interval = setInterval(() => {
-          setRegCount(prev => Math.min(prev + Math.floor(Math.random() * 3) + 1, 500));
-    }, 30000);
-    return () => clearInterval(interval);
-  }, []);
 
   const tech = selected.filter((s) => events.find((e) => e.slug === s)?.category === 'Technical').length;
   const non = selected.filter((s) => events.find((e) => e.slug === s)?.category === 'Non-Technical').length;
@@ -71,7 +95,15 @@ export function RegisterPage({ setPage }) {
     return !Object.keys(e).length;
   };
 
-  const next = () => validate() && (step < 3 ? setStep(step + 1) : setDone(true));
+  const next = () => {
+    if (!validate()) return;
+    if (step < 3) {
+      setStep(step + 1);
+    } else {
+      setDone(true);
+      onRegistrationComplete?.();
+    }
+  };
 
   if (done) {
     return (
@@ -92,8 +124,9 @@ export function RegisterPage({ setPage }) {
 
   return (
     <main className="register">
+      <RegistrationNewsTicker setPage={setPage} />
       <section className="register-intro">
-        <button className="back" onClick={() => setPage('home')}>← Back to FENIX'26</button>
+        <button className="back" type="button" onClick={() => setPage('home')}>← Back to FENIX'26</button>
         <p className="eyebrow">THE FIRST MOVE</p>
         <h1>Secure your<br /><span>spot.</span></h1>
         <p>Complete the three-step form. Pay once. Shine all day.</p>
@@ -102,14 +135,9 @@ export function RegisterPage({ setPage }) {
           <div className={'step' + (step === 2 ? ' active' : '')}>02 Events</div>
           <div className={'step' + (step === 3 ? ' active' : '')}>03 Payment</div>
         </div>
-        
-        <div className="reg-counter">
-          <span className="reg-counter-label">Registrations so far</span>
-          <span className="reg-counter-value" aria-live="polite">{regCount}+</span>
-        </div>
       </section>
 
-      <section className="register-form">
+      <section className="register-form" id="register-form">
         {step === 1 && (
           <div className="form-card">
             <h2>Your details</h2>

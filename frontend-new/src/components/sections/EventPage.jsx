@@ -1,23 +1,55 @@
 import React from 'react';
-import { Phone, MessageCircle } from 'lucide-react';
+import { ArrowRight, Phone, MessageCircle } from 'lucide-react';
 import { Button } from '../ui/Button';
 import { Reveal } from '../ui/Reveal';
+
+function EventNewsTicker({ event, setPage }) {
+  const goToRegistration = (clickEvent) => {
+    clickEvent.preventDefault();
+    setPage('register');
+  };
+
+  const goToAbout = (clickEvent) => {
+    clickEvent.preventDefault();
+    document.getElementById('event-about')?.scrollIntoView({ behavior: 'smooth' });
+  };
+
+  const tickerContent = (
+    <>
+      <span>FENIX'26 registrations are open</span>
+      <span className="ticker-separator">•</span>
+      <span>About this event: {event?.name || 'FENIX’26'}</span>
+      <a href="#register" onClick={goToRegistration}>Register now <ArrowRight size={12} /></a>
+      <a href="#event-about" onClick={goToAbout}>About this event</a>
+    </>
+  );
+
+  return (
+    <div className="news-ticker" aria-label="Event updates">
+      <div className="news-ticker-track">
+        <div className="news-ticker-group">{tickerContent}</div>
+        <div className="news-ticker-group" aria-hidden="true">{tickerContent}</div>
+      </div>
+    </div>
+  );
+}
 
 export function EventPage({ event, setPage }) {
   const idx = event ? 0 : 0;
 
   return (
     <main className="event-page">
+      <EventNewsTicker event={event} setPage={setPage} />
       <section className={'event-hero ' + (event?.color || '')}>
-        <button className="back" onClick={() => setPage('home')}>← Back to FENIX'26</button>
+        <button className="back" type="button" onClick={() => setPage('home')}>← Back to FENIX'26</button>
         <span className="big-symbol">{event?.icon || '◈'}</span>
         <p className="eyebrow">{event?.category || 'TECHNICAL'} EVENT / 0{idx + 1}</p>
         <h1>{event?.name || 'EVENT'}</h1>
         <p className="tagline">{event?.tagline || ''}</p>
-        <Button onClick={() => setPage('register')}>Register for this event</Button>
+        <Button className="event-register" onClick={() => setPage('register')}>Register for this event</Button>
       </section>
 
-      <section className="event-content">
+      <section className="event-content" id="event-about">
         <div>
           <p className="eyebrow">ABOUT THE EVENT</p>
           <h2>
