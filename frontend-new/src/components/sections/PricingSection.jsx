@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '../ui/Button';
 import { Reveal } from '../ui/Reveal';
 
 export function PricingSection({ setPage }) {
@@ -16,24 +15,20 @@ export function PricingSection({ setPage }) {
       </Reveal>
       <div className="price-grid">
         <Reveal delay={200}>
-          <article>
+          <article className="price-card individual-price">
             <p>INDIVIDUAL</p>
             <strong>₹250</strong>
-            <span>Up to 2 Technical + 2 Non-Technical</span>
+            <span className="price-events">Up to 2 Technical + 2 Non-Technical</span>
             <small>₹300 for more than 2 tech or 2 non-tech events</small>
-            <Button secondary onClick={() => setPage('register')}>
-              Choose individual
-            </Button>
           </article>
         </Reveal>
         <Reveal delay={300}>
-          <article className="featured">
+          <article className="price-card team-price featured">
             <label>MOST POPULAR</label>
             <p>TEAM</p>
             <strong>₹450</strong>
-            <span>Up to 2 Technical + 2 Non-Technical</span>
+            <span className="price-events">Up to 2 Technical + 2 Non-Technical</span>
             <small>₹500 for more than 2 tech or 2 non-tech events</small>
-            <Button onClick={() => setPage('register')}>Choose team</Button>
           </article>
         </Reveal>
       </div>

@@ -11,13 +11,13 @@ export function Footer({ setPage }) {
 
   return (
     <footer>
-      <div>
-        <button className="brand" onClick={() => setPage('home')}>
+      <div className="footer-brand">
+        <button className="brand" type="button" onClick={() => setPage('home')}>
           FENIX<span>'26</span>
         </button>
         <p>Department of CSE & Data Science<br />University College of Engineering, BIT Campus<br />Anna University, Trichy</p>
       </div>
-      <div>
+      <div className="footer-links">
         <small>EXPLORE</small>
         {nav.map(([n, id]) => (
           <a
@@ -31,7 +31,7 @@ export function Footer({ setPage }) {
           </a>
         ))}
       </div>
-      <div>
+      <div className="footer-contact">
         <small>GET IN TOUCH</small>
         <p>
           [College Address]<br />

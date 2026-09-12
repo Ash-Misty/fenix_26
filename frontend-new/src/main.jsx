@@ -20,6 +20,7 @@ import { PhoenixCarousel } from './components/ui/PhoenixCarousel';
 import { FlightScene } from './components/ui/FlightScene';
 import { SiteLoader } from './components/ui/SiteLoader';
 import { CampusSignature } from './components/ui/CampusSignature';
+import { NewsTicker } from './components/ui/NewsTicker';
 
 function App() {
   const [page, setPage] = React.useState('home');
@@ -55,6 +56,7 @@ function App() {
     <>
       <SiteLoader />
       <Header setPage={setPage} />
+      <NewsTicker setPage={setPage} className="home-news-ticker" />
       <FlightScene>
         <HeroSection setPage={setPage} registrationCount={registrationCount} />
         <PhoenixCarousel />

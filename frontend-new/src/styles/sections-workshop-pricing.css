@@ -11,13 +11,13 @@
 .detail-pills span{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.82rem;padding:8px 14px;border:1px solid var(--line);background:rgba(5,3,3,.5)}
 
 /* Timeline */
-.timeline{max-width:700px;margin:0 auto}
-.timeline-wrap{display:flex;flex-direction:column;gap:0}
-.timeline-item{display:grid;grid-template-columns:120px 1fr;gap:20px;padding:24px 0;border-top:1px solid var(--line);position:relative}
+.timeline{max-width:760px;margin:0 auto}
+.timeline-wrap{display:flex;flex-direction:column;gap:0;position:relative}
+.timeline-item{display:grid;grid-template-columns:118px 28px minmax(0,1fr);align-items:center;gap:18px;padding:24px 0;border-top:1px solid var(--line)}
 .timeline-item:first-child{border-top:none}
 .timeline-item span{color:var(--gold);font:700 .9rem 'DM Mono';letter-spacing:.05em}
-.timeline-item i{position:absolute;left:6px;top:30px;width:8px;height:8px;background:var(--red);border-radius:50%;box-shadow:0 0 12px var(--red)}
-.timeline-item strong{font:700 1.1rem 'Syne';margin-bottom:6px;display:block}
+.timeline-item i{width:12px;height:12px;border:2px solid var(--gold);border-radius:50%;background:var(--bg);box-shadow:0 0 0 5px rgba(255,189,102,.1);justify-self:center}
+.timeline-item strong{font:700 1.1rem 'Syne';margin-bottom:6px;display:block;overflow-wrap:break-word}
 .timeline-item p{color:var(--muted);font-size:.82rem;margin:0}
 
 /* Team */
@@ -39,14 +39,18 @@
 .pricing h2{text-align:center;font:800 clamp(2rem,5vw,4rem) 'Syne';letter-spacing:-.06em;line-height:1;margin:0 0 50px}
 .pricing h2 span{color:var(--red)}
 .price-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;max-width:900px;margin:0 auto}
-.price-card{padding:40px 32px;border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,45,26,.08),rgba(5,3,3,.7));text-align:center;position:relative;transition:.3s}
-.price-card:hover{border-color:var(--red);transform:translateY(-6px)}
-.price-card.featured{border-color:var(--red);background:linear-gradient(150deg,rgba(255,45,26,.18),rgba(5,3,3,.8))}
+.price-grid>*{min-width:0}
+.price-card{padding:44px 32px 38px;border:1px solid var(--line);background:linear-gradient(150deg,rgba(255,45,26,.08),rgba(5,3,3,.7));text-align:center;position:relative;overflow:hidden;transition:.3s}
+.price-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,transparent,var(--gold),transparent)}
+.price-card:hover{border-color:var(--red);transform:translateY(-6px);box-shadow:0 22px 50px rgba(0,0,0,.28)}
+.price-card.individual-price{border-color:rgba(255,189,102,.34);background:linear-gradient(150deg,rgba(64,84,160,.16),rgba(5,3,3,.72))}
+.price-card.team-price{border-color:rgba(237,94,45,.42);background:linear-gradient(150deg,rgba(255,45,26,.16),rgba(5,3,3,.78))}
+.price-card.featured{border-color:var(--red);background:linear-gradient(150deg,rgba(255,45,26,.2),rgba(5,3,3,.82));box-shadow:0 18px 46px rgba(216,75,44,.16)}
 .price-card label{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--red);color:var(--black);font:700 .62rem 'DM Mono';letter-spacing:.1em;padding:4px 14px;text-transform:uppercase}
-.price-card p{color:var(--muted);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 12px}
-.price-card strong{display:block;font:900 clamp(2.5rem,6vw,4rem) 'Syne';color:var(--gold);line-height:1;margin-bottom:8px}
-.price-card span{color:var(--muted);font-size:.82rem;display:block;margin-bottom:6px}
-.price-card small{color:var(--muted);font-size:.72rem;display:block;margin-bottom:24px}
+.price-card p{color:var(--muted);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;margin:0 0 18px}
+.price-card strong{display:block;font:900 clamp(2.5rem,6vw,4rem) 'Syne';color:var(--gold);line-height:1;margin-bottom:28px}
+.price-card .price-events{color:var(--ink);font-size:.86rem;font-weight:700;display:block;margin:0 0 14px;padding:14px 16px;border:1px solid rgba(255,189,102,.36);border-radius:6px;background:linear-gradient(135deg,rgba(255,189,102,.15),rgba(255,45,26,.12));box-shadow:inset 0 1px rgba(255,255,255,.1)}
+.price-card small{color:var(--muted);font-size:.72rem;display:block;margin-bottom:0;line-height:1.5}
 
 /* Responsive for Workshop, Timeline, Team, Pricing */
 @media(max-width:920px){
@@ -59,9 +63,7 @@
   .workshop{padding:60px 16px}
   .workshop-copy h2{font-size:clamp(1.6rem,5vw,2.5rem)}
   .detail-pills{justify-content:center}
-  .timeline-item{grid-template-columns:1fr;gap:8px;padding:16px 0}
-  .timeline-item span{font-size:.8rem}
-  .timeline-item i{left:0;top:16px}
+  .timeline-item{grid-template-columns:96px 24px minmax(0,1fr);gap:12px;padding:18px 0}
   .team{padding:60px 16px}
   .team-grid{grid-template-columns:repeat(2,1fr);gap:12px}
   .person{padding:20px 14px}
@@ -72,4 +74,7 @@
 @media(max-width:480px){
   .team-grid{grid-template-columns:1fr}
   .price-card{padding:24px 20px}
+  .timeline-item{grid-template-columns:1fr;gap:8px;padding:18px 0 18px 24px;position:relative}
+  .timeline-item i{position:absolute;left:1px;top:24px;width:10px;height:10px}
+  .timeline-item span{font-size:.76rem}
 }

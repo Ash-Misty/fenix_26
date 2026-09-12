@@ -26,6 +26,7 @@ export function EventsSection({ setPage }) {
             <button
               key={x}
               className={filter === x ? 'active' : ''}
+              aria-pressed={filter === x}
               onClick={() => setFilter(x)}
             >
               {x}

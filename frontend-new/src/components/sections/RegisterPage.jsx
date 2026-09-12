@@ -3,38 +3,6 @@ import { Check, ArrowRight, QrCode, Camera, Users, Plus, Minus } from 'lucide-re
 import { events } from '../../data';
 import { Button } from '../ui/Button';
 
-function RegistrationNewsTicker({ setPage }) {
-  const goToRegistration = (clickEvent) => {
-    clickEvent.preventDefault();
-    document.getElementById('register-form')?.scrollIntoView({ behavior: 'smooth' });
-  };
-
-  const goToAbout = (clickEvent) => {
-    clickEvent.preventDefault();
-    setPage('home');
-    window.setTimeout(() => document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' }), 30);
-  };
-
-  const tickerContent = (
-    <>
-      <span>FENIX'26 registrations are open</span>
-      <span className="ticker-separator">•</span>
-      <span>About this event: one day of technical and creative challenges</span>
-      <a href="#register-form" onClick={goToRegistration}>Register now <ArrowRight size={12} /></a>
-      <a href="#about" onClick={goToAbout}>About this event</a>
-    </>
-  );
-
-  return (
-    <div className="news-ticker" aria-label="Registration updates">
-      <div className="news-ticker-track">
-        <div className="news-ticker-group">{tickerContent}</div>
-        <div className="news-ticker-group" aria-hidden="true">{tickerContent}</div>
-      </div>
-    </div>
-  );
-}
-
 export function RegisterPage({ setPage, onRegistrationComplete }) {
   const [step, setStep] = useState(1);
   const [type, setType] = useState('Individual');
@@ -124,7 +92,6 @@ export function RegisterPage({ setPage, onRegistrationComplete }) {
 
   return (
     <main className="register">
-      <RegistrationNewsTicker setPage={setPage} />
       <section className="register-intro">
         <button className="back" type="button" onClick={() => setPage('home')}>← Back to FENIX'26</button>
         <p className="eyebrow">THE FIRST MOVE</p>

@@ -22,7 +22,10 @@ export function PhoenixCarousel() {
           <div className="carousel-galaxy" aria-hidden="true"><i /><i /><i /><b /></div>
           <div className="carousel-shade" />
           <div className="carousel-copy"><p className="eyebrow">{label}</p><h2>{lineOne}<br /><span>{lineTwo}</span></h2></div>
-          <div className={`carousel-mock carousel-mock-${index}`} aria-hidden="true"><span>{mockLabel}</span><strong>{mockCopy}</strong><i /><i /><i /></div>
+          <div className="carousel-demo" aria-hidden="true">
+            <img src="/carousel-placeholder.svg" alt="" />
+            <div className="carousel-demo-copy"><span>{mockLabel}</span><strong>{mockCopy}</strong></div>
+          </div>
         </article>
       ))}
       <div className="carousel-controls">

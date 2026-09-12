@@ -26,7 +26,7 @@ export function TimelineSection() {
           <Reveal key={t} delay={i * 100}>
             <div className={'timeline-item t' + i}>
               <span>{d}</span>
-              <i />
+              <i aria-hidden="true" />
               <strong>{t}</strong>
             </div>
           </Reveal>
