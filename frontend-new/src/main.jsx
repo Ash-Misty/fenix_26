@@ -21,16 +21,75 @@ import { FlightScene } from './components/ui/FlightScene';
 import { SiteLoader } from './components/ui/SiteLoader';
 import { CampusSignature } from './components/ui/CampusSignature';
 import { NewsTicker } from './components/ui/NewsTicker';
+import { AdminApp } from './components/admin/AdminApp';
+import { PixelPerfectPage } from './events/pages/PixelPerfectPage';
+import { AIBattlePage } from './events/pages/AIBattlePage';
+import { PaperPresentationPage } from './events/pages/PaperPresentationPage';
+import { CodeArenaPage } from './events/pages/CodeArenaPage';
+import { IPLAuctionPage } from './events/pages/IPLAuctionPage';
+import { FreeFirePage } from './events/pages/FreeFirePage';
+import { MiniMilitiaPage } from './events/pages/MiniMilitiaPage';
+import { TreasureHuntPage } from './events/pages/TreasureHuntPage';
+import { MemeCreationPage } from './events/pages/MemeCreationPage';
+import { getEventBySlug } from './events/config';
+import './styles/admin.css';
+import './events/styles/events.css';
 
 function App() {
+  const [route, setRoute] = React.useState(window.location.hash);
   const [page, setPage] = React.useState('home');
   const [registrationCount, setRegistrationCount] = React.useState(60);
+
+  useEffect(() => {
+    const handleHashChange = () => setRoute(window.location.hash);
+    window.addEventListener('hashchange', handleHashChange);
+    return () => window.removeEventListener('hashchange', handleHashChange);
+  }, []);
 
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
 
   const completeRegistration = () => {
     setRegistrationCount((count) => count + 1);
   };
+
+  const EventComponentMap = {
+    'pixel-perfect': PixelPerfectPage,
+    'ai-battle': AIBattlePage,
+    'paper-presentation': PaperPresentationPage,
+    'code-arena': CodeArenaPage,
+    'ipl-auction': IPLAuctionPage,
+    'ipl-action': IPLAuctionPage,
+    'free-fire': FreeFirePage,
+    'game-event': FreeFirePage,
+    'mini-militia': MiniMilitiaPage,
+    'treasure-hunt': TreasureHuntPage,
+    'meme-creation': MemeCreationPage,
+  };
+
+  const renderEventPage = (slug) => {
+    const Component = EventComponentMap[slug];
+    if (Component) return <Component setPage={setPage} />;
+    const event = getEventBySlug(slug);
+    if (event) {
+      return (
+        <>
+          <Header setPage={setPage} />
+          <EventPage event={event} setPage={setPage} />
+          <Footer setPage={setPage} />
+        </>
+      );
+    }
+    return null;
+  };
+
+  const eventRoute = route.match(/^#\/events\/([^/?#]+)/);
+  if (eventRoute) {
+    return renderEventPage(eventRoute[1]);
+  }
+
+  if (route.startsWith('#/admin')) {
+    return <AdminApp />;
+  }
 
   if (page === 'register') {
     return (
@@ -42,14 +101,8 @@ function App() {
   }
 
   if (page.startsWith('event:')) {
-    const event = events.find((e) => 'event:' + e.slug === page) || events[0];
-    return (
-      <>
-        <Header setPage={setPage} />
-        <EventPage event={event} setPage={setPage} />
-        <Footer setPage={setPage} />
-      </>
-    );
+    const slug = page.replace('event:', '');
+    return renderEventPage(slug);
   }
 
   return (

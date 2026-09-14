@@ -24,8 +24,21 @@ export function TeamSection() {
         </Reveal>
       </div>
       <div className="team-grid">
+        <Reveal delay={0}>
+          <article className="person person-president">
+            <div className="avatar president-avatar">
+              <img src="/president.jpeg" alt="President of FENIX'26" />
+            </div>
+            <div>
+              <span className="president-badge">PRESIDENT</span>
+              <h3>Er. Vivekananthan</h3>
+              <p>FENIX'26 President</p>
+              <small>Student Leadership</small>
+            </div>
+          </article>
+        </Reveal>
         {team.map((p, i) => (
-          <Reveal key={i} delay={i * 80}>
+          <Reveal key={i} delay={(i + 1) * 80}>
             <article className="person">
               <div className={'avatar a' + i}>{p.name.slice(1, 2)}</div>
               <div>

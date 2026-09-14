@@ -31,6 +31,14 @@ export function PricingSection({ setPage }) {
             <small>₹500 for more than 2 tech or 2 non-tech events</small>
           </article>
         </Reveal>
+        <Reveal delay={400}>
+          <article className="price-card team3-price">
+            <p>TEAM (3)</p>
+            <strong>₹750</strong>
+            <span className="price-events">Up to 2 Technical + 2 Non-Technical</span>
+            <small>₹800 for more than 2 tech or 2 non-tech events</small>
+          </article>
+        </Reveal>
       </div>
       <div className="prize-board" aria-label="Overall winner cash prizes">
         <div className="prize-copy"><p className="eyebrow">OVERALL CHAMPIONS</p><h3>Win the<br /><span>constellation.</span></h3></div>

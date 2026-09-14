@@ -1,0 +1,41 @@
+/* Shared Event Page Styles — uses global CSS variables */
+.event-page {
+  margin-top: 34px;
+  background: var(--ink);
+  min-height: 100vh;
+}
+
+.event-section {
+  padding: 60px clamp(24px, 5vw, 96px);
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.event-section-full {
+  padding: 60px clamp(24px, 5vw, 96px);
+}
+
+.event-highlight {
+  padding: 20px 24px;
+  border: 1px solid var(--line);
+  background: rgba(255, 45, 26, .05);
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+/* Responsive */
+@media(max-width: 768px) {
+  .event-section {
+    padding: 40px 16px;
+  }
+
+  .event-section-full {
+    padding: 40px 16px;
+  }
+}
+
+@media(max-width: 480px) {
+  .event-section {
+    padding: 32px 12px;
+  }
+}

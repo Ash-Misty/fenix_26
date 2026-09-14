@@ -36,6 +36,7 @@ export function Header({ setPage, registerMode = false }) {
             <button key={item.href} onClick={() => navigate(item.href)}>{item.label}</button>
           ))}
         </nav>
+        <button className="admin-nav-button" onClick={() => { window.location.hash = '#/admin/login'; }}>Admin</button>
         <button className="header-cta" onClick={() => setPage('register')}>Register <ArrowRight size={14} /></button>
         <button
           className="menu-button"
@@ -53,6 +54,7 @@ export function Header({ setPage, registerMode = false }) {
         {navItems.map((item) => (
           <button key={item.href} onClick={() => navigate(item.href)}>{item.label}</button>
         ))}
+        <button onClick={() => { setMenuOpen(false); window.location.hash = '#/admin/login'; }}>Admin</button>
         <button onClick={() => { setMenuOpen(false); setPage('register'); }}>Register now ↗</button>
       </div>
     </>
