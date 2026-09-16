@@ -2,6 +2,8 @@ import { createApp } from './app.js';
 import { connectDB, disconnectDB } from './config/db.js';
 import { initializeSheet } from './services/googleSheetsService.js';
 import PricingConfig from './models/Event.js';
+import Registration from './models/Registration.js';
+import { initRegistrationIdCounter } from './utils/generateRegistrationId.js';
 import logger from './utils/logger.js';
 import { config } from 'dotenv';
 
@@ -14,7 +16,21 @@ export const app = createApp();
 
 async function seedPricingConfig() {
   const existing = await PricingConfig.findOne();
-  if (existing) return;
+  if (existing) {
+    const legacyIplEvent = existing.events.find((event) => event.slug === 'ipl-action');
+    const canonicalIplEvent = existing.events.find((event) => event.slug === 'ipl-auction');
+
+    if (legacyIplEvent) {
+      if (canonicalIplEvent) {
+        existing.events = existing.events.filter((event) => event.slug !== 'ipl-action');
+      } else {
+        legacyIplEvent.slug = 'ipl-auction';
+        legacyIplEvent.name = 'IPL Auction';
+      }
+      await existing.save();
+    }
+    return;
+  }
 
   await PricingConfig.create({
     individualBaseFee: 250,
@@ -30,7 +46,7 @@ async function seedPricingConfig() {
       { slug: 'ai-battle', name: 'AI Battle', category: 'Technical', basePrice: 0, isActive: true },
       { slug: 'code-arena', name: 'Code Arena', category: 'Technical', basePrice: 0, isActive: true },
       { slug: 'pixel-perfect', name: 'Pixel Perfect', category: 'Technical', basePrice: 0, isActive: true },
-      { slug: 'ipl-action', name: 'IPL Action', category: 'Non-Technical', basePrice: 0, isActive: true },
+      { slug: 'ipl-auction', name: 'IPL Auction', category: 'Non-Technical', basePrice: 0, isActive: true },
       { slug: 'game-event', name: 'Game Event', category: 'Non-Technical', basePrice: 0, isActive: true },
       { slug: 'meme-creation', name: 'Meme Creation', category: 'Non-Technical', basePrice: 0, isActive: true },
       { slug: 'treasure-hunt', name: 'Treasure Hunt', category: 'Non-Technical', basePrice: 0, isActive: true },
@@ -48,6 +64,7 @@ async function startServer() {
   try {
     await connectDB();
     await seedPricingConfig();
+    await initRegistrationIdCounter(Registration);
 
     if (NODE_ENV === 'development') {
       logger.info('Initializing Google Sheets...');

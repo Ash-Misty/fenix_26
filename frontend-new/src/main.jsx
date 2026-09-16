@@ -31,14 +31,20 @@ import { FreeFirePage } from './events/pages/FreeFirePage';
 import { MiniMilitiaPage } from './events/pages/MiniMilitiaPage';
 import { TreasureHuntPage } from './events/pages/TreasureHuntPage';
 import { MemeCreationPage } from './events/pages/MemeCreationPage';
+import { GamesEventPage } from './events/pages/GamesEventPage';
+import { EventDashboardPage } from './events/pages/EventDashboardPage';
+import { EventNavigationProvider } from './events/components/EventNavigation';
 import { getEventBySlug } from './events/config';
+import { api } from './api';
 import './styles/admin.css';
 import './events/styles/events.css';
+import './events/styles/event-redesign.css';
 
 function App() {
   const [route, setRoute] = React.useState(window.location.hash);
   const [page, setPage] = React.useState('home');
-  const [registrationCount, setRegistrationCount] = React.useState(60);
+  const [registrationStats, setRegistrationStats] = React.useState(null);
+  const [registrationStatsError, setRegistrationStatsError] = React.useState(false);
 
   useEffect(() => {
     const handleHashChange = () => setRoute(window.location.hash);
@@ -48,9 +54,50 @@ function App() {
 
   useEffect(() => { window.scrollTo(0, 0); }, [page]);
 
-  const completeRegistration = () => {
-    setRegistrationCount((count) => count + 1);
+  const loadRegistrationStats = React.useCallback(async () => {
+    const controller = new AbortController();
+    const timeoutId = window.setTimeout(() => controller.abort(), 8000);
+    try {
+      const response = await api('/registrations/count', { signal: controller.signal });
+      const count = Number(response?.data?.count);
+      const capacity = Number(response?.data?.capacity);
+      if (!Number.isFinite(count) || !Number.isFinite(capacity)) throw new Error('Invalid registration totals');
+      setRegistrationStats({ count: Math.max(0, count), capacity: Math.max(0, capacity) });
+      setRegistrationStatsError(false);
+    } catch {
+      setRegistrationStatsError(true);
+    } finally {
+      window.clearTimeout(timeoutId);
+    }
+  }, []);
+
+  useEffect(() => {
+    loadRegistrationStats();
+    const refreshId = window.setInterval(loadRegistrationStats, 30000);
+    return () => window.clearInterval(refreshId);
+  }, [loadRegistrationStats]);
+
+  const goHomeToEvents = () => {
+    window.location.hash = '';
+    setPage('home');
+    window.setTimeout(() => document.getElementById('events')?.scrollIntoView({ behavior: 'smooth' }), 40);
   };
+
+  const goRegister = () => {
+    window.location.hash = '';
+    setPage('register');
+  };
+
+  const goHomeToSection = (sectionId) => {
+    window.location.hash = '';
+    setPage('home');
+    window.setTimeout(() => {
+      if (sectionId === 'top') window.scrollTo({ top: 0, behavior: 'smooth' });
+      else document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+    }, 40);
+  };
+
+  const completeRegistration = () => loadRegistrationStats();
 
   const EventComponentMap = {
     'pixel-perfect': PixelPerfectPage,
@@ -58,17 +105,22 @@ function App() {
     'paper-presentation': PaperPresentationPage,
     'code-arena': CodeArenaPage,
     'ipl-auction': IPLAuctionPage,
-    'ipl-action': IPLAuctionPage,
-    'free-fire': FreeFirePage,
-    'game-event': FreeFirePage,
-    'mini-militia': MiniMilitiaPage,
-    'treasure-hunt': TreasureHuntPage,
-    'meme-creation': MemeCreationPage,
+    'free-fire': EventDashboardPage,
+    'game-event': GamesEventPage,
+    'mini-militia': EventDashboardPage,
+    'treasure-hunt': EventDashboardPage,
+    'meme-creation': EventDashboardPage,
   };
 
   const renderEventPage = (slug) => {
     const Component = EventComponentMap[slug];
-    if (Component) return <Component setPage={setPage} />;
+    if (Component) {
+      return (
+        <EventNavigationProvider goHome={goHomeToEvents} goRegister={goRegister} goToSection={goHomeToSection}>
+          {Component === EventDashboardPage ? <Component slug={slug} /> : <Component />}
+        </EventNavigationProvider>
+      );
+    }
     const event = getEventBySlug(slug);
     if (event) {
       return (
@@ -111,7 +163,7 @@ function App() {
       <Header setPage={setPage} />
       <NewsTicker setPage={setPage} className="home-news-ticker" />
       <FlightScene>
-        <HeroSection setPage={setPage} registrationCount={registrationCount} />
+        <HeroSection setPage={setPage} registrationStats={registrationStats} hasRegistrationStatsError={registrationStatsError} />
         <PhoenixCarousel />
       </FlightScene>
       <AboutSection />

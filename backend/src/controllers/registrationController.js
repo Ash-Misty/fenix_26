@@ -1,12 +1,14 @@
 import Registration from '../models/Registration.js';
 import PricingConfig from '../models/Event.js';
-import { processPaymentScreenshot, verifyPayment, calculateAmount, getRegistrationByRegId, checkDuplicateRegistration } from '../services/paymentService.js';
+import { processPaymentScreenshot, calculateAmount, getRegistrationByRegId, checkDuplicateRegistration } from '../services/paymentService.js';
 import { uploadScreenshot } from '../services/cloudinaryService.js';
 import { appendRegistrationToSheet, updateRegistrationInSheet } from '../services/googleSheetsService.js';
 import { generateUPIPayload, generateQRCode } from '../services/qrService.js';
 import { sendAdminNotification, sendPaymentVerificationEmail } from '../services/emailService.js';
 import { AppError } from '../middleware/errorHandler.js';
 import logger from '../utils/logger.js';
+
+const REGISTRATION_CAPACITY = 260;
 
 export async function createRegistration(req, res, next) {
   try {
@@ -38,7 +40,6 @@ export async function createRegistration(req, res, next) {
       process.env.UPI_ID,
       process.env.UPI_NAME
     );
-
     const qrCodeDataUrl = await generateQRCode(upiPayload);
 
     const registration = new Registration({
@@ -52,10 +53,10 @@ export async function createRegistration(req, res, next) {
       registrationType,
       participants: registrationType === 'Team' ? participants : [],
       selectedEvents: eventDetails,
-      workshops: workshops.map((w) => ({
-        workshopId: w,
-        workshopName: w,
-        amount: config.workshops.find((ws) => ws.slug === w)?.price || 0,
+      workshops: workshops.map((workshop) => ({
+        workshopId: workshop,
+        workshopName: workshop,
+        amount: config.workshops.find((item) => item.slug === workshop)?.price || 0,
       })),
       totalAmount,
       foodPreference,
@@ -166,6 +167,22 @@ export async function uploadPaymentScreenshot(req, res, next) {
         registrationStatus: registration.registrationStatus,
       },
       message: 'Payment screenshot uploaded successfully. Verification is pending.',
+    });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function getRegistrationCount(req, res, next) {
+  try {
+    const count = await Registration.countDocuments({ registrationStatus: { $ne: 'rejected' } });
+    res.status(200).json({
+      success: true,
+      data: {
+        count,
+        capacity: REGISTRATION_CAPACITY,
+        slotsLeft: Math.max(0, REGISTRATION_CAPACITY - count),
+      },
     });
   } catch (err) {
     next(err);

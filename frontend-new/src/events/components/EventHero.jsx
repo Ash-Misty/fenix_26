@@ -1,8 +1,9 @@
 import React from 'react';
-import { ArrowRight } from 'lucide-react';
 import { Reveal } from '../../components/ui/Reveal';
+import { useEventNavigation } from './EventNavigation';
 
-export function EventHero({ event, setPage }) {
+export function EventHero({ event }) {
+  const { goHome, goRegister } = useEventNavigation();
   const theme = event.theme || {};
   return (
     <section className="event-hero" style={{ background: `linear-gradient(135deg, ${theme.bg || '#1a0a14'}, #16090e 70%)` }}>
@@ -17,8 +18,8 @@ export function EventHero({ event, setPage }) {
       </Reveal>
       <Reveal delay={300}>
         <div style={{ marginTop: '24px', display: 'flex', gap: '12px', flexWrap: 'wrap' }}>
-          <button className="btn" onClick={() => setPage('register')}>Register Now</button>
-          <button className="btn secondary" onClick={() => setPage('events')}>Back to Events</button>
+          <button className="btn" onClick={goRegister}>Register Now</button>
+          <button className="btn secondary" onClick={goHome}>Back to Events</button>
         </div>
       </Reveal>
       {event.tagline && (

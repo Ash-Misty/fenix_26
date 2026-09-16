@@ -5,7 +5,8 @@ import { Reveal } from '../ui/Reveal';
 
 export function EventsSection({ setPage }) {
   const [filter, setFilter] = useState('All');
-  const shown = filter === 'All' ? events : events.filter((e) => e.category === filter);
+  const homeEvents = events;
+  const shown = filter === 'All' ? homeEvents : homeEvents.filter((e) => e.category === filter);
 
   return (
     <section id="events" className="section events">
@@ -37,10 +38,10 @@ export function EventsSection({ setPage }) {
 
       <div className="event-grid">
         {shown.map((e, i) => (
-          <article className={`event-card ${e.color}`} key={e.slug}>
+          <article className={`event-card ${e.color} ${e.category === 'Technical' ? 'event-card-tech' : 'event-card-nontech'}`} key={e.slug}>
             <div className="card-top">
               <span className="event-icon">{e.icon}</span>
-              <span className="badge">{e.category}</span>
+              <span className="badge category-indicator">{e.category}</span>
             </div>
             <h3>{e.name}</h3>
             <p>{e.description}</p>

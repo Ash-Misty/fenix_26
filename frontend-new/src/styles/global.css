@@ -3,10 +3,12 @@
 @import './components.css';
 @import './sections-about-events.css';
 @import './sections-workshop-pricing.css';
+@import './timeline-heading.css';
 @import './sections-misc.css';
 @import './sections-event.css';
 @import './sections-register.css';
 @import './fenix-theme.css';
 @import './galaxy-motion.css';
 @import './ui-polish.css';
+@import './hero-registration-stats.css';
 @import './carousel-refresh.css';

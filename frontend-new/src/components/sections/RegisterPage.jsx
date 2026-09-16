@@ -184,7 +184,7 @@ export function RegisterPage({ setPage, onRegistrationComplete }) {
             {errors.department && <span className="error">{errors.department}</span>}
             <label>Year of study</label>
             <select value={form.year} onChange={(e) => edit('year', e.target.value)}>
-              {[1, 2, 3, 4, 5].map((year) => <option value={year} key={year}>Year {year}</option>)}
+              {[1, 2, 3, 4].map((year) => <option value={year} key={year}>Year {year}</option>)}
             </select>
             
             {type === 'Individual' ? (
@@ -247,7 +247,7 @@ export function RegisterPage({ setPage, onRegistrationComplete }) {
             <div className="event-select-grid">
               {events.map((e) => (
                 <button
-                  className={'event-select' + (selected.includes(e.slug) ? ' chosen' : '')}
+                  className={`event-select ${e.category === 'Technical' ? 'event-select-tech' : 'event-select-nontech'}${selected.includes(e.slug) ? ' chosen' : ''}`}
                   key={e.slug}
                   onClick={() => toggle(e.slug)}
                 >
@@ -258,6 +258,7 @@ export function RegisterPage({ setPage, onRegistrationComplete }) {
               ))}
             </div>
             {errors.events && <span className="error">{errors.events}</span>}
+            {errors.submit && <span className="error">{errors.submit}</span>}
             <div className="form-actions">
               <Button secondary onClick={() => setStep(1)}>Back</Button>
               <Button onClick={next}>Continue</Button>

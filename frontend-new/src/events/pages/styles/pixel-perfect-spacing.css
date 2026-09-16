@@ -1,0 +1,12 @@
+@scope (.pixel-exact-page) {
+  .section-layout { gap: 28px; }
+  .round-grid { grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 28px; }
+  .gallery-grid { grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; }
+  .final-callout { margin-top: 20px; }
+  .rules-strip { gap: 10px; margin-top: 20px; }
+
+  @media (max-width: 760px) {
+    .section-layout { gap: 20px; }
+    .round-grid, .gallery-grid { gap: 18px; grid-template-columns: 1fr; }
+  }
+}

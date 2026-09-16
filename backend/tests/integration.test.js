@@ -48,7 +48,7 @@ beforeEach(async () => {
       { slug: 'ai-battle', name: 'AI Battle', category: 'Technical', basePrice: 0, isActive: true },
       { slug: 'code-arena', name: 'Code Arena', category: 'Technical', basePrice: 0, isActive: true },
       { slug: 'pixel-perfect', name: 'Pixel Perfect', category: 'Technical', basePrice: 0, isActive: true },
-      { slug: 'ipl-action', name: 'IPL Action', category: 'Non-Technical', basePrice: 0, isActive: true },
+      { slug: 'ipl-auction', name: 'IPL Auction', category: 'Non-Technical', basePrice: 0, isActive: true },
       { slug: 'game-event', name: 'Game Event', category: 'Non-Technical', basePrice: 0, isActive: true },
       { slug: 'meme-creation', name: 'Meme Creation', category: 'Non-Technical', basePrice: 0, isActive: true },
       { slug: 'treasure-hunt', name: 'Treasure Hunt', category: 'Non-Technical', basePrice: 0, isActive: true },

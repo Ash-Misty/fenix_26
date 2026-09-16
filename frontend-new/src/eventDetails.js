@@ -42,9 +42,17 @@ export const eventDetails = {
     ],
     closingLine: 'Think Fast..!! Code Smart..!! Optimize Better..!! Compete to Win..!!',
   },
-  'ipl-action': {
+  'ipl-auction': {
     highlights: [['Event Type', 'Team Event'], ['Suggested Team Size', '10 Members']],
     sections: [{ title: 'Rules', items: ['Each team will act as an IPL franchise and participate in a simulated player auction.', 'A fixed virtual purse will be provided to each team.', 'Players will be presented with a base price, and bidding will begin from that price.', 'Teams must bid strategically while staying within their allocated purse.', 'Once a player is sold, the decision is final and cannot be reversed.', 'Teams must build their squad according to the specified squad-size and player-category requirements.', 'Exceeding the allocated budget will result in disqualification.', 'The winning team will be decided based on squad composition, budget management, and overall strategy.', "The organizers' decision will be final."] }],
+  },
+  'free-fire': {
+    highlights: [['Event Type', 'Team Event'], ['Suggested Team Size', '4 Members']],
+    sections: [{ title: 'Rules', items: ['The event will be conducted using a custom room.', 'Participants must use their own mobile devices and registered in-game accounts.', 'Players must join the room within the specified time.', 'The match will follow the game mode and settings announced by the organizers.', 'Teaming with opponents is strictly prohibited.', 'Hacks, scripts, modified clients, or any unfair third-party software are strictly prohibited.', 'Any cheating, intentional disruption, or misconduct will result in disqualification.', 'The winner will be determined according to the scoring system announced before the match.', "The organizers' decision will be final."] }],
+  },
+  'mini-militia': {
+    highlights: [['Event Type', 'Team Event'], ['Requirement', 'Own Mobile Device']],
+    sections: [{ title: 'Rules', items: ['The event will be conducted in the specified Mini Militia game mode/room.', 'Participants must use their own mobile devices.', 'Players must join the match within the given time.', 'Each match will have a fixed duration decided by the organizers.', 'Modified versions, hacks, cheats, or external assistance are strictly prohibited.', 'Intentional teaming with opponents is not allowed.', 'Scores will be based on the scoring system announced by the organizers.', 'In case of a tie, a tie-breaker match may be conducted.', 'Any form of cheating will result in immediate disqualification.', "The organizers' decision will be final."] }],
   },
   'game-event': {
     highlights: [['Event Type', 'Team Event'], ['Suggested Team Size', '4 Members']],

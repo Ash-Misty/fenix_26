@@ -1,35 +1,15 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React from 'react';
 import { Clock } from 'lucide-react';
 import { Countdown } from '../ui/Countdown';
 import { Button } from '../ui/Button';
 import { Reveal } from '../ui/Reveal';
 
-export function HeroSection({ setPage, registrationCount = 60 }) {
-  const [displayedCount, setDisplayedCount] = useState(0);
-  const countRef = useRef(0);
-
-  useEffect(() => {
-    const from = countRef.current;
-    const to = registrationCount;
-    if (from === to) return;
-
-    const start = performance.now();
-    const duration = 1100;
-    let frame;
-
-    const updateCount = (now) => {
-      const progress = Math.min((now - start) / duration, 1);
-      const easedProgress = 1 - Math.pow(1 - progress, 3);
-      const value = Math.round(from + (to - from) * easedProgress);
-      setDisplayedCount(value);
-      countRef.current = value;
-
-      if (progress < 1) frame = requestAnimationFrame(updateCount);
-    };
-
-    frame = requestAnimationFrame(updateCount);
-    return () => cancelAnimationFrame(frame);
-  }, [registrationCount]);
+export function HeroSection({ setPage, registrationStats, hasRegistrationStatsError = false }) {
+  const hasRegistrationStats = Boolean(registrationStats);
+  const isLoading = !hasRegistrationStats && !hasRegistrationStatsError;
+  const registrations = Math.max(0, Number(registrationStats?.count) || 0);
+  const capacity = Math.max(0, Number(registrationStats?.capacity) || 0);
+  const slotsLeft = Math.max(0, capacity - registrations);
 
   return (
     <section className="hero">
@@ -66,11 +46,13 @@ export function HeroSection({ setPage, registrationCount = 60 }) {
           </div>
         </Reveal>
         <Reveal delay={500}>
-          <div className="hero-registration registration-counter" aria-live="polite" aria-label={`${displayedCount} registrations`}>
-            <span>Registrations</span>
-            <strong className="registration-count-value">{displayedCount}</strong>
-            <span>and rising</span>
+          <div className="hero-registration registration-counter" aria-live="polite" aria-label={hasRegistrationStats ? `${registrations} registrations, ${slotsLeft} slots left out of ${capacity}` : 'Registration totals unavailable'}>
+            <div><span>Registrations</span><strong className="registration-count-value">{hasRegistrationStats ? registrations : '—'}</strong></div>
+            <div><span>Slots left</span><strong>{hasRegistrationStats ? slotsLeft : '—'}</strong></div>
+            <div><span>Capacity</span><strong>{hasRegistrationStats ? capacity : '—'}</strong></div>
           </div>
+          {isLoading && <p className="hero-registration-status">Loading registration totals…</p>}
+          {hasRegistrationStatsError && <p className="hero-registration-status">Registration totals are temporarily unavailable.</p>}
         </Reveal>
         <Reveal delay={500}>
           <Countdown />

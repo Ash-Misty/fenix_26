@@ -11,14 +11,7 @@
 .detail-pills span{display:flex;align-items:center;gap:8px;color:var(--muted);font-size:.82rem;padding:8px 14px;border:1px solid var(--line);background:rgba(5,3,3,.5)}
 
 /* Timeline */
-.timeline{max-width:760px;margin:0 auto}
-.timeline-wrap{display:flex;flex-direction:column;gap:0;position:relative}
-.timeline-item{display:grid;grid-template-columns:118px 28px minmax(0,1fr);align-items:center;gap:18px;padding:24px 0;border-top:1px solid var(--line)}
-.timeline-item:first-child{border-top:none}
-.timeline-item span{color:var(--gold);font:700 .9rem 'DM Mono';letter-spacing:.05em}
-.timeline-item i{width:12px;height:12px;border:2px solid var(--gold);border-radius:50%;background:var(--bg);box-shadow:0 0 0 5px rgba(255,189,102,.1);justify-self:center}
-.timeline-item strong{font:700 1.1rem 'Syne';margin-bottom:6px;display:block;overflow-wrap:break-word}
-.timeline-item p{color:var(--muted);font-size:.82rem;margin:0}
+.timeline{max-width:920px;margin:0 auto}.timeline-wrap{display:flex;flex-direction:column;gap:12px;position:relative}.timeline-wrap::before{content:'';position:absolute;left:139px;top:30px;bottom:30px;width:1px;background:linear-gradient(var(--gold),rgba(255,189,102,.08))}.timeline-item{display:grid;grid-template-columns:112px 36px minmax(0,1fr);align-items:center;gap:18px;padding:15px 18px;border:1px solid var(--line);border-radius:9px;background:linear-gradient(105deg,rgba(255,189,102,.07),rgba(10,6,16,.65));transition:transform .2s,border-color .2s}.timeline-item:hover{border-color:var(--gold);transform:translateX(5px)}.timeline-item span{align-items:center;color:var(--gold);display:flex;font:700 .75rem 'DM Mono';gap:9px;letter-spacing:.05em}.timeline-item span b{border:1px solid var(--gold);border-radius:50%;display:grid;font-size:.54rem;height:24px;place-items:center;width:24px}.timeline-item i{z-index:1;width:13px;height:13px;border:3px solid var(--gold);border-radius:50%;background:var(--bg);box-shadow:0 0 0 6px rgba(255,189,102,.1);justify-self:center}.timeline-item strong{color:var(--ink);font:700 1rem 'Syne';margin-bottom:4px;display:block;overflow-wrap:break-word}.timeline-item small{color:var(--muted);font-size:.7rem}
 
 /* Team */
 .team{padding:100px clamp(22px,6vw,100px);border-top:1px solid var(--line)}

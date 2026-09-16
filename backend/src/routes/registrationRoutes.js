@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { createRegistration, getRegistration, uploadPaymentScreenshot } from '../controllers/registrationController.js';
+import { createRegistration, getRegistration, getRegistrationCount, uploadPaymentScreenshot } from '../controllers/registrationController.js';
 import { paymentScreenshotUpload } from '../middleware/upload.js';
 import { handleUploadError } from '../middleware/upload.js';
 import { validateRegistration, validatePaymentScreenshotUpload } from '../middleware/validation.js';
@@ -163,6 +163,7 @@ import { validateRegistration, validatePaymentScreenshotUpload } from '../middle
 const router = Router();
 
 router.post('/', validateRegistration, createRegistration);
+router.get('/count', getRegistrationCount);
 router.get('/:registrationId', getRegistration);
 router.post(
   '/:registrationId/payment-screenshot',
@@ -173,3 +174,4 @@ router.post(
 );
 
 export default router;
+

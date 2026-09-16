@@ -1,0 +1,182 @@
+.ref-event-page {
+  --event-ink: #f7f4eb;
+  --event-muted: #bfccd7;
+  scroll-behavior: smooth;
+  overflow: hidden;
+}
+
+.event-scroll-progress {
+  background: linear-gradient(90deg, var(--event-primary), var(--event-accent));
+  box-shadow: 0 0 14px var(--event-glow);
+  height: 3px;
+  left: 0;
+  position: fixed;
+  top: 0;
+  transform: scaleX(calc(var(--scroll-progress) / 100));
+  transform-origin: left;
+  width: 100%;
+  z-index: 20;
+}
+
+.ref-event-nav {
+  animation: event-nav-in .6s ease both;
+  position: sticky;
+  top: 8px;
+  z-index: 10;
+}
+
+.ref-hero {
+  animation: event-hero-in .85s cubic-bezier(.2,.8,.2,1) both;
+  background-image: radial-gradient(circle at 78% 42%, var(--event-glow), transparent 28%), repeating-linear-gradient(135deg, transparent 0 25px, color-mix(in srgb, var(--event-primary) 12%, transparent) 26px 27px);
+  isolation: isolate;
+}
+
+.ref-hero::after {
+  background: linear-gradient(125deg, transparent 20%, rgba(255,255,255,.08) 45%, transparent 55%);
+  content: '';
+  inset: 0;
+  pointer-events: none;
+  position: absolute;
+  transform: translateX(-120%);
+  animation: event-sheen 1.6s .25s ease forwards;
+  z-index: 0;
+}
+
+.ref-hero-copy,
+.ref-art,
+.ref-stats {
+  animation: event-copy-in .7s .15s ease both;
+}
+
+.ref-card,
+.ref-help {
+  opacity: 0;
+  transform: translateY(22px);
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.ref-card.is-visible,
+.ref-help.is-visible {
+  animation: event-card-in .65s cubic-bezier(.2,.8,.2,1) forwards;
+}
+
+.ref-card:hover {
+  border-color: color-mix(in srgb, var(--event-accent) 72%, transparent);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, .24), 0 0 24px var(--event-glow);
+  transform: translateY(-3px);
+}
+
+.ref-flow div {
+  min-height: 72px;
+  transition: transform .25s ease;
+}
+
+.ref-flow div:hover {
+  transform: translateY(-4px);
+}
+
+.ref-flow div p {
+  color: var(--event-muted) !important;
+  font-size: .58rem !important;
+  line-height: 1.45 !important;
+  margin-top: 4px !important;
+}
+
+.ref-detail-section {
+  grid-column: 1 / -1;
+}
+
+.ref-detail-section .ref-list {
+  columns: 2;
+}
+
+.ref-detail-section .ref-list li {
+  break-inside: avoid;
+}
+
+.ge-page {
+  background: radial-gradient(circle at 78% 4%, rgba(240, 90, 36, .24), transparent 27%), #05070c;
+  scroll-behavior: smooth;
+}
+
+.ge-hero,
+.ge-choice,
+.ge-help {
+  animation: event-card-in .7s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.ge-card {
+  transition: border-color .25s ease, box-shadow .25s ease, transform .25s ease;
+}
+
+.ge-card:hover {
+  transform: translateY(-5px);
+}
+
+@media (max-width: 760px) {
+  .ge-card:hover {
+    transform: none;
+  }
+}
+
+.event-theme-pixel-perfect .ref-hero { background-position: 0% 0%; }
+.event-theme-ai-battle .ref-hero { background-position: 50% 0%; }
+.event-theme-paper-presentation .ref-hero { background-position: 100% 0%; }
+.event-theme-code-arena .ref-hero { background-position: 0% 100%; }
+.event-theme-ipl-auction .ref-hero { background-position: 0% 0%; }
+.event-theme-free-fire .ref-hero { background-position: 33% 0%; }
+.event-theme-mini-militia .ref-hero { background-position: 100% 0%; }
+.event-theme-treasure-hunt .ref-hero { background-position: 33% 100%; }
+.event-theme-meme-creation .ref-hero { background-position: 100% 100%; }
+
+@keyframes event-nav-in {
+  from { opacity: 0; transform: translateY(-12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes event-hero-in {
+  from { opacity: 0; transform: scale(.985); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes event-copy-in {
+  from { opacity: 0; transform: translateY(18px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes event-card-in {
+  from { opacity: 0; transform: translateY(22px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes event-sheen {
+  to { transform: translateX(120%); }
+}
+
+@media (max-width: 760px) {
+  .ref-event-nav {
+    top: 6px;
+  }
+
+  .ref-hero {
+    background-image: radial-gradient(circle at 75% 30%, var(--event-glow), transparent 35%), repeating-linear-gradient(135deg, transparent 0 21px, color-mix(in srgb, var(--event-primary) 10%, transparent) 22px 23px);
+  }
+
+  .ref-detail-section .ref-list {
+    columns: 1;
+  }
+
+  .ref-card:hover {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ref-event-page,
+  .ref-event-page * {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: .01ms !important;
+  }
+}

@@ -1,0 +1,57 @@
+.ge-page { background: radial-gradient(circle at 82% 0%, rgba(240, 90, 36, .22), transparent 28%), #05070c; color: #f5f1e8; min-height: 100vh; padding: 10px clamp(12px, 2.4vw, 36px) 0; }
+.ge-page button, .ge-page a { font: inherit; }
+.ge-nav { align-items: center; background: rgba(5, 8, 14, .94); border: 1px solid rgba(240, 90, 36, .45); border-radius: 11px; display: flex; gap: 16px; min-height: 44px; padding: 0 12px; }
+.ge-brand { background: none; border: 0; color: #fff; cursor: pointer; font: 800 .76rem 'Syne', sans-serif !important; letter-spacing: .08em; }
+.ge-brand b { color: #ff741e; margin-right: 6px; }
+.ge-brand span { color: #ffbd66; }
+.ge-nav-links { display: flex; gap: clamp(12px, 3vw, 28px); margin-left: auto; }
+.ge-nav-links button { background: none; border: 0; color: #c5ccd8; cursor: pointer; font: 700 .55rem 'DM Mono', monospace !important; text-transform: uppercase; }
+.ge-register { align-items: center; background: linear-gradient(90deg, #ff741e, #ffbd66); border: 0; border-radius: 999px; color: #17100b; cursor: pointer; display: inline-flex; font: 800 .55rem 'Syne', sans-serif !important; gap: 4px; padding: 7px 11px; }
+.ge-hero { background: radial-gradient(circle at 76% 38%, rgba(255, 110, 20, .24), transparent 32%), linear-gradient(118deg, #160c08, #080a10 58%, #100808); border: 1px solid rgba(240, 90, 36, .65); border-radius: 12px; display: grid; grid-template-columns: 1.1fr .9fr; margin-top: 12px; min-height: 250px; overflow: hidden; padding: 40px clamp(22px, 4vw, 48px) 36px; position: relative; }
+.ge-hero::before { background: repeating-linear-gradient(135deg, transparent 0 26px, rgba(240, 90, 36, .07) 27px 28px); content: ''; inset: 0; position: absolute; }
+.ge-hero > * { position: relative; z-index: 1; }
+.ge-back { align-items: center; background: rgba(0,0,0,.4); border: 1px solid rgba(255,255,255,.16); border-radius: 99px; color: #c9d2de; cursor: pointer; display: inline-flex; font: 700 .55rem 'DM Mono', monospace !important; gap: 4px; left: 16px; padding: 5px 8px; position: absolute; top: 12px; }
+.ge-kicker { color: #ffbd66; font: 700 .58rem 'DM Mono', monospace; letter-spacing: .12em; margin: 0 0 8px; }
+.ge-hero h1 { color: #fff7ed; font: 900 clamp(2.6rem, 6.5vw, 5rem)/.8 'Syne', sans-serif; letter-spacing: -.08em; margin: 0; }
+.ge-hero h1 span { color: #ff741e; }
+.ge-hero h2 { color: #ffbd66; font: 700 .95rem 'Syne', sans-serif; margin: 12px 0 8px; }
+.ge-hero p { color: #d7dce4; font-size: .72rem; line-height: 1.55; margin: 0; max-width: 46ch; }
+.ge-art { align-self: center; display: flex; gap: 10px; justify-self: end; }
+.ge-art i { align-items: center; border-radius: 16px; display: grid; height: 150px; justify-content: center; width: 120px; }
+.ge-art i:first-child { background: radial-gradient(circle, rgba(255, 80, 30, .35), #120808); border: 1px solid #ff4d26; color: #ff9a4a; }
+.ge-art i:last-child { background: radial-gradient(circle, rgba(67, 214, 110, .3), #081208); border: 1px solid #43d66e; color: #7dff9a; }
+.ge-choice { display: grid; gap: 12px; grid-template-columns: 1fr 1fr; margin-top: 12px; }
+.ge-card { background: linear-gradient(160deg, #120c10, #08080c); border: 1px solid var(--ge-tone); border-radius: 12px; color: #f2f4ed; min-height: 210px; padding: 20px; position: relative; text-decoration: none; }
+.ge-card.fire { --ge-tone: #ff4d26; }
+.ge-card.military { --ge-tone: #43d66e; }
+.ge-card:hover { box-shadow: 0 0 24px color-mix(in srgb, var(--ge-tone) 40%, transparent); transform: translateY(-2px); }
+.ge-card svg { color: var(--ge-tone); filter: drop-shadow(0 0 10px var(--ge-tone)); margin-bottom: 12px; }
+.ge-card h3 { font: 900 1.2rem 'Syne', sans-serif; margin: 0 0 4px; }
+.ge-card strong { color: var(--ge-tone); display: block; font: 700 .68rem 'Syne', sans-serif; }
+.ge-card p { color: #bfccd7; font-size: .66rem; line-height: 1.5; margin: 10px 0 18px; }
+.ge-card em { align-items: center; border: 1px solid var(--ge-tone); border-radius: 999px; color: var(--ge-tone); display: inline-flex; font: 700 .56rem 'DM Mono', monospace; font-style: normal; gap: 4px; padding: 5px 9px; text-transform: uppercase; }
+.ge-quote { background: linear-gradient(90deg, #3a1a0c, #120c08); border: 1px solid #ff741e; border-radius: 8px; color: #ffbd66; font: 700 .78rem 'Syne', sans-serif; margin-top: 12px; padding: 12px; text-align: center; }
+.ge-help { align-items: center; background: #0a1018; border: 1px solid rgba(240, 90, 36, .28); border-radius: 10px; display: grid; gap: 16px; grid-template-columns: 1fr 1.3fr; margin-top: 10px; padding: 16px 18px; }
+.ge-help h2 { font: 800 1rem 'Syne', sans-serif; margin: 0 0 4px; }
+.ge-help p { color: #aeb6c2; font-size: .64rem; margin: 0; }
+.ge-contacts { display: grid; gap: 8px; grid-template-columns: 1fr 1fr; }
+.ge-contacts a { align-items: center; background: #070b12; border: 1px solid rgba(255,255,255,.1); border-radius: 8px; color: #edf1f4; display: grid; gap: 2px 8px; grid-template-columns: 38px minmax(0, 1fr) 16px; padding: 8px; text-decoration: none; }
+.ge-contacts small { grid-column: 2; white-space: nowrap; }
+.ge-contacts span { align-items: center; background: linear-gradient(135deg, #ff741e, #ffbd66); border-radius: 50%; color: #17100b; display: grid; font: 800 .56rem 'Syne', sans-serif; grid-row: 1 / 3; height: 34px; justify-content: center; width: 34px; }
+.ge-contacts strong { font-size: .62rem; }
+.ge-contacts small { color: #ffbd66; font-size: .5rem; }
+.ge-contacts svg { color: #ffbd66; }
+.ge-footer { border-top: 1px solid rgba(240, 90, 36, .25); display: grid; gap: 16px; grid-template-columns: 1.1fr 1fr 1.1fr; margin-top: 10px; padding: 18px 4px 22px; }
+.ge-footer strong { font: 800 .84rem 'Syne', sans-serif; }
+.ge-footer strong span { color: #ffbd66; }
+.ge-footer p, .ge-footer button, .ge-footer a { color: #8f9aab; font-size: .58rem; }
+.ge-footer b { color: #ffbd66; display: block; font: 700 .55rem 'DM Mono', monospace; letter-spacing: .08em; margin-bottom: 6px; }
+.ge-footer div:nth-child(2) { display: grid; gap: 3px; }
+.ge-footer button { background: none; border: 0; cursor: pointer; padding: 0; text-align: left; width: max-content; }
+.ge-copy { grid-column: 1 / -1; margin: 0; text-align: center; }
+@media (max-width: 760px) {
+  .ge-nav-links { display: none; }
+  .ge-hero { grid-template-columns: 1fr; padding: 48px 18px 28px; }
+  .ge-art { justify-self: center; }
+  .ge-choice, .ge-help, .ge-contacts, .ge-footer { grid-template-columns: 1fr; }
+}

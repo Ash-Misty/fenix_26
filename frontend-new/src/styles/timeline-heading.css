@@ -1,0 +1,17 @@
+.timeline .eyebrow {
+  color: var(--gold);
+  font-size: .72rem;
+  font-weight: 700;
+  letter-spacing: .3em;
+  margin: 0 0 14px;
+  text-transform: uppercase;
+}
+
+.timeline h2 {
+  font: 800 clamp(2rem, 5vw, 4rem) 'Syne';
+  letter-spacing: -.06em;
+  line-height: 1;
+  margin: 0 0 40px;
+}
+
+.timeline h2 span { color: var(--red); }

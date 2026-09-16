@@ -25,9 +25,9 @@ export function TimelineSection() {
         {timeline.map(([d, t], i) => (
           <Reveal key={t} delay={i * 100}>
             <div className={'timeline-item t' + i}>
-              <span>{d}</span>
+              <span><b>{String(i + 1).padStart(2, '0')}</b>{d}</span>
               <i aria-hidden="true" />
-              <strong>{t}</strong>
+              <div><strong>{t}</strong><small>{i === 0 ? 'Join the FENIX journey now' : 'Mark your calendar'}</small></div>
             </div>
           </Reveal>
         ))}

@@ -158,6 +158,23 @@
   transform: scaleX(1)
 }
 
+.event-card-tech {
+  border-color: rgba(255, 176, 32, .32);
+  background: linear-gradient(150deg, rgba(255, 176, 32, .1), rgba(5, 3, 3, .7));
+}
+
+.event-card-nontech {
+  border-color: rgba(255, 45, 26, .32);
+  background: linear-gradient(150deg, rgba(255, 45, 26, .11), rgba(5, 3, 3, .7));
+}
+
+.event-card-tech::before { background: linear-gradient(90deg, transparent, var(--gold), transparent); }
+.event-card-nontech::before { background: linear-gradient(90deg, transparent, var(--red), transparent); }
+.event-card-tech:hover { border-color: var(--gold); box-shadow: 0 20px 50px rgba(255, 176, 32, .18); }
+.event-card-nontech:hover { border-color: var(--red); box-shadow: 0 20px 50px rgba(255, 45, 26, .25); }
+.event-card-tech .category-indicator { border-color: rgba(255, 176, 32, .42); color: var(--gold); }
+.event-card-nontech .category-indicator { border-color: rgba(255, 45, 26, .42); color: #ff8b78; }
+
 .card-top {
   display: flex;
   justify-content: space-between;

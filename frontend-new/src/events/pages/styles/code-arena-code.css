@@ -1,0 +1,14 @@
+@scope (.cae-page) {
+  .cae-code {
+    color: #cbd5e1;
+    display: block;
+    font: 500 .74rem/1.55 'DM Mono', monospace;
+    margin: 0;
+    overflow-x: auto;
+    padding: 23px;
+    tab-size: 2;
+    white-space: pre;
+  }
+
+  .cae-code code { color: inherit; }
+}

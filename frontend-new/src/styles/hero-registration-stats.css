@@ -1,0 +1,25 @@
+.hero-registration {
+  align-items: stretch;
+  gap: 0;
+  padding: 10px 14px;
+}
+
+.hero-registration > div {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 80px;
+  padding: 2px 14px;
+}
+
+.hero-registration > div + div { border-left: 1px solid rgba(255, 189, 102, .25); }
+.hero-registration > div span { color: var(--muted); font-size: .52rem; white-space: nowrap; }
+.hero-registration > div strong { font-size: 1.2rem; }
+.hero-registration-status { color: var(--muted); font-size: .68rem; margin: 8px 0 0; }
+
+@media (max-width: 480px) {
+  .hero-registration { width: 100%; justify-content: space-between; }
+  .hero-registration > div { min-width: 0; padding-inline: 7px; }
+  .hero-registration > div strong { font-size: 1rem; }
+}

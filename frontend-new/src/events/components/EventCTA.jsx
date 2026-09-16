@@ -1,8 +1,10 @@
 import React from 'react';
 import { Button } from '../../components/ui/Button';
 import { Reveal } from '../../components/ui/Reveal';
+import { useEventNavigation } from './EventNavigation';
 
 export function EventCTA({ event }) {
+  const { goRegister } = useEventNavigation();
   return (
     <section style={{ padding: '80px 0', textAlign: 'center' }}>
       <Reveal>
@@ -10,7 +12,7 @@ export function EventCTA({ event }) {
         <h2 style={{ fontFamily: "'Playfair Display', Georgia, serif", fontSize: 'clamp(2.5rem, 5vw, 4rem)', lineHeight: 1.1, margin: '0 0 24px', color: 'var(--ink)' }}>Secure Your Spot</h2>
       </Reveal>
       <Reveal delay={100}>
-        <Button onClick={() => window.location.hash = '#/register'}>Register for {event.title}</Button>
+        <Button onClick={goRegister}>Register for {event.title}</Button>
       </Reveal>
     </section>
   );
