@@ -23,13 +23,13 @@ export function Header({ setPage, registerMode = false }) {
   return (
     <>
       <header className={`site-header${scrolled ? ' scrolled' : ''}${registerMode ? ' register-nav' : ''}`} data-header>
-        <a className="brand brand-lockup" href="#top" aria-label="Fenix home">
+        <a className="brand brand-lockup" href="#top" aria-label="Fenix home" onClick={(event) => { event.preventDefault(); setMenuOpen(false); setPage('home'); window.setTimeout(() => window.scrollTo({ top: 0, behavior: 'smooth' }), 30); }}>
           <img src="/fenix-26-logo.jpg" alt="FENIX 2026" />
           <span>FENIX<span>'26</span></span>
         </a>
         <div className="college-lockup" aria-label="University College of Engineering, BIT Campus, Anna University, Trichy">
           <img className="college-crest" src="/anna-university-logo.png" alt="" />
-          <span>University College of Engineering<small>BIT Campus · Anna University · Trichy</small></span>
+          <span className="college-name">University College of Engineering<small>BIT Campus · Anna University · Trichy</small></span>
         </div>
         <nav className="desktop-nav" aria-label="Main navigation">
           {navItems.map((item) => (

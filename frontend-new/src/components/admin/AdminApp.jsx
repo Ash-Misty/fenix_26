@@ -5,6 +5,21 @@ import { Check, LoaderCircle, LogIn, Plus, RefreshCw, X } from 'lucide-react';
 
 const formatStatus = (value = '') => value.replaceAll('_', ' ').toLowerCase();
 const money = (value = 0) => `₹${Number(value).toLocaleString('en-IN')}`;
+const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000/api';
+
+async function downloadVerifiedRegistrations() {
+  const response = await fetch(`${API_BASE}/admin/registrations/export.xlsx`, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } });
+  if (!response.ok) throw new Error('Could not create the verified registrations spreadsheet.');
+  const file = await response.blob();
+  const url = URL.createObjectURL(file);
+  const link = document.createElement('a');
+  link.href = url;
+  link.download = 'fenix26-verified-registrations.xlsx';
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
 
 function Notice({ error }) {
   return error ? <p className="admin-error">{error}</p> : null;
@@ -95,6 +110,7 @@ function Registrations({ paymentsOnly = false }) {
   const request = useRequest(() => api(endpoint), [endpoint]);
   const [selected, setSelected] = React.useState(null);
   const [actionError, setActionError] = React.useState('');
+  const [exportError, setExportError] = React.useState('');
   if (request.loading) return <Loading />;
   if (request.error) return <><Notice error={request.error} /><button className="admin-secondary" onClick={request.reload}><RefreshCw size={15} /> Retry</button></>;
   const registrations = request.data.data.registrations;
@@ -107,9 +123,10 @@ function Registrations({ paymentsOnly = false }) {
     } catch (error) { setActionError(error.message); }
   };
   return <>
-    <div className="admin-page-heading"><div><p className="admin-kicker">{paymentsOnly ? 'FINANCE' : 'PEOPLE'}</p><h2>{paymentsOnly ? 'Payment verification' : 'Registrations'}</h2></div><button className="admin-icon-button" title="Refresh" onClick={request.reload}><RefreshCw size={17} /></button></div>
+    <div className="admin-page-heading"><div><p className="admin-kicker">{paymentsOnly ? 'FINANCE' : 'PEOPLE'}</p><h2>{paymentsOnly ? 'Payment verification' : 'Registrations'}</h2></div><div className="admin-heading-actions">{!paymentsOnly && <button className="admin-secondary" onClick={async () => { setExportError(''); try { await downloadVerifiedRegistrations(); } catch (error) { setExportError(error.message); } }}>Download verified .xlsx</button>}<button className="admin-icon-button" title="Refresh" onClick={request.reload}><RefreshCw size={17} /></button></div></div>
+    <Notice error={exportError} />
     <section className="admin-panel"><RegistrationTable registrations={registrations} onAction={setSelected} /></section>
-    {selected && <div className="admin-modal-backdrop"><div className="admin-modal"><button className="admin-modal-close" onClick={() => setSelected(null)}><X size={18} /></button><p className="admin-kicker">{selected.registrationId}</p><h3>{selected.teamName}</h3><p>{selected.teamLeader} · {selected.email}</p><p>{selected.college} · {selected.department} · Year {selected.year}</p><h4>Selected events</h4><ul>{selected.selectedEvents?.map((event) => <li key={event.eventId}>{event.eventName}</li>)}</ul>{selected.payment?.screenshotUrl && <a className="admin-link" href={selected.payment.screenshotUrl} target="_blank" rel="noreferrer">Open payment screenshot</a>}<Notice error={actionError} />{selected.payment?.status === 'PENDING_VERIFICATION' && <div className="admin-modal-actions"><button className="admin-primary" onClick={() => review(selected)}><Check size={15} /> Verify payment</button><button className="admin-danger" onClick={() => { const reason = window.prompt('Reason for rejection:', 'Payment could not be verified'); if (reason) review(selected, reason); }}>Reject</button></div>}</div></div>}
+    {selected && <div className="admin-modal-backdrop"><div className="admin-modal"><button className="admin-modal-close" onClick={() => setSelected(null)}><X size={18} /></button><p className="admin-kicker">{selected.registrationId}</p><h3>{selected.teamName}</h3><p>{selected.teamLeader} · {selected.email} · {selected.phone}</p><p>{selected.college} · {selected.department} · Year {selected.year}</p><h4>Participants</h4><p>{selected.participants?.map((participant) => participant.name).join(', ') || selected.teamLeader}</p><h4>Food preferences</h4><p>{selected.foodPreferences?.map((item) => `${item.name}: ${item.preference}`).join(' · ') || selected.foodPreference}</p><h4>Selected events</h4><ul>{selected.selectedEvents?.map((event) => <li key={event.eventId}>{event.eventName}</li>)}</ul>{selected.payment?.screenshotUrl && <a className="admin-link" href={selected.payment.screenshotUrl} target="_blank" rel="noreferrer">Open payment screenshot</a>}<Notice error={actionError} />{selected.payment?.status === 'PENDING_VERIFICATION' && <div className="admin-modal-actions"><button className="admin-primary" onClick={() => review(selected)}><Check size={15} /> Verify payment</button><button className="admin-danger" onClick={() => { const reason = window.prompt('Reason for rejection:', 'Payment could not be verified'); if (reason) review(selected, reason); }}>Reject</button></div>}</div></div>}
   </>;
 }
 

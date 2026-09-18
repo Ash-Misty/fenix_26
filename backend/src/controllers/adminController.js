@@ -4,6 +4,7 @@ import Admin from '../models/Admin.js';
 import Registration from '../models/Registration.js';
 import Contact from '../models/Contact.js';
 import { getTransporter } from '../config/mail.js';
+import { buildVerifiedRegistrationsWorkbook } from '../services/registrationExportService.js';
 import { AppError } from '../middleware/errorHandler.js';
 import logger from '../utils/logger.js';
 
@@ -88,6 +89,18 @@ export async function getRegistrationById(req, res, next) {
       data: registration,
       message: 'Registration retrieved successfully',
     });
+  } catch (err) {
+    next(err);
+  }
+}
+
+export async function downloadVerifiedRegistrations(req, res, next) {
+  try {
+    const workbook = await buildVerifiedRegistrationsWorkbook();
+    const date = new Date().toISOString().slice(0, 10);
+    res.setHeader('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+    res.setHeader('Content-Disposition', `attachment; filename="fenix26-verified-registrations-${date}.xlsx"`);
+    res.send(workbook);
   } catch (err) {
     next(err);
   }

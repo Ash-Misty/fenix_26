@@ -152,3 +152,17 @@ footer a:hover{color:var(--red)}
   .steps{gap:8px}
   .step{padding:6px 12px;font-size:.65rem}
 }
+
+/* Match each registration card to its event's visual accent. */
+.event-select { --select-accent: var(--gold); --select-rgb: 255,176,32; }
+.event-select.event-color-blue { --select-accent:#62a9ff; --select-rgb:98,169,255; }
+.event-select.event-color-violet { --select-accent:#af87ff; --select-rgb:175,135,255; }
+.event-select.event-color-cyan { --select-accent:#52d9ed; --select-rgb:82,217,237; }
+.event-select-tech.event-color-pink { --select-accent:#f98ccb; --select-rgb:249,140,203; }
+.event-select.event-color-orange { --select-accent:#ff9a4f; --select-rgb:255,154,79; }
+.event-select.event-color-purple { --select-accent:#c07cff; --select-rgb:192,124,255; }
+.event-select-nontech.event-color-pink { --select-accent:#ff7288; --select-rgb:255,114,136; }
+.event-select.event-color-yellow { --select-accent:#f5d65c; --select-rgb:245,214,92; }
+.event-select.event-color-blue,.event-select.event-color-violet,.event-select.event-color-cyan,.event-select-tech.event-color-pink,.event-select.event-color-orange,.event-select.event-color-purple,.event-select-nontech.event-color-pink,.event-select.event-color-yellow { border-color:rgba(var(--select-rgb),.42); background:linear-gradient(145deg,rgba(var(--select-rgb),.14),rgba(5,3,3,.56)); }
+.event-select.event-color-blue:hover,.event-select.event-color-violet:hover,.event-select.event-color-cyan:hover,.event-select-tech.event-color-pink:hover,.event-select.event-color-orange:hover,.event-select.event-color-purple:hover,.event-select-nontech.event-color-pink:hover,.event-select.event-color-yellow:hover,.event-select.chosen { border-color:var(--select-accent); background:linear-gradient(145deg,rgba(var(--select-rgb),.24),rgba(5,3,3,.56)); box-shadow:0 8px 22px rgba(var(--select-rgb),.12); }
+.event-select .badge { color:var(--select-accent); }.event-select.is-limit-reached { cursor:not-allowed; opacity:.46; filter:saturate(.55); }.event-select:disabled:hover { border-color:rgba(var(--select-rgb),.42); box-shadow:none; transform:none; }

@@ -28,6 +28,7 @@
 .admin-content { max-width: 1320px; padding: clamp(24px, 4vw, 52px); margin: auto; }
 .admin-page-heading, .admin-panel-heading { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
 .admin-page-heading { margin-bottom: 28px; }
+.admin-heading-actions { display: flex; align-items: center; gap: 10px; }
 .admin-kicker { color: var(--sun); font: .65rem 'DM Mono', monospace; letter-spacing: .15em; }
 .admin-page-heading h2 { margin-top: 5px; font: 700 clamp(1.7rem, 3vw, 2.5rem) Syne, sans-serif; }
 .admin-stat-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 12px; margin-bottom: 28px; }

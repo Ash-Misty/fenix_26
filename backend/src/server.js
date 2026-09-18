@@ -1,6 +1,5 @@
 import { createApp } from './app.js';
 import { connectDB, disconnectDB } from './config/db.js';
-import { initializeSheet } from './services/googleSheetsService.js';
 import PricingConfig from './models/Event.js';
 import Registration from './models/Registration.js';
 import { initRegistrationIdCounter } from './utils/generateRegistrationId.js';
@@ -16,8 +15,19 @@ export const app = createApp();
 
 async function seedPricingConfig() {
   const existing = await PricingConfig.findOne();
-  if (existing) {
-    const legacyIplEvent = existing.events.find((event) => event.slug === 'ipl-action');
+    if (existing) {
+      existing.individualBaseFee = 300;
+      existing.individualExtraFee = 0;
+      existing.team2BaseFee = 550;
+      existing.team2ExtraFee = 0;
+      existing.team3BaseFee = 800;
+      existing.team3ExtraFee = 0;
+      existing.maxTechPerRegistration = 2;
+      existing.maxNonTechPerRegistration = 2;
+      if (!existing.workshops.some((workshop) => workshop.slug === 'data-science-ai-technology')) {
+        existing.workshops.push({ slug: 'data-science-ai-technology', name: 'Data Science with AI Technology', price: 100, isActive: true });
+      }
+      const legacyIplEvent = existing.events.find((event) => event.slug === 'ipl-action');
     const canonicalIplEvent = existing.events.find((event) => event.slug === 'ipl-auction');
 
     if (legacyIplEvent) {
@@ -27,18 +37,18 @@ async function seedPricingConfig() {
         legacyIplEvent.slug = 'ipl-auction';
         legacyIplEvent.name = 'IPL Auction';
       }
-      await existing.save();
     }
+    await existing.save();
     return;
   }
 
   await PricingConfig.create({
-    individualBaseFee: 250,
-    individualExtraFee: 50,
-    team2BaseFee: 450,
-    team2ExtraFee: 50,
-    team3BaseFee: 750,
-    team3ExtraFee: 50,
+    individualBaseFee: 300,
+    individualExtraFee: 0,
+    team2BaseFee: 550,
+    team2ExtraFee: 0,
+    team3BaseFee: 800,
+    team3ExtraFee: 0,
     maxTechPerRegistration: 2,
     maxNonTechPerRegistration: 2,
     events: [
@@ -55,6 +65,7 @@ async function seedPricingConfig() {
       { slug: 'ai-workshop', name: 'AI Workshop', price: 100, isActive: true },
       { slug: 'web-dev-workshop', name: 'Web Development Workshop', price: 100, isActive: true },
       { slug: 'cybersecurity-workshop', name: 'Cybersecurity Workshop', price: 100, isActive: true },
+      { slug: 'data-science-ai-technology', name: 'Data Science with AI Technology', price: 100, isActive: true },
     ],
   });
   logger.info('PricingConfig seeded with default events and workshops');
@@ -65,13 +76,6 @@ async function startServer() {
     await connectDB();
     await seedPricingConfig();
     await initRegistrationIdCounter(Registration);
-
-    if (NODE_ENV === 'development') {
-      logger.info('Initializing Google Sheets...');
-      await initializeSheet().catch((err) => {
-        logger.warn(`Google Sheets initialization skipped: ${err.message}`);
-      });
-    }
 
     const server = app.listen(PORT, () => {
       logger.info(`FENIX26 Backend running on port ${PORT} (${NODE_ENV})`);

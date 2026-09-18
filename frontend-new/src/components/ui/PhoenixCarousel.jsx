@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { ArrowLeft, ArrowRight } from 'lucide-react';
 
 const slides = [
-  ['FENIX / 01', 'Explore every', 'constellation.', 'EVENTS', '08 arenas'],
-  ['FENIX / 02', 'Find your', 'signal.', 'WORKSHOP', 'Build beyond'],
-  ['FENIX / 03', 'Make your', 'mark.', 'REWARDS', 'Cash prizes'],
+  ['FENIX / 01', 'Explore every', 'constellation.', 'EVENTS', '08 arenas', '/images/carousel-campus.png', 'Students arriving at Anna University, Tiruchirappalli'],
+  ['FENIX / 02', 'Find your', 'signal.', 'WORKSHOP', 'Build beyond', '/images/carousel-constellation.png', 'A constellation-filled night sky'],
+  ['FENIX / 03', 'Make your', 'mark.', 'REWARDS', 'Cash prizes', '/images/carousel-phoenix.png', 'A phoenix rising over a landscape'],
 ];
 
 export function PhoenixCarousel() {
@@ -17,13 +17,13 @@ export function PhoenixCarousel() {
 
   return (
     <section className="phoenix-carousel" aria-label="FENIX highlights">
-      {slides.map(([label, lineOne, lineTwo, mockLabel, mockCopy], index) => (
+      {slides.map(([label, lineOne, lineTwo, mockLabel, mockCopy, image, imageAlt], index) => (
         <article className={`carousel-slide carousel-slide-${index} ${active === index ? 'active' : ''}`} key={label} aria-hidden={active !== index}>
           <div className="carousel-galaxy" aria-hidden="true"><i /><i /><i /><b /></div>
           <div className="carousel-shade" />
           <div className="carousel-copy"><p className="eyebrow">{label}</p><h2>{lineOne}<br /><span>{lineTwo}</span></h2></div>
-          <div className="carousel-demo" aria-hidden="true">
-            <img src="/carousel-placeholder.svg" alt="" />
+          <div className="carousel-demo">
+            <img src={image} alt={imageAlt} />
             <div className="carousel-demo-copy"><span>{mockLabel}</span><strong>{mockCopy}</strong></div>
           </div>
         </article>

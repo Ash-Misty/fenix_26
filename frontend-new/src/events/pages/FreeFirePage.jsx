@@ -1,84 +1,24 @@
-import React from 'react';
-import { ArrowRight, Clock3, House, Phone, Smartphone, Swords, Trophy, UserRound } from 'lucide-react';
+import { useState } from 'react';
+import { ArrowRight, Check, ChevronRight, Clock3, Gamepad2, Menu, MonitorSmartphone, Phone, ShieldAlert, ShieldX, Skull, Smartphone, Sword, Trophy, Users, X } from 'lucide-react';
 import { useEventNavigation } from '../components/EventNavigation';
-import './styles/free-fire.css';
+import './styles/free-fire-exact.css';
 
-const links = [['Home', 'top'], ['Events', 'events'], ['Workshop', 'workshop'], ['Timeline', 'timeline'], ['Team', 'team'], ['About', 'top']];
-const contacts = [
-  { name: 'Charlin Ashini', phone: '+91 86194 43715', initials: 'CA' },
-  { name: 'Sai Krishna', phone: '+91 87954 32109', initials: 'SK' },
-];
+const steps = [['Squad briefing', '4 members', Users], ['Knockout match', 'Battle Royale / Clash Squad', Gamepad2], ['Final battle', 'Winner takes the crown', Trophy]];
+const requirements = ['Register as a 4-member squad', 'Mobile device required', 'Battle Royale or Clash Squad mode, based on participating teams', 'Knockout format — losing teams are eliminated', 'Non-FENIX’26 participants may enter with an additional ₹50 fee', 'A rematch after elimination requires a new ₹50 entry fee, subject to availability'];
+const restrictions = ['Hacks, panels, scripts, or unfair third-party tools', 'Wall-breaking or wall-glitch techniques', 'Gun skins', 'Roof camping or camping in prohibited locations', 'Anything other than direct attacks', 'Rule violations — immediate disqualification'];
 
+function SectionTitle({ children }) { return <div className="ffx-section-title"><i /><h2>{children}</h2></div>; }
 export function FreeFirePage() {
-  const { goRegister, goToSection } = useEventNavigation();
-  return (
-    <main className="ff-page">
-      <nav className="ff-nav">
-        <button className="ff-brand" type="button" onClick={() => goToSection('top')}><b>◈</b> FENIX<span>'26</span></button>
-        <div className="ff-nav-links">{links.slice(1, 5).map(([label, id]) => <button type="button" key={id} onClick={() => goToSection(id)}>{label}</button>)}</div>
-        <button className="ff-register" type="button" onClick={goRegister}>REGISTER <ArrowRight size={12} /></button>
-      </nav>
-      <section className="ff-hero" id="top">
-        <button className="ff-back" type="button" onClick={() => { window.location.hash = '#/events/game-event'; }}><House size={12} /> Game Events</button>
-        <div>
-          <p className="ff-kicker">GAME EVENT · CHILD ARENA</p>
-          <h1>FREE <span>FIRE</span></h1>
-          <h2>Survive. Strategize. Dominate.</h2>
-          <p>Drop in, gear up, and be the last squad standing. Show your skills, teamwork and survival instincts in the ultimate battle royale.</p>
-        </div>
-        <div className="ff-art" aria-hidden="true"><Swords size={72} /></div>
-        <div className="ff-stats">
-          <article><UserRound size={15} /><span><small>Team Event</small><strong>4 Members</strong></span></article>
-          <article><Smartphone size={15} /><span><small>Platform</small><strong>Mobile</strong></span></article>
-          <article><Clock3 size={15} /><span><small>Duration</small><strong>2–3 Hours</strong></span></article>
-          <article><Trophy size={15} /><span><small>Mode</small><strong>Classic / Custom</strong></span></article>
-        </div>
-      </section>
-      <section className="ff-grid">
-        <article className="ff-card">
-          <p className="ff-kicker">Event Overview</p>
-          <h3>EVENT OVERVIEW</h3>
-          <p>Squads will battle in classic mode with predefined rules and custom rooms. Only the best squad will survive!</p>
-        </article>
-        <article className="ff-card">
-          <p className="ff-kicker">How to Play</p>
-          <h3>HOW TO PLAY</h3>
-          <ol className="ff-steps">
-            <li><b>1</b> Form your squad</li>
-            <li><b>2</b> Join the custom room</li>
-            <li><b>3</b> Drop, loot & fight</li>
-            <li><b>4</b> Get a chicken dinner</li>
-          </ol>
-        </article>
-        <article className="ff-card">
-          <p className="ff-kicker">Key Rules</p>
-          <h3>KEY RULES</h3>
-          <ul className="ff-rules">
-            <li>No hacks or cheats</li>
-            <li>No teaming (only squad mates apply)</li>
-            <li>Follow in-game and event rules</li>
-            <li>Respect all players</li>
-          </ul>
-        </article>
-        <article className="ff-card ff-prize">
-          <p className="ff-kicker">Prize Pool</p>
-          <Trophy size={28} color="#ffbd66" />
-          <strong>₹ 5,000</strong>
-          <span>+ Certificates</span>
-        </article>
-      </section>
-      <div className="ff-quote">Loot. Fight. Be the last one standing.</div>
-      <button className="ff-cta" type="button" onClick={goRegister}><Trophy size={16} /> Register for Free Fire <ArrowRight size={16} /></button>
-      <section className="ff-help">
-        <div><p className="ff-kicker">Need Help?</p><h2>Have questions about this event?</h2><p>Contact the event coordinators.</p></div>
-        <div className="ff-contacts">{contacts.map((c) => <a href={`tel:${c.phone.replace(/\s/g, '')}`} key={c.phone}><span>{c.initials}</span><strong>{c.name}</strong><small>Event Coordinator<br />{c.phone}</small><Phone size={14} /></a>)}</div>
-      </section>
-      <footer className="ff-footer">
-        <div><strong>◈ FENIX<span>'26</span></strong><p>Rise. Recode. Reign.</p></div>
-        <div><b>QUICK LINKS</b>{links.map(([label, id]) => <button type="button" key={label} onClick={() => goToSection(id)}>{label}</button>)}</div>
-        <div><b>CONTACT US</b>{contacts.map((c) => <p key={c.phone}>{c.name}<br />{c.phone}</p>)}</div>
-        <p className="ff-copy">© 2026 FENIX. All rights reserved.</p>
-      </footer>
-    </main>
-  );
+  const { goHome, goRegister } = useEventNavigation(); const [menuOpen, setMenuOpen] = useState(false);
+  const scrollTo = (id) => { setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+  const links = [['Home', 'ffx-home'], ['Format', 'ffx-format'], ['Rules', 'ffx-rules'], ['Rewards', 'ffx-rewards']];
+  return <main className="ffx-page"><div className="ffx-ambient ffx-ambient-one" aria-hidden="true" /><div className="ffx-ambient ffx-ambient-two" aria-hidden="true" /><div className="ffx-shell">
+    <header className="ffx-nav"><button className="ffx-brand" type="button" onClick={goHome}><img src="/images/fenix-logo.jpeg" alt="" />FENIX<span>'26</span></button><nav className={menuOpen ? 'ffx-links open' : 'ffx-links'} aria-label="Free Fire navigation">{links.map(([label, id]) => <button key={id} type="button" onClick={() => scrollTo(id)}>{label}</button>)}</nav><button className="ffx-register" type="button" onClick={goRegister}>Register Now <ArrowRight size={15} /></button><button className="ffx-menu" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button></header>
+    <section className="ffx-hero" id="ffx-home"><img src="/images/free-fire-hero.png" alt="Free Fire battle scene" /><div className="ffx-hero-overlay" /><div className="ffx-hero-copy"><span className="ffx-pill"><i /> Squad battle</span><h1>FREE FIRE</h1><p className="ffx-tagline">Battle Royale / Clash Squad</p><p className="ffx-description">Bring a 4-member squad, survive the knockout, and claim the battlefield.</p><div className="ffx-chips"><span><Users size={16} /> 4 members</span><span><Clock3 size={16} /> 40 minutes</span><span><MonitorSmartphone size={16} /> Mobile required</span></div><div className="ffx-actions"><button type="button" onClick={goRegister}>Register Now <ArrowRight size={16} /></button><button type="button" onClick={() => scrollTo('ffx-rules')}>View rules</button></div></div></section>
+    <section className="ffx-panel" id="ffx-format"><SectionTitle>Match format</SectionTitle><ol className="ffx-flow">{steps.map(([label, detail, Icon], index) => <li key={label}><div><span><Icon size={20} /></span><p>Stage {index + 1}</p><strong>{label}<small>{detail}</small></strong></div>{index < steps.length - 1 && <ChevronRight className="ffx-flow-arrow" size={20} />}</li>)}</ol></section>
+    <section className="ffx-rules" id="ffx-rules"><article className="ffx-panel"><SectionTitle>Rules</SectionTitle><div className="ffx-rule-columns"><div><h3>Match conditions</h3><ul>{requirements.map((label) => <li key={label}><span><Check size={16} /></span><b>{label}</b></li>)}</ul></div><div><h3 className="danger">Not allowed</h3><ul>{restrictions.map((label) => <li className="not-allowed" key={label}><span><ShieldX size={16} /></span><b>{label}</b></li>)}</ul></div></div></article></section>
+    <section className="ffx-panel ffx-rewards" id="ffx-rewards"><SectionTitle>Rewards</SectionTitle><div><article><Trophy size={25} /><small>🥇 Winner</small><strong>₹1,000</strong></article><article><Sword size={25} /><small>🥈 Runner-up</small><strong>₹500</strong></article></div><p><ShieldAlert size={16} /> Participants who are not registered for FENIX’26 can participate with an additional ₹50 entry fee.</p></section>
+    <button className="ffx-main-cta" type="button" onClick={goRegister}>Register your squad <ArrowRight size={16} /></button>
+    <footer className="ffx-footer ffx-panel"><div><div className="ffx-footer-brand"><img src="/images/fenix-logo.jpeg" alt="" />FENIX<span>'26</span></div><p>Drop In..!! Frag Out..!! Dominate the Battlefield..!!</p></div><div><h3>Quick links</h3>{links.map(([label, id]) => <button key={id} type="button" onClick={() => scrollTo(id)}>{label}</button>)}</div><div className="ffx-event-contact"><h3>Contact</h3><a href="tel:+918270528707"><strong>Sangeetha J</strong><small><Phone size={12} /> +91 82705 28707</small></a><a href="tel:+916381429220"><strong>Indra Santhoshi B</strong><small><Phone size={12} /> +91 63814 29220</small></a></div><div className="ffx-copyright"><span>© 2026 FENIX'26. All rights reserved.</span><span>Made for gamers, by gamers.</span></div></footer>
+  </div></main>;
 }

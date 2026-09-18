@@ -5,12 +5,6 @@ import Registration from '../src/models/Registration.js';
 import PricingConfig from '../src/models/Event.js';
 import { app } from '../src/server.js';
 
-jest.mock('../src/services/googleSheetsService.js', () => ({
-  appendRegistrationToSheet: jest.fn().mockResolvedValue(true),
-  updateRegistrationInSheet: jest.fn().resolvedValue(true),
-  initializeSheet: jest.fn().mockResolvedValue(undefined),
-}));
-
 jest.mock('../src/services/qrService.js', () => ({
   generateUPIPayload: jest.fn().mockReturnValue('upi://pay?pa=test@upi&pn=Test&am=250.00&cu=INR'),
   generateQRCode: jest.fn().mockResolvedValue('data:image/png;base64,test'),
@@ -19,6 +13,7 @@ jest.mock('../src/services/qrService.js', () => ({
 jest.mock('../src/services/emailService.js', () => ({
   sendConfirmationEmail: jest.fn().mockResolvedValue(true),
   sendAdminNotification: jest.fn().mockResolvedValue(true),
+  sendRegistrationPendingEmail: jest.fn().mockResolvedValue(true),
 }));
 
 const MONGO_URI = process.env.MONGODB_URI || 'mongodb://localhost:27017/fenix26_test';

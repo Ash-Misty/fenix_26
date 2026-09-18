@@ -2,9 +2,8 @@ import Registration from '../models/Registration.js';
 import PricingConfig from '../models/Event.js';
 import { processPaymentScreenshot, calculateAmount, getRegistrationByRegId, checkDuplicateRegistration } from '../services/paymentService.js';
 import { uploadScreenshot } from '../services/cloudinaryService.js';
-import { appendRegistrationToSheet, updateRegistrationInSheet } from '../services/googleSheetsService.js';
 import { generateUPIPayload, generateQRCode } from '../services/qrService.js';
-import { sendAdminNotification, sendPaymentVerificationEmail } from '../services/emailService.js';
+import { sendAdminNotification, sendRegistrationPendingEmail } from '../services/emailService.js';
 import { AppError } from '../middleware/errorHandler.js';
 import logger from '../utils/logger.js';
 
@@ -15,7 +14,7 @@ export async function createRegistration(req, res, next) {
     const {
       teamName, teamLeader, email, phone, college, department, year,
       registrationType, participants = [], selectedEvents = [], workshops = [],
-      foodPreference = 'Vegetarian',
+      foodPreference = 'Vegetarian', foodPreferences = [],
     } = req.body;
 
     const existing = await checkDuplicateRegistration(email);
@@ -52,6 +51,7 @@ export async function createRegistration(req, res, next) {
       year,
       registrationType,
       participants: registrationType === 'Team' ? participants : [],
+      foodPreferences,
       selectedEvents: eventDetails,
       workshops: workshops.map((workshop) => ({
         workshopId: workshop,
@@ -71,18 +71,6 @@ export async function createRegistration(req, res, next) {
 
     await registration.save();
     logger.info(`Registration created: ${registration.registrationId}`);
-
-    try {
-      await appendRegistrationToSheet(registration);
-    } catch (err) {
-      logger.warn(`Google Sheets update failed for ${registration.registrationId}: ${err.message}`);
-    }
-
-    try {
-      await sendAdminNotification(registration);
-    } catch (err) {
-      logger.warn(`Admin notification failed for ${registration.registrationId}: ${err.message}`);
-    }
 
     res.status(201).json({
       success: true,
@@ -146,17 +134,12 @@ export async function uploadPaymentScreenshot(req, res, next) {
     );
 
     try {
-      await updateRegistrationInSheet(registration);
-    } catch (err) {
-      logger.warn(`Google Sheets update failed for ${registrationId}: ${err.message}`);
-    }
-
-    try {
-      await sendPaymentVerificationEmail(registration);
+      await sendRegistrationPendingEmail(registration);
+      await sendAdminNotification(registration);
       registration.emailsSent.adminNotification = true;
       await Registration.findByIdAndUpdate(registration._id, { 'emailsSent.adminNotification': true });
     } catch (err) {
-      logger.error(`Payment verification email failed for ${registrationId}: ${err.message}`);
+      logger.error(`Registration notification email failed for ${registrationId}: ${err.message}`);
     }
 
     res.status(200).json({

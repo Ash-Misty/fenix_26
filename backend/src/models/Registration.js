@@ -3,10 +3,13 @@ import { generateRegistrationId } from '../utils/generateRegistrationId.js';
 
 const participantSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
-  email: { type: String, required: true, lowercase: true, trim: true },
-  phone: { type: String, required: true, trim: true },
-  year: { type: Number, required: true, min: 1, max: 5 },
-});
+  foodPreference: { type: String, required: true, enum: ['Vegetarian', 'Non-vegetarian'] },
+}, { _id: false });
+
+const foodPreferenceSchema = new mongoose.Schema({
+  name: { type: String, required: true, trim: true },
+  preference: { type: String, required: true, enum: ['Vegetarian', 'Non-vegetarian'] },
+}, { _id: false });
 
 const selectedEventSchema = new mongoose.Schema({
   eventId: { type: String, required: true },
@@ -60,6 +63,7 @@ const registrationSchema = new mongoose.Schema({
     enum: ['Individual', 'Team'],
   },
   participants: [participantSchema],
+  foodPreferences: [foodPreferenceSchema],
   selectedEvents: [selectedEventSchema],
   workshops: [workshopSchema],
   totalAmount: { type: Number, required: true, min: 0 },

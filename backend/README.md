@@ -7,7 +7,7 @@ Complete Node.js + Express backend for the FENIX26 Symposium registration system
 1. [Prerequisites](#1-prerequisites)
 2. [Installation](#2-installation)
 3. [MongoDB Setup](#3-mongodb-setup)
-4. [Google Cloud Setup](#4-google-cloud-setup)
+4. [Payment Screenshot Storage](#4-payment-screenshot-storage)
 5. [Environment Variables](#5-environment-variables)
 6. [Starting the Server](#6-starting-the-server)
 7. [API Documentation](#7-api-documentation)
@@ -24,7 +24,7 @@ Complete Node.js + Express backend for the FENIX26 Symposium registration system
 - **Node.js** v18 or later
 - **npm** v9 or later
 - **MongoDB** v6.0 or later (local or Atlas)
-- A **Google Cloud** project with Sheets and Drive APIs enabled
+- A **Cloudinary** account for payment-screenshot storage
 - An **SMTP** email service (Gmail with App Passwords, or any SMTP provider)
 
 ## 2. Installation
@@ -47,7 +47,7 @@ This installs all dependencies:
 - `nodemailer` — Email sending
 - `qrcode` — QR code generation
 - `winston` — Logging
-- `googleapis` — Google Sheets & Drive APIs
+- `xlsx` — SheetJS Excel workbook generation for verified registrations
 - `express-validator` — Request validation
 - `dotenv` — Environment variables
 - `xss-clean` — XSS sanitization
@@ -77,60 +77,17 @@ This installs all dependencies:
    mongodb+srv://<username>:<password>@cluster0.xxxxx.mongodb.net/fenix26
    ```
 
-## 4. Google Cloud Setup
+## 4. Payment Screenshot Storage
 
-### 4.1 Create a Google Cloud Project
-
-1. Go to [Google Cloud Console](https://console.cloud.google.com/)
-2. Click **Select a project** → **New Project**
-3. Name it `fenix-26-backend`
-4. Wait for creation
-
-### 4.2 Enable Google Sheets API
-
-1. In Cloud Console, go to **APIs & Services** → **Library**
-2. Search for **Google Sheets API**
-3. Click **Enable**
-
-### 4.3 Enable Google Sheets API
-
-1. In **APIs & Services** → **Library**
-2. Search for **Google Sheets API**
-3. Click **Enable**
-
-### 4.4 Create a Service Account
-
-1. Go to **IAM & Admin** → **Service Accounts**
-2. Click **Create Service Account**
-3. Name: `fenix-26-service-account`
-4. Grant **Project** → **Editor** role
-5. Click **Done**
-6. Click on the created service account → **Keys** → **Add Key** → **Create new key**
-7. Select **JSON** → **Create**
-8. Download the JSON file — this contains your credentials
-
-### 4.5 Configure Google Sheet
-
-1. Create a new Google Sheet at [sheets.google.com](https://sheets.google.com)
-2. Name it `FENIX26 Registrations`
-3. In the first row, add these headers:
-   ```
-   Registration ID | Registration Date | Team Name | Team Leader | Email | Phone | College | Department | Year | Participants | Selected Events | Selected Workshops | Total Amount | Payment Status | Transaction ID | Payment Screenshot | Registration Status | Verified At | Verified By
-   ```
-4. Share the sheet with your service account email (found in the JSON credentials file)
-
-### 4.6 Configure Cloudinary (Payment Screenshot Storage)
+### 4.1 Configure Cloudinary (Payment Screenshot Storage)
 
 1. Create a free account at [cloudinary.com](https://cloudinary.com)
 2. After signing up, note your **Cloud Name**, **API Key**, and **API Secret** from the dashboard
 3. These credentials are used only for uploading payment screenshots — they are kept server-side in `.env`
 
-### 4.7 Get Credentials
+### 4.2 Verified-registration spreadsheet download
 
-From the downloaded service account JSON file, note:
-- `client_email` — Your service account email
-- `private_key` — Your private key (includes `-----BEGIN PRIVATE KEY-----` and `-----END PRIVATE KEY-----`)
-- `project_id` — Your project ID
+Google Sheets is not required. An authenticated admin can download all confirmed registrations as an `.xlsx` file from the Registrations screen. The workbook is generated on demand with SheetJS and includes participant details, food preferences, selected events, payment amount, and verification metadata.
 
 ## 5. Environment Variables
 
@@ -157,11 +114,6 @@ SMTP_PORT=587
 SMTP_USER=your-email@gmail.com
 SMTP_PASSWORD=your-gmail-app-password
 EMAIL_FROM=FENIX26 <your-email@gmail.com>
-
-# Google Sheets (paste values from service account JSON) - KEEP
-GOOGLE_CLIENT_EMAIL=your-service-account@project.iam.gserviceaccount.com
-GOOGLE_PRIVATE_KEY="-----BEGIN PRIVATE KEY-----\nYOUR_KEY_HERE\n-----END PRIVATE KEY-----"
-GOOGLE_SHEET_ID=your-google-sheet-id
 
 # Cloudinary (payment screenshot storage)
 CLOUDINARY_CLOUD_NAME=your-cloud-name
@@ -191,7 +143,7 @@ WORKSHOP_RULES=
 
 - **Never commit `.env`** — it's already in `.gitignore`
 - Use `.env.example` as a template
-- Use `\\n` for line breaks in `GOOGLE_PRIVATE_KEY` when setting in `.env`
+- Keep SMTP, Cloudinary, UPI, and JWT credentials private in `.env`
 
 ## 6. Starting the Server
 
@@ -255,7 +207,7 @@ All responses follow a consistent format:
 
 ### POST /api/registrations — Create Registration
 
-**Description:** Creates a new registration, calculates amount server-side, generates QR code, stores in MongoDB and Google Sheets.
+**Description:** Creates a new registration, calculates the amount server-side, generates a QR code, and stores it in MongoDB. Confirmed registrations can be downloaded by an admin as an Excel workbook.
 
 **Request Body:**
 
@@ -760,15 +712,10 @@ MongoDB connection error: ...
 - Check `MONGODB_URI` in `.env`
 - For Atlas: Whitelist your IP address in Atlas network access
 
-### Google Sheets Error
+### Spreadsheet download error
 
-```
-Google Sheets initialization skipped: ...
-```
-
-- Verify `GOOGLE_SHEET_ID` is correct
-- Check service account has access to the sheet
-- Ensure Sheets API is enabled in Cloud Console
+- Sign in to the admin panel again, then download the verified-registration workbook from the Registrations screen.
+- Ensure the backend can reach MongoDB; the workbook is generated directly from confirmed registrations.
 
 ### Email Sending Fails
 

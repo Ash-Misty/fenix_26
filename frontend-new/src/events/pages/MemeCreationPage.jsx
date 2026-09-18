@@ -1,84 +1,35 @@
-import React from 'react';
-import { ArrowRight, Clock3, Globe, House, Phone, Smile, Trophy, UserRound, Wrench } from 'lucide-react';
+import React, { useEffect, useState } from 'react';
+import { Award, Check, ChevronRight, Clock3, House, Laptop, Lightbulb, Menu, MessageCircle, Palette, Phone, Send, ShieldAlert, Smartphone, Sparkles, UserRound, X } from 'lucide-react';
 import { useEventNavigation } from '../components/EventNavigation';
 import './styles/meme-creation.css';
 
-const links = [['Home', 'top'], ['Events', 'events'], ['Workshop', 'workshop'], ['Timeline', 'timeline'], ['Team', 'team'], ['About', 'top']];
-const contacts = [
-  { name: 'Charlin Ashini', phone: '+91 86194 43715', initials: 'CA' },
-  { name: 'Sai Krishna', phone: '+91 87954 32109', initials: 'SK' },
-];
+const contacts = [{ name: 'Charlin Ashini', phone: '+91 86194 43715', initials: 'CA' }, { name: 'Sai Krishna', phone: '+91 87954 32109', initials: 'SK' }];
+const flow = [['Understand the theme', '5 min', Sparkles], ['Create your meme', '20 min', Lightbulb], ['Finalize & submit', '5 min', Send]];
+const rules = ['The theme will be announced on the spot by the organizers.', 'Create an original and humorous meme based on the given theme.', 'Use only permitted tools: Canva, Adobe Photoshop, Mematic, or InShot.', 'Submit the meme within the 30-minute event duration.', 'Keep all content appropriate for a college event.'];
+const prohibited = ['Pre-made or previously prepared memes are not allowed.', 'Copied content and templates submitted as original work are not allowed.', 'AI-generated memes, images, captions, and external AI assistance are prohibited.'];
+const scoring = [['Humor & Wit', 30], ['Relatability', 25], ['Creativity & Originality', 25], ['Visual Presentation', 10], ['Theme & Rule Adherence', 10]];
+
+function Typewriter({ text, onDone }) {
+  const [count, setCount] = useState(0);
+  useEffect(() => { if (count >= text.length) { onDone?.(); return undefined; } const timer = window.setTimeout(() => setCount((current) => current + 1), count ? 65 : 300); return () => window.clearTimeout(timer); }, [count, onDone, text.length]);
+  return <span className={count < text.length ? 'meme-cursor' : ''}>{text.slice(0, count)}</span>;
+}
 
 export function MemeCreationPage() {
   const { goHome, goRegister, goToSection } = useEventNavigation();
-  return (
-    <main className="meme-page">
-      <nav className="meme-nav">
-        <button className="meme-brand" type="button" onClick={() => goToSection('top')}><b>◈</b> FENIX<span>'26</span></button>
-        <div className="meme-nav-links">{links.slice(1, 5).map(([label, id]) => <button type="button" key={id} onClick={() => goToSection(id)}>{label}</button>)}</div>
-        <button className="meme-register" type="button" onClick={goRegister}>REGISTER <ArrowRight size={12} /></button>
-      </nav>
-      <section className="meme-hero" id="top">
-        <button className="meme-back" type="button" onClick={goHome}><House size={12} /> Events</button>
-        <div>
-          <p className="meme-kicker">NON-TECHNICAL EVENT</p>
-          <h1>MEME <span>CREATION</span></h1>
-          <h2>Make People Laugh. Win.</h2>
-          <p>Turn your creativity into comedy. Create the best meme, make it viral and take the crown.</p>
-        </div>
-        <div className="meme-art" aria-hidden="true"><span>🐶</span></div>
-        <div className="meme-stats">
-          <article><UserRound size={15} /><span><small>Format</small><strong>Individual Event</strong></span></article>
-          <article><Clock3 size={15} /><span><small>Duration</small><strong>1–2 Hours</strong></span></article>
-          <article><Globe size={15} /><span><small>Platform</small><strong>Online / Onsite</strong></span></article>
-          <article><Wrench size={15} /><span><small>Tools</small><strong>Any Tool</strong></span></article>
-        </div>
-      </section>
-      <section className="meme-grid">
-        <article className="meme-card">
-          <p className="meme-kicker">Event Overview</p>
-          <h3>EVENT OVERVIEW</h3>
-          <p>Participants will create original memes based on given themes or open topics. Creativity, humor and originality will be judged.</p>
-        </article>
-        <article className="meme-card">
-          <p className="meme-kicker">How to Play</p>
-          <h3>HOW TO PLAY</h3>
-          <ol className="meme-steps">
-            <li><b>1</b> Get your meme / topic</li>
-            <li><b>2</b> Create your meme</li>
-            <li><b>3</b> Submit before deadline</li>
-            <li><b>4</b> Win the best meme</li>
-          </ol>
-        </article>
-        <article className="meme-card">
-          <p className="meme-kicker">Key Rules</p>
-          <h3>KEY RULES</h3>
-          <ul className="meme-rules">
-            <li>Original content only</li>
-            <li>No plagiarized / copied memes</li>
-            <li>Keep it fun and respectful</li>
-            <li>Follow submission guidelines</li>
-          </ul>
-        </article>
-        <article className="meme-card meme-prize">
-          <p className="meme-kicker">Prize Pool</p>
-          <Trophy size={28} color="#f9a8d4" />
-          <strong>₹ 3,000</strong>
-          <span>+ Certificates</span>
-        </article>
-      </section>
-      <div className="meme-quote">Be Creative. Make it Meme-tastic.</div>
-      <button className="meme-cta" type="button" onClick={goRegister}><Smile size={16} /> Register for Meme Creation <ArrowRight size={16} /></button>
-      <section className="meme-help">
-        <div><p className="meme-kicker">Need Help?</p><h2>Have questions about this event?</h2><p>Contact the event coordinators.</p></div>
-        <div className="meme-contacts">{contacts.map((c) => <a href={`tel:${c.phone.replace(/\s/g, '')}`} key={c.phone}><span>{c.initials}</span><strong>{c.name}</strong><small>Event Coordinator<br />{c.phone}</small><Phone size={14} /></a>)}</div>
-      </section>
-      <footer className="meme-footer">
-        <div><strong>◈ FENIX<span>'26</span></strong><p>Rise. Recode. Reign.</p></div>
-        <div><b>QUICK LINKS</b>{links.map(([label, id]) => <button type="button" key={label} onClick={() => goToSection(id)}>{label}</button>)}</div>
-        <div><b>CONTACT US</b>{contacts.map((c) => <p key={c.phone}>{c.name}<br />{c.phone}</p>)}</div>
-        <p className="meme-copy">© 2026 FENIX. All rights reserved.</p>
-      </footer>
-    </main>
-  );
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [titleDone, setTitleDone] = useState(false);
+  const scrollTo = (id) => { setMenuOpen(false); const section = document.getElementById(id); if (section) section.scrollIntoView({ behavior: 'smooth', block: 'start' }); else goToSection(id); };
+  return <main className="meme-page" id="top">
+    <nav className="meme-nav" aria-label="MemeX navigation"><button className="meme-brand" type="button" onClick={() => scrollTo('top')}><span className="meme-brand-icon">✦</span> FENIX<span>'26</span></button><div className="meme-nav-links"><button type="button" onClick={goHome}>Events</button><button type="button" onClick={() => scrollTo('flow')}>Flow</button><button type="button" onClick={() => scrollTo('rules')}>Rules</button><button type="button" onClick={() => scrollTo('contact')}>Contact</button></div><div className="meme-nav-actions"><button className="meme-register" type="button" onClick={goRegister}>REGISTER <ChevronRight size={14} /></button><button className="meme-menu" type="button" onClick={() => setMenuOpen((open) => !open)} aria-label="Toggle navigation" aria-expanded={menuOpen}>{menuOpen ? <X size={18} /> : <Menu size={18} />}</button></div></nav>
+    {menuOpen && <div className="meme-mobile-nav"><button type="button" onClick={goHome}>Events</button><button type="button" onClick={() => scrollTo('flow')}>Flow</button><button type="button" onClick={() => scrollTo('rules')}>Rules</button><button type="button" onClick={() => scrollTo('contact')}>Contact</button></div>}
+    <section className="meme-hero"><button className="meme-back" type="button" onClick={goHome}><House size={13} /> Events</button><div className="meme-hero-copy"><p className="meme-kicker">NON-TECHNICAL · LIVE THEME CHALLENGE</p><h1><Typewriter text="MEMEX" onDone={() => setTitleDone(true)} /></h1><h2>{titleDone ? 'See It. Meme It. Make Them Laugh.' : <span className="meme-subtitle-placeholder">See It. Meme It. Make Them Laugh.</span>}</h2><p>Create an original, creative, and humorous meme from the surprise theme announced by the organizers. Think beyond the template and make the room laugh.</p><div className="meme-chip-row"><span><UserRound size={15} /> Single round</span><span><Clock3 size={15} /> 30 minutes</span></div></div><div className="meme-art"><img src="/images/meme-cats.webp" alt="Funny cat meme mascot" /></div><div className="meme-stats"><article><Laptop size={16} /><span><small>Requirement</small><strong>Laptop / Mobile</strong></span></article><article><Clock3 size={16} /><span><small>Duration</small><strong>30 Minutes</strong></span></article><article><Smartphone size={16} /><span><small>Platform</small><strong>Desktop / Mobile</strong></span></article><article><Palette size={16} /><span><small>Theme</small><strong>Given on the spot</strong></span></article></div></section>
+    <section className="meme-flow meme-panel" id="flow"><h2><span /> Event flow</h2><ol>{flow.map(([label, duration, Icon], index) => <li className="meme-reveal" style={{ animationDelay: `${index * 120}ms` }} key={label}><span className="meme-flow-icon"><Icon size={18} /></span><div><strong>{label}</strong><small>{duration}</small></div>{index < flow.length - 1 && <ChevronRight className="meme-flow-arrow" size={20} />}</li>)}</ol></section>
+    <section className="meme-details-grid"><article className="meme-panel meme-overview"><p className="meme-kicker">Challenge</p><h2>Make an impact in one image.</h2><p>Participants receive a theme on the spot, then create and submit an original meme before time runs out. The surprise theme prevents pre-made entries and puts the spotlight on quick thinking.</p><div className="meme-tool-list"><span><Smartphone size={15} /> Mobile: Mematic, Canva, InShot</span><span><Laptop size={15} /> Desktop: Adobe Photoshop, Canva</span></div></article><article className="meme-panel meme-focus"><p className="meme-kicker">Focus areas</p><h2>What makes a winning meme?</h2><div>{['Humor & Wit', 'Relatability', 'Creativity & Originality', 'Visual Presentation', 'Caption Quality', 'Image / Template Selection', 'Theme Relevance', 'Overall Meme Impact'].map((item) => <span key={item}>{item}</span>)}</div></article></section>
+    <section className="meme-rules-grid"><article className="meme-panel" id="rules"><h2><ShieldAlert size={21} /> Rules</h2><ul className="meme-allowed">{rules.map((rule) => <li key={rule}><i><Check size={13} /></i>{rule}</li>)}</ul></article><article className="meme-panel meme-no-ai"><h2><X size={21} /> Strictly prohibited</h2><ul>{prohibited.map((rule) => <li key={rule}><i><X size={13} /></i>{rule}</li>)}</ul></article></section>
+    <section className="meme-score meme-panel" id="evaluation"><h2><Award size={21} /> Scoring · 100 marks</h2><div className="meme-score-list">{scoring.map(([label, marks], index) => <div key={label}><div><span>{index + 1}</span><strong>{label}</strong><b>{marks} marks</b></div><i><em style={{ width: `${marks * 3.33}%` }} /></i></div>)}</div><p>Winners are ranked by their overall score. The top three participants or teams receive 1st, 2nd, and 3rd place.</p></section>
+    <div className="meme-quote">😂 See It..!! Meme It..!! Make Them Laugh..!! Think Beyond the Template..!!</div><button className="meme-cta" type="button" onClick={goRegister}><MessageCircle size={18} /> Register for MemeX <ChevronRight size={18} /></button>
+    <section className="meme-contact meme-panel" id="contact"><div><p className="meme-kicker">Need help?</p><h2>Have questions about MemeX?</h2><p>Contact the event coordinators for help with the challenge or submission.</p></div><div className="meme-contacts">{contacts.map((contact) => <a href={`tel:${contact.phone.replace(/\s/g, '')}`} key={contact.phone}><span>{contact.initials}</span><strong>{contact.name}</strong><small>Event Coordinator<br />{contact.phone}</small><Phone size={15} /></a>)}</div></section>
+    <footer className="meme-footer"><div><strong><span>✦</span> FENIX<span>'26</span></strong><p>Rise. Recode. Reign.</p></div><div><b>QUICK LINKS</b><button type="button" onClick={() => scrollTo('top')}>Home</button><button type="button" onClick={goHome}>Events</button><button type="button" onClick={() => scrollTo('flow')}>Flow</button><button type="button" onClick={() => scrollTo('rules')}>Rules</button></div><div><b>CONTACT US</b>{contacts.map((contact) => <a href={`tel:${contact.phone.replace(/\s/g, '')}`} key={contact.phone}>{contact.name}<small>{contact.phone}</small></a>)}</div><p className="meme-copy">© 2026 FENIX. All rights reserved.</p></footer>
+  </main>;
 }

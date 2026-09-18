@@ -6,7 +6,7 @@ export const validate = (req, res, next) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     const messages = errors.array().map((e) => `${e.msg}`);
-    logger.warn(`Validation failed: ${messages.join(', ')}`);
+    logger.warn(`Validation failed: ${errors.array().map((e) => `${e.path}: ${e.msg}`).join(', ')}`);
     return res.status(400).json({
       success: false,
       message: 'Validation failed',
@@ -18,12 +18,12 @@ export const validate = (req, res, next) => {
 };
 
 export const validateRegistration = [
-  body('teamName').trim().notEmpty().withMessage('Team name is required').isLength({ min: 2, max: 100 }),
-  body('teamLeader').trim().notEmpty().withMessage('Team leader name is required').isLength({ min: 2, max: 100 }),
-  body('email').trim().notEmpty().withMessage('Email is required').isEmail().normalizeEmail(),
-  body('phone').trim().notEmpty().withMessage('Phone is required').isLength({ min: 10, max: 15 }).matches(/^\d+$/).withMessage('Phone must contain only digits'),
-  body('college').trim().notEmpty().withMessage('College is required').isLength({ min: 2, max: 200 }),
-  body('department').trim().notEmpty().withMessage('Department is required').isLength({ min: 2, max: 200 }),
+  body('teamName').isString().withMessage('Participant or team name must be text').bail().trim().notEmpty().withMessage('A participant or team name is required').isLength({ min: 2, max: 100 }),
+  body('teamLeader').isString().withMessage('Participant or team leader name must be text').bail().trim().notEmpty().withMessage('A participant or team leader name is required').isLength({ min: 2, max: 100 }),
+  body('email').isString().withMessage('Email must be text').bail().trim().notEmpty().withMessage('Email is required').isEmail().withMessage('Enter a valid email address').normalizeEmail(),
+  body('phone').isString().withMessage('Phone number must be text').bail().trim().notEmpty().withMessage('Phone is required').isLength({ min: 10, max: 15 }).matches(/^\d+$/).withMessage('Phone must contain only digits'),
+  body('college').isString().withMessage('College name must be text').bail().trim().notEmpty().withMessage('College is required').isLength({ min: 2, max: 200 }),
+  body('department').isString().withMessage('Department must be text').bail().trim().notEmpty().withMessage('Department is required').isLength({ min: 2, max: 200 }),
   body('year').isInt({ min: 1, max: 5 }).withMessage('Year must be between 1 and 5'),
   body('registrationType').isIn(['Individual', 'Team']).withMessage('Registration type must be Individual or Team'),
 
@@ -34,9 +34,7 @@ export const validateRegistration = [
       }
     }
     if (registrationType === 'Team') {
-      if (!req.body.participants || req.body.participants.length === 0) {
-        throw new Error('At least one participant is required for Team registration');
-      }
+      if (!req.body.participants || req.body.participants.length === 0) throw new Error('Team member names are required');
       if (req.body.participants.length < 2 || req.body.participants.length > 3) {
         throw new Error('Team must have between 2 and 3 participants');
       }
@@ -45,10 +43,8 @@ export const validateRegistration = [
   }),
 
   body('participants').optional().isArray().withMessage('Participants must be an array'),
-  body('participants.*.name').optional().trim().notEmpty().withMessage('Participant name is required'),
-  body('participants.*.email').optional().trim().isEmail().withMessage('Participant email must be valid'),
-  body('participants.*.phone').optional().trim().matches(/^\d{10,15}$/).withMessage('Participant phone must be 10-15 digits'),
-  body('participants.*.year').optional().isInt({ min: 1, max: 5 }).withMessage('Participant year must be between 1 and 5'),
+  body('participants.*.name').optional().isString().withMessage('Participant name must be text').bail().trim().notEmpty().withMessage('Participant name is required'),
+  body('participants.*.foodPreference').optional().isIn(['Vegetarian', 'Non-vegetarian']).withMessage('Each participant needs a food preference'),
 
   body('selectedEvents').isArray({ min: 1 }).withMessage('At least one event must be selected'),
   body('selectedEvents.*').isString().withMessage('Each event must be a string'),
@@ -57,6 +53,14 @@ export const validateRegistration = [
   body('workshops.*').optional().isString().withMessage('Each workshop must be a string'),
 
   body('foodPreference').optional().isIn(['Vegetarian', 'Non-vegetarian']).withMessage('Invalid food preference'),
+  body('foodPreferences').isArray({ min: 1 }).withMessage('Food preference is required for every participant'),
+  body('foodPreferences.*.name').isString().withMessage('Food preference name must be text').bail().trim().notEmpty().withMessage('Food preference name is required'),
+  body('foodPreferences.*.preference').isIn(['Vegetarian', 'Non-vegetarian']).withMessage('Invalid food preference'),
+  body('foodPreferences').custom((preferences, { req }) => {
+    const expectedCount = req.body.registrationType === 'Team' ? req.body.participants?.length : 1;
+    if (preferences.length !== expectedCount) throw new Error('Select a food preference for every participant');
+    return true;
+  }),
 
   body('selectedEvents').custom(async (eventSlugs) => {
     const config = await PricingConfig.findOne();

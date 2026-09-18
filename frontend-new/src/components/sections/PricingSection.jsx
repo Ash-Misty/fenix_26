@@ -17,26 +17,26 @@ export function PricingSection({ setPage }) {
         <Reveal delay={200}>
           <article className="price-card individual-price">
             <p>INDIVIDUAL</p>
-            <strong>₹250</strong>
-            <span className="price-events">Up to 2 Technical + 2 Non-Technical</span>
-            <small>₹300 for more than 2 tech or 2 non-tech events</small>
+            <strong>₹300</strong>
+            <span className="price-events">Up to 2 Technical + 2 Non-Technical events</span>
+            <small>One participant can select a maximum of 2 Technical and 2 Non-Technical events.</small>
           </article>
         </Reveal>
         <Reveal delay={300}>
           <article className="price-card team-price featured">
             <label>MOST POPULAR</label>
-            <p>TEAM</p>
-            <strong>₹450</strong>
-            <span className="price-events">Up to 2 Technical + 2 Non-Technical</span>
-            <small>₹500 for more than 2 tech or 2 non-tech events</small>
+            <p>TEAM (2)</p>
+            <strong>₹550</strong>
+            <span className="price-events">Up to 2 Technical + 2 Non-Technical events</span>
+            <small>One participant can select a maximum of 2 Technical and 2 Non-Technical events.</small>
           </article>
         </Reveal>
         <Reveal delay={400}>
           <article className="price-card team3-price">
             <p>TEAM (3)</p>
-            <strong>₹750</strong>
-            <span className="price-events">Up to 2 Technical + 2 Non-Technical</span>
-            <small>₹800 for more than 2 tech or 2 non-tech events</small>
+            <strong>₹800</strong>
+            <span className="price-events">Up to 2 Technical + 2 Non-Technical events</span>
+            <small>One participant can select a maximum of 2 Technical and 2 Non-Technical events.</small>
           </article>
         </Reveal>
       </div>

@@ -16,12 +16,12 @@ const workshopPricingSchema = new mongoose.Schema({
 });
 
 const pricingConfigSchema = new mongoose.Schema({
-  individualBaseFee: { type: Number, default: 250 },
-  individualExtraFee: { type: Number, default: 50 },
-  team2BaseFee: { type: Number, default: 450 },
-  team2ExtraFee: { type: Number, default: 50 },
-  team3BaseFee: { type: Number, default: 750 },
-  team3ExtraFee: { type: Number, default: 50 },
+  individualBaseFee: { type: Number, default: 300 },
+  individualExtraFee: { type: Number, default: 0 },
+  team2BaseFee: { type: Number, default: 550 },
+  team2ExtraFee: { type: Number, default: 0 },
+  team3BaseFee: { type: Number, default: 800 },
+  team3ExtraFee: { type: Number, default: 0 },
   maxTechPerRegistration: { type: Number, default: 2 },
   maxNonTechPerRegistration: { type: Number, default: 2 },
   events: [eventPricingSchema],

@@ -1,6 +1,14 @@
 import React from 'react';
-import { team } from '../../data';
 import { Reveal } from '../ui/Reveal';
+
+const makers = [
+  ['President', 'Vivekanandan A', '9080737731'], ['President', 'Shobika B', '9150705612'],
+  ['Vice President', 'Divya K', '8637474583'], ['Vice President', 'Vishwanath R', '6369004065'],
+  ['Secretary', 'Santhiya S', '8220367554'], ['Secretary', 'Balaji M', '9361276110'],
+  ['Overall Coordinator', 'Indra Santhoshi B', '6381429220'], ['Overall Coordinator', 'Maha Shree R', '6369546337'],
+  ['Student Coordinator', 'Thirishala M', '7845170667'], ['Student Coordinator', 'Renuga S', '9025766830'],
+  ['Tech Coordinator', 'Muthuraja P', '8489387739'], ['Non Tech Coordinator', 'Sangeetha J', '8270528707'],
+];
 
 export function TeamSection() {
   return (
@@ -24,27 +32,13 @@ export function TeamSection() {
         </Reveal>
       </div>
       <div className="team-grid">
-        <Reveal delay={0}>
-          <article className="person person-president">
-            <div className="avatar president-avatar">
-              <img src="/president.jpeg" alt="President of FENIX'26" />
-            </div>
-            <div>
-              <span className="president-badge">PRESIDENT</span>
-              <h3>Er. Vivekananthan</h3>
-              <p>FENIX'26 President</p>
-              <small>Student Leadership</small>
-            </div>
-          </article>
-        </Reveal>
-        {team.map((p, i) => (
-          <Reveal key={i} delay={(i + 1) * 80}>
-            <article className="person">
-              <div className={'avatar a' + i}>{p.name.slice(1, 2)}</div>
+        {makers.map(([position, name, mobile], index) => (
+          <Reveal key={name} delay={index * 55}>
+            <article className="person maker-card">
               <div>
-                <h3>{p.name}</h3>
-                <p>{p.role}</p>
-                <small>{p.meta}</small>
+                <p>{position}</p>
+                <h3>{name}</h3>
+                <small><a href={`tel:+91${mobile}`}>+91 {mobile}</a></small>
               </div>
             </article>
           </Reveal>

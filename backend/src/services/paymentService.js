@@ -3,6 +3,12 @@ import PricingConfig from '../models/Event.js';
 import { generateUPIPayload } from './qrService.js';
 import logger from '../utils/logger.js';
 
+const REGISTRATION_FEES = Object.freeze({
+  Individual: 300,
+  Team2: 550,
+  Team3: 800,
+});
+
 export async function calculateAmount(selectedEvents = [], workshops = [], registrationType = 'Individual', participantCount = 0) {
   try {
     const config = await PricingConfig.findOne();
@@ -15,6 +21,8 @@ export async function calculateAmount(selectedEvents = [], workshops = [], regis
       eventMap.set(e.slug, e);
     });
 
+    // Event choices are included in the registration fee. They must never alter
+    // the QR amount, even if a legacy pricing record has an event base price.
     let totalAmount = 0;
     const eventDetails = [];
 
@@ -26,12 +34,11 @@ export async function calculateAmount(selectedEvents = [], workshops = [], regis
       if (!event.isActive) {
         throw new Error(`Event is not active: ${slug}`);
       }
-      totalAmount += event.basePrice;
       eventDetails.push({
         eventId: event.slug,
         eventName: event.name,
         category: event.category,
-        amount: event.basePrice,
+        amount: 0,
       });
     }
 
@@ -55,14 +62,18 @@ export async function calculateAmount(selectedEvents = [], workshops = [], regis
     const nonTechCount = eventDetails.filter((e) => e.category === 'Non-Technical').length;
     const exceedsLimit = techCount > config.maxTechPerRegistration || nonTechCount > config.maxNonTechPerRegistration;
 
+    if (exceedsLimit) {
+      throw new Error(`A registration can include up to ${config.maxTechPerRegistration} Technical and ${config.maxNonTechPerRegistration} Non-Technical events`);
+    }
+
     let registrationFee = 0;
     if (registrationType === 'Individual') {
-      registrationFee = exceedsLimit ? config.individualBaseFee + config.individualExtraFee : config.individualBaseFee;
+      registrationFee = REGISTRATION_FEES.Individual;
     } else if (registrationType === 'Team') {
       if (participantCount === 2) {
-        registrationFee = exceedsLimit ? config.team2BaseFee + config.team2ExtraFee : config.team2BaseFee;
+        registrationFee = REGISTRATION_FEES.Team2;
       } else if (participantCount === 3) {
-        registrationFee = exceedsLimit ? config.team3BaseFee + config.team3ExtraFee : config.team3BaseFee;
+        registrationFee = REGISTRATION_FEES.Team3;
       } else {
         throw new Error('Team registration must have exactly 2 or 3 participants');
       }

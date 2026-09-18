@@ -312,3 +312,20 @@
     padding: 16px
   }
 }
+
+/* Give every event its own accent while preserving the technical/non-technical grouping. */
+.event-card { --event-accent: var(--gold); --event-rgb: 255,176,32; }
+.event-card.blue { --event-accent: #62a9ff; --event-rgb: 98,169,255; }
+.event-card.violet { --event-accent: #af87ff; --event-rgb: 175,135,255; }
+.event-card.cyan { --event-accent: #52d9ed; --event-rgb: 82,217,237; }
+.event-card-tech.pink { --event-accent: #f98ccb; --event-rgb: 249,140,203; }
+.event-card.orange { --event-accent: #ff9a4f; --event-rgb: 255,154,79; }
+.event-card.purple { --event-accent: #c07cff; --event-rgb: 192,124,255; }
+.event-card-nontech.pink { --event-accent: #ff7288; --event-rgb: 255,114,136; }
+.event-card.yellow { --event-accent: #f5d65c; --event-rgb: 245,214,92; }
+.event-card.blue,.event-card.violet,.event-card.cyan,.event-card-tech.pink,.event-card.orange,.event-card.purple,.event-card-nontech.pink,.event-card.yellow { border-color:rgba(var(--event-rgb),.48); background:linear-gradient(145deg,rgba(var(--event-rgb),.17),rgba(5,3,3,.76) 68%); }
+.event-card.blue::before,.event-card.violet::before,.event-card.cyan::before,.event-card-tech.pink::before,.event-card.orange::before,.event-card.purple::before,.event-card-nontech.pink::before,.event-card.yellow::before { background:linear-gradient(90deg,transparent,var(--event-accent),transparent); }
+.event-card.blue:hover,.event-card.violet:hover,.event-card.cyan:hover,.event-card-tech.pink:hover,.event-card.orange:hover,.event-card.purple:hover,.event-card-nontech.pink:hover,.event-card.yellow:hover { border-color:var(--event-accent); box-shadow:0 20px 50px rgba(var(--event-rgb),.22); }
+.event-card .event-icon { color:var(--event-accent); text-shadow:0 0 15px rgba(var(--event-rgb),.35); }
+.event-card .category-indicator { border-color:rgba(var(--event-rgb),.55); color:var(--event-accent); }
+.event-card .details-link:hover { color:var(--event-accent); border-color:rgba(var(--event-rgb),.65); }

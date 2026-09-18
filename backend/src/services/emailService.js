@@ -1,6 +1,16 @@
 import { sendEmail } from '../config/mail.js';
 import logger from '../utils/logger.js';
 
+const detailsList = (registration) => registration.foodPreferences?.map((item) => `${item.name}: ${item.preference}`).join('<br>') || registration.foodPreference;
+
+export async function sendRegistrationPendingEmail(registration) {
+  const html = `
+<!DOCTYPE html><html><body style="font-family:Arial,sans-serif;background:#050303;color:#f1e1d6;padding:32px;line-height:1.7"><div style="max-width:600px;margin:auto"><p style="display:inline-block;padding:4px 12px;background:#3f2c09;color:#fbbf24;border-radius:4px;font-weight:700">UNDER VERIFICATION</p><h1 style="color:#fbbf24">Registration received</h1><p>We received your payment screenshot for registration <strong>${registration.registrationId}</strong>.</p><p>Your registration is under verification. Our team will contact you after review.</p><p><strong>Amount:</strong> ₹${registration.totalAmount}</p><p style="color:#a8a29e;font-size:.85rem">This is an automated FENIX'26 message. Please do not reply.</p></div></body></html>`.trim();
+  await sendEmail(registration.email, `FENIX'26 registration under verification — ${registration.registrationId}`, html);
+  logger.info(`Pending registration email sent to ${registration.email}`);
+  return true;
+}
+
 export async function sendConfirmationEmail(registration) {
   try {
     const eventsList = registration.selectedEvents
@@ -30,7 +40,7 @@ export async function sendConfirmationEmail(registration) {
 <body>
 <div class="container">
   <p class="badge">FENIX26 Symposium</p>
-  <h1>Registration Confirmation</h1>
+  <h1>Registration successfully confirmed</h1>
 
   <div class="detail"><span class="label">Registration ID</span><br><span class="value">${registration.registrationId}</span></div>
   <div class="detail"><span class="label">Team Name</span><br><span class="value">${registration.teamName}</span></div>
@@ -39,8 +49,8 @@ export async function sendConfirmationEmail(registration) {
   <div class="detail"><span class="label">Selected Events</span><br>${eventsList}</div>
   <div class="detail"><span class="label">Selected Workshops</span><br>${workshopsList}</div>
   <div class="detail"><span class="label">Total Amount</span><br><span class="value">₹${registration.totalAmount}</span></div>
-  <div class="detail"><span class="label">Payment Status</span><br><span class="status ${registration.payment.status === 'verified' ? 'verified' : 'pending'}">${registration.payment.status.replace('_', ' ')}</span></div>
-  <div class="detail"><span class="label">Registration Status</span><br><span class="value">${registration.registrationStatus.replace('_', ' ')}</span></div>
+  <div class="detail"><span class="label">Payment Status</span><br><span class="status verified">Verified</span></div>
+  <div class="detail"><span class="label">Registration Status</span><br><span class="value">Confirmed</span></div>
 
   ${(process.env.WORKSHOP_RULES || '') ? `<div class="rules"><h3>Important Instructions / Rules</h3><p>${process.env.WORKSHOP_RULES}</p></div>` : ''}
 
@@ -50,7 +60,7 @@ export async function sendConfirmationEmail(registration) {
 </html>
     `.trim();
 
-    await sendEmail(registration.email, 'FENIX26 — Registration Confirmation', html);
+    await sendEmail(registration.email, `FENIX'26 registration confirmed — ${registration.registrationId}`, html);
     logger.info(`Confirmation email sent to ${registration.email}`);
     return true;
   } catch (err) {
@@ -85,20 +95,26 @@ export async function sendAdminNotification(registration) {
 </style></head>
 <body>
 <div class="container">
-  <h1>New FENIX26 Registration Confirmed</h1>
+  <h1>New FENIX26 Registration needs verification</h1>
   <div class="detail"><span class="label">Registration ID</span><br><span class="value">${registration.registrationId}</span></div>
-  <div class="detail"><span class="label">Team</span><br><span class="value">${registration.teamName}</span></div>
+  <div class="detail"><span class="label">Registration type</span><br><span class="value">${registration.registrationType}</span></div>
+  <div class="detail"><span class="label">Team / participant</span><br><span class="value">${registration.teamName}</span></div>
+  <div class="detail"><span class="label">Members</span><br><span class="value">${registration.participants?.map((participant) => participant.name).join(', ') || registration.teamLeader}</span></div>
   <div class="detail"><span class="label">College</span><br><span class="value">${registration.college}</span></div>
+  <div class="detail"><span class="label">Department / year</span><br><span class="value">${registration.department} / ${registration.year}</span></div>
   <div class="detail"><span class="label">Email</span><br><span class="value">${registration.email}</span></div>
+  <div class="detail"><span class="label">Mobile</span><br><span class="value">${registration.phone}</span></div>
+  <div class="detail"><span class="label">Food preferences</span><br><span class="value">${detailsList(registration)}</span></div>
   <div class="detail"><span class="label">Amount</span><br><span class="value">₹${registration.totalAmount}</span></div>
   <div class="detail"><span class="label">Payment Status</span><br><span class="status-verified">${registration.payment.status.replace('_', ' ')}</span></div>
   <div class="detail"><span class="label">Events</span><br>${eventsList}</div>
+  <div class="detail"><span class="label">Payment screenshot</span><br>${registration.payment.screenshotUrl ? `<a href="${registration.payment.screenshotUrl}" style="color:#fbbf24">View screenshot</a>` : 'Unavailable'}</div>
 </div>
 </body>
 </html>
     `.trim();
 
-    await sendEmail(adminEmail, 'New FENIX26 Registration Confirmed', html);
+    await sendEmail(adminEmail, `FENIX'26 payment review required — ${registration.registrationId}`, html);
     logger.info(`Admin notification email sent to ${adminEmail}`);
     return true;
   } catch (err) {

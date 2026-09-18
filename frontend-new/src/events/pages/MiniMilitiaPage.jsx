@@ -1,83 +1,24 @@
-import React from 'react';
-import { ArrowRight, Clock3, Gamepad2, House, MonitorSmartphone, Phone, Trophy, UserRound } from 'lucide-react';
+import { useState } from 'react';
+import { Check, ChevronRight, Crosshair, Gamepad2, Menu, Phone, Smartphone, Swords, Target, Timer, Trophy, Users, Wifi, X } from 'lucide-react';
 import { useEventNavigation } from '../components/EventNavigation';
 import './styles/mini-military.css';
 
-const links = [['Home', 'top'], ['Events', 'events'], ['Workshop', 'workshop'], ['Timeline', 'timeline'], ['Team', 'team'], ['About', 'top']];
-const contacts = [
-  { name: 'Charlin Ashini', phone: '+91 86194 43715', initials: 'CA' },
-  { name: 'Sai Krishna', phone: '+91 87954 32109', initials: 'SK' },
-];
+const stages = [['Briefing', '5 min', Users], ['Qualifying / group matches', '20–25 min', Crosshair], ['Final / sudden death', '10–15 min', Trophy]];
+const allowed = ['Squad of 2–4 members', 'Official Mini Militia / Doodle Army 2 app only', 'Standard weapons only, unless a special round is announced', 'Organisers’ hotspot for every match', 'One restart for a genuine connection issue, at organisers’ discretion'];
+const forbidden = ['Hacks, mods, modified APKs, scripts, or third-party tools', 'Aim-assist and wall-hack tools', 'Any rule violation — immediate disqualification'];
 
 export function MiniMilitiaPage() {
-  const { goRegister, goToSection } = useEventNavigation();
-  return (
-    <main className="mm-page">
-      <nav className="mm-nav">
-        <button className="mm-brand" type="button" onClick={() => goToSection('top')}><b>◈</b> FENIX<span>'26</span></button>
-        <div className="mm-nav-links">{links.slice(1, 5).map(([label, id]) => <button type="button" key={id} onClick={() => goToSection(id)}>{label}</button>)}</div>
-        <button className="mm-register" type="button" onClick={goRegister}>REGISTER <ArrowRight size={12} /></button>
-      </nav>
-      <section className="mm-hero" id="top">
-        <button className="mm-back" type="button" onClick={() => { window.location.hash = '#/events/game-event'; }}><House size={12} /> Game Events</button>
-        <div>
-          <p className="mm-kicker">GAME EVENT · CHILD ARENA</p>
-          <h1>MINI <span>MILITARY</span></h1>
-          <h2>Small Squad. Big Battles.</h2>
-          <p>Gear up, strategize and outplay your opponents in this action-packed mini military showdown. Tactics, teamwork and quick thinking win the war!</p>
-        </div>
-        <div className="mm-art" aria-hidden="true"><Gamepad2 size={72} /></div>
-        <div className="mm-stats">
-          <article><UserRound size={15} /><span><small>Team Event</small><strong>2–4 Members</strong></span></article>
-          <article><MonitorSmartphone size={15} /><span><small>Platform</small><strong>Mobile / PC</strong></span></article>
-          <article><Clock3 size={15} /><span><small>Duration</small><strong>2–3 Hours</strong></span></article>
-          <article><Trophy size={15} /><span><small>Format</small><strong>Combat Rounds</strong></span></article>
-        </div>
-      </section>
-      <section className="mm-grid">
-        <article className="mm-card">
-          <p className="mm-kicker">Event Overview</p>
-          <h3>EVENT OVERVIEW</h3>
-          <p>Teams will compete in fast-paced combat rounds with limited resources. Use strategy, coordination and skill to eliminate the enemy and win.</p>
-        </article>
-        <article className="mm-card">
-          <p className="mm-kicker">How to Play</p>
-          <h3>HOW TO PLAY</h3>
-          <ol className="mm-steps">
-            <li><b>1</b> Join your squad</li>
-            <li><b>2</b> Enter the arena</li>
-            <li><b>3</b> Eliminate opponents</li>
-            <li><b>4</b> Be the last standing</li>
-          </ol>
-        </article>
-        <article className="mm-card">
-          <p className="mm-kicker">Key Rules</p>
-          <h3>KEY RULES</h3>
-          <ul className="mm-rules">
-            <li>No use of unfair cheats or hacks</li>
-            <li>Team coordination is mandatory</li>
-            <li>Respect all participants</li>
-          </ul>
-        </article>
-        <article className="mm-card mm-prize">
-          <p className="mm-kicker">Prize Pool</p>
-          <Trophy size={28} color="#7dff9a" />
-          <strong>₹ 4,000</strong>
-          <span>+ Certificates</span>
-        </article>
-      </section>
-      <div className="mm-quote">Small Team. Giant Moves.</div>
-      <button className="mm-cta" type="button" onClick={goRegister}><Trophy size={16} /> Register for Mini Military <ArrowRight size={16} /></button>
-      <section className="mm-help">
-        <div><p className="mm-kicker">Need Help?</p><h2>Have questions about this event?</h2><p>Contact the event coordinators.</p></div>
-        <div className="mm-contacts">{contacts.map((c) => <a href={`tel:${c.phone.replace(/\s/g, '')}`} key={c.phone}><span>{c.initials}</span><strong>{c.name}</strong><small>Event Coordinator<br />{c.phone}</small><Phone size={14} /></a>)}</div>
-      </section>
-      <footer className="mm-footer">
-        <div><strong>◈ FENIX<span>'26</span></strong><p>Rise. Recode. Reign.</p></div>
-        <div><b>QUICK LINKS</b>{links.map(([label, id]) => <button type="button" key={label} onClick={() => goToSection(id)}>{label}</button>)}</div>
-        <div><b>CONTACT US</b>{contacts.map((c) => <p key={c.phone}>{c.name}<br />{c.phone}</p>)}</div>
-        <p className="mm-copy">© 2026 FENIX. All rights reserved.</p>
-      </footer>
-    </main>
-  );
+  const { goHome, goRegister } = useEventNavigation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const jump = (id) => { setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+  return <main className="mmx-page">
+    <header className="mmx-nav"><button className="mmx-brand" type="button" onClick={() => jump('mmx-home')}><img src="/images/fenix-mini-logo.jpeg" alt="" /><b>FENIX<i>'26</i></b><small>Game Fest</small></button><nav className={menuOpen ? 'open' : ''} aria-label="Mini Militia navigation"><button type="button" onClick={() => jump('mmx-home')}>Home</button><button type="button" onClick={() => jump('mmx-format')}>Format</button><button type="button" onClick={() => jump('mmx-rules')}>Rules</button><button type="button" onClick={() => jump('mmx-score')}>Score</button></nav><button className="mmx-register" type="button" onClick={goRegister}>Register now</button><button className="mmx-menu" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((open) => !open)}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button></header>
+    <section className="mmx-hero" id="mmx-home"><div className="mmx-hero-background" aria-hidden="true" /><div className="mmx-copy"><p className="mmx-featured"><i /> Squad battle</p><h1>MINI<br /><span>MILITIA</span></h1><h2>Drop in. <b>Frag out.</b> Dominate.</h2><div className="mmx-badges"><span><Users size={16} /> Squad · 2–4 members</span><span><Smartphone size={16} /> Smartphone + app</span><span><Timer size={16} /> 30–45 minutes</span></div><div className="mmx-hero-actions"><button type="button" onClick={goRegister}>Register now</button><button type="button" onClick={() => jump('mmx-rules')}>View rules</button></div></div><div className="mmx-soldier"><div /><img src="/images/mini-militia-soldier.png" alt="Mini Militia soldier mascot" /></div></section>
+    <section className="mmx-ticker" aria-label="Event highlights"><div>{['Knockout / battle format', 'Highest kill count', 'Final sudden death', '₹50 non-FENIX entry', 'Winner ₹1,000', 'Runner-up ₹500'].concat(['Knockout / battle format', 'Highest kill count', 'Final sudden death', '₹50 non-FENIX entry', 'Winner ₹1,000', 'Runner-up ₹500']).map((item, index) => <span key={`${item}-${index}`}><Crosshair size={15} />{item}</span>)}</div></section>
+    <section className="mmx-flow" id="mmx-format"><header><span><Swords size={20} /></span><h2>Tournament format</h2></header><p className="mmx-section-copy">Multi-round knockout / battle format based on the number of teams. Highest kill count and match score advance to the final.</p><ol>{stages.map(([name, duration, Icon], index) => <li key={name}><article><span className="mmx-step-icon"><Icon size={24} /><b>{index + 1}</b></span><strong>{name}</strong><small>{duration}</small></article>{index < stages.length - 1 && <ChevronRight className="mmx-arrow" size={20} />}</li>)}</ol></section>
+    <section className="mmx-rules" id="mmx-rules"><article className="mmx-rule-card"><header><span><Gamepad2 size={20} /></span><h2>Match rules</h2></header><div className="mmx-rule-lists"><ul>{allowed.map((rule) => <li key={rule}><i><Check size={15} /></i>{rule}</li>)}</ul><ul>{forbidden.map((rule) => <li key={rule}><i className="no"><X size={15} /></i>{rule}</li>)}</ul></div></article><aside><span><Wifi size={28} /></span><h3>Entry note</h3><p>FENIX’26 registrants can play. Participants not registered for FENIX’26 may join with an additional ₹50 entry fee.</p></aside></section>
+    <section className="mmx-score" id="mmx-score"><div><p className="mmx-featured"><i /> Scoring</p><h2>Earn every frag.</h2><div className="mmx-score-tags">{['Kill count / elimination score', 'Match wins', 'Survival time', 'Accuracy & aim', 'Strategy & map positioning', 'Teamwork'].map((item) => <span key={item}>{item}</span>)}</div><p>Points are awarded for kills and match performance. Bonus points may apply for survival and match wins. Cumulative score out of 100 determines the final standings.</p></div><div className="mmx-prizes"><div><small>🥇 Winner</small><strong>₹1,000</strong></div><div><small>🥈 Runner-up</small><strong>₹500</strong></div></div></section>
+    <button className="mmx-cta" type="button" onClick={goRegister}>Register your squad <ChevronRight size={18} /></button>
+    <footer className="mmx-footer"><div><button className="mmx-brand" type="button" onClick={goHome}><img src="/images/fenix-mini-logo.jpeg" alt="" /><b>FENIX<i>'26</i></b><small>Game Fest</small></button><p>Drop In..!! Frag Out..!! Dominate the Battlefield..!!</p><div className="mmx-footer-links"><button type="button" onClick={() => jump('mmx-home')}>Home</button><button type="button" onClick={() => jump('mmx-format')}>Format</button><button type="button" onClick={() => jump('mmx-rules')}>Rules</button><button type="button" onClick={() => jump('mmx-score')}>Score</button></div></div><div className="mmx-event-contact"><h3>Contact</h3><a href="tel:+918270528707"><b>Sangeetha J</b><small><Phone size={13} /> +91 82705 28707</small></a><a href="tel:+916381429220"><b>Indra Santhoshi B</b><small><Phone size={13} /> +91 63814 29220</small></a></div><small className="mmx-copyright">© 2026 FENIX'26 Game Fest. All rights reserved.</small></footer>
+  </main>;
 }

@@ -3,8 +3,8 @@ import { Reveal } from '../ui/Reveal';
 
 const timeline = [
   ['NOW', 'Registrations open'],
-  ['SEP 25', 'Registration deadline'],
-  ['OCT 06', 'Workshop day'],
+  ['06 OCT', 'Registration deadline'],
+  ['07 OCT', 'Workshop day'],
   ['OCT 07', 'FENIX\u201926'],
   ['OCT 07', 'Prize distribution'],
 ];

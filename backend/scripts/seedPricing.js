@@ -21,6 +21,7 @@ const workshops = [
   { slug: 'ai-workshop', name: 'AI Workshop', price: 100, isActive: true },
   { slug: 'web-dev-workshop', name: 'Web Development Workshop', price: 100, isActive: true },
   { slug: 'cybersecurity-workshop', name: 'Cybersecurity Workshop', price: 100, isActive: true },
+  { slug: 'data-science-ai-technology', name: 'Data Science with AI Technology', price: 100, isActive: true },
 ];
 
 async function seedPricing() {
@@ -32,12 +33,12 @@ async function seedPricing() {
     console.log('Existing PricingConfig documents deleted');
 
     const pricingConfig = new PricingConfig({
-      individualBaseFee: 250,
-      individualExtraFee: 50,
-      team2BaseFee: 450,
-      team2ExtraFee: 50,
-      team3BaseFee: 750,
-      team3ExtraFee: 50,
+      individualBaseFee: 300,
+      individualExtraFee: 0,
+      team2BaseFee: 550,
+      team2ExtraFee: 0,
+      team3BaseFee: 800,
+      team3ExtraFee: 0,
       maxTechPerRegistration: 2,
       maxNonTechPerRegistration: 2,
       events,

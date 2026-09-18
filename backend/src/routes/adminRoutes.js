@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import rateLimit from 'express-rate-limit';
-import { loginAdmin, getRegistrations, getRegistrationById, createAdmin, initAdmin, getContacts, updateContactStatus } from '../controllers/adminController.js';
+import { loginAdmin, getRegistrations, getRegistrationById, downloadVerifiedRegistrations, createAdmin, initAdmin, getContacts, updateContactStatus } from '../controllers/adminController.js';
 import { authMiddleware } from '../middleware/auth.js';
 import { validateAdminLogin } from '../middleware/validation.js';
 
@@ -194,6 +194,7 @@ const loginLimiter = rateLimit({
 
 router.post('/login', loginLimiter, validateAdminLogin, loginAdmin);
 router.get('/registrations', authMiddleware, getRegistrations);
+router.get('/registrations/export.xlsx', authMiddleware, downloadVerifiedRegistrations);
 router.get('/registrations/:registrationId', authMiddleware, getRegistrationById);
 router.post('/init', initAdmin);
 router.post('/create', authMiddleware, createAdmin);

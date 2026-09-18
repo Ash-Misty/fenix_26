@@ -1,84 +1,40 @@
-import React from 'react';
-import { ArrowRight, Clock3, House, Map, MapPin, Phone, Trophy, UserRound } from 'lucide-react';
+import { useState } from 'react';
+import { Check, Flag, Flame, MapPin, Menu, Phone, Shield, Trophy, Users, X } from 'lucide-react';
 import { useEventNavigation } from '../components/EventNavigation';
 import './styles/treasure-hunt.css';
 
-const links = [['Home', 'top'], ['Events', 'events'], ['Workshop', 'workshop'], ['Timeline', 'timeline'], ['Team', 'team'], ['About', 'top']];
-const contacts = [
-  { name: 'Charlin Ashini', phone: '+91 86194 43715', initials: 'CA' },
-  { name: 'Sai Krishna', phone: '+91 87954 32109', initials: 'SK' },
-];
+const PATH = [['Rules & First Clue · 5 min', Flag], ['Clue Hunting & Challenges · 45 min', MapPin], ['Final Treasure & Submission · 10 min', Trophy]];
+const DOS = ['Use observation, logical thinking, and problem-solving skills', 'Work together with clear communication and quick decisions', 'Manage time creatively while following organizer instructions', 'Keep every clue in its original condition and location'];
+const DONTS = ['Do not damage, remove, or share clues', 'No unfair or external assistance', 'Do not interfere with other participants'];
+const CONTACTS = [{ name: 'Aarya Sharma', role: 'Event Head', phone: '+91 98123 42233' }, { name: 'Rohan Nette', role: 'Coordinator', phone: '+91 87641 22104' }];
 
 export function TreasureHuntPage() {
-  const { goHome, goRegister, goToSection } = useEventNavigation();
+  const [menuOpen, setMenuOpen] = useState(false);
+  const { goHome, goRegister } = useEventNavigation();
+  const jump = (id) => { setMenuOpen(false); document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' }); };
+
   return (
-    <main className="th-page">
-      <nav className="th-nav">
-        <button className="th-brand" type="button" onClick={() => goToSection('top')}><b>◈</b> FENIX<span>'26</span></button>
-        <div className="th-nav-links">{links.slice(1, 5).map(([label, id]) => <button type="button" key={id} onClick={() => goToSection(id)}>{label}</button>)}</div>
-        <button className="th-register" type="button" onClick={goRegister}>REGISTER <ArrowRight size={12} /></button>
-      </nav>
-      <section className="th-hero" id="top">
-        <button className="th-back" type="button" onClick={goHome}><House size={12} /> Events</button>
-        <div>
-          <p className="th-kicker">NON-TECHNICAL EVENT</p>
-          <h1>TREASURE <span>HUNT</span></h1>
-          <h2>Follow the Clues. Find the Treasure.</h2>
-          <p>Solve riddles, crack clues and navigate through hidden locations to find the ultimate treasure. Are you ready for the hunt?</p>
-        </div>
-        <div className="th-art" aria-hidden="true"><span>🗝</span></div>
-        <div className="th-stats">
-          <article><UserRound size={15} /><span><small>Team Event</small><strong>2–4 Members</strong></span></article>
-          <article><Clock3 size={15} /><span><small>Duration</small><strong>1.5–2 Hours</strong></span></article>
-          <article><MapPin size={15} /><span><small>Venue</small><strong>Indoor / Outdoor</strong></span></article>
-          <article><Map size={15} /><span><small>Campus</small><strong>College Grounds</strong></span></article>
-        </div>
-      </section>
-      <section className="th-grid">
-        <article className="th-card">
-          <p className="th-kicker">Event Overview</p>
-          <h3>EVENT OVERVIEW</h3>
-          <p>Teams will receive a series of clues and riddles. Solve them, complete challenges and reach the final location to find the treasure.</p>
-        </article>
-        <article className="th-card">
-          <p className="th-kicker">How to Play</p>
-          <h3>HOW TO PLAY</h3>
-          <ol className="th-steps">
-            <li><b>1</b> Collect your first clue</li>
-            <li><b>2</b> Solve riddles & puzzles</li>
-            <li><b>3</b> Complete challenges</li>
-            <li><b>4</b> Reach the final location</li>
-          </ol>
-        </article>
-        <article className="th-card">
-          <p className="th-kicker">Key Rules</p>
-          <h3>KEY RULES</h3>
-          <ul className="th-rules">
-            <li>Teams must stay together</li>
-            <li>No external help or cheating</li>
-            <li>Keep the event area clean</li>
-            <li>Follow the given time limit</li>
-          </ul>
-        </article>
-        <article className="th-card th-prize">
-          <p className="th-kicker">Prize Pool</p>
-          <Trophy size={28} color="#ffe08a" />
-          <strong>₹ 4,000</strong>
-          <span>+ Certificates</span>
-        </article>
-      </section>
-      <div className="th-quote">Find the clues. Uncover the truth.</div>
-      <button className="th-cta" type="button" onClick={goRegister}><Trophy size={16} /> Register for Treasure Hunt <ArrowRight size={16} /></button>
-      <section className="th-help">
-        <div><p className="th-kicker">Need Help?</p><h2>Have questions about this event?</h2><p>Contact the event coordinators.</p></div>
-        <div className="th-contacts">{contacts.map((c) => <a href={`tel:${c.phone.replace(/\s/g, '')}`} key={c.phone}><span>{c.initials}</span><strong>{c.name}</strong><small>Event Coordinator<br />{c.phone}</small><Phone size={14} /></a>)}</div>
-      </section>
-      <footer className="th-footer">
-        <div><strong>◈ FENIX<span>'26</span></strong><p>Rise. Recode. Reign.</p></div>
-        <div><b>QUICK LINKS</b>{links.map(([label, id]) => <button type="button" key={label} onClick={() => goToSection(id)}>{label}</button>)}</div>
-        <div><b>CONTACT US</b>{contacts.map((c) => <p key={c.phone}>{c.name}<br />{c.phone}</p>)}</div>
-        <p className="th-copy">© 2026 FENIX. All rights reserved.</p>
-      </footer>
+    <main className="thx-page">
+      <div className="thx-glow thx-glow-one" aria-hidden="true" /><div className="thx-glow thx-glow-two" aria-hidden="true" />
+      <div className="thx-shell">
+        <header className="thx-nav">
+          <button className="thx-brand" type="button" onClick={goHome}><img src="/images/treasure-hunt-logo.jpg" alt="" /><span>FENIX<i>'26</i></span></button>
+          <nav className={menuOpen ? 'open' : ''} aria-label="Treasure Hunt navigation"><button type="button" onClick={goHome}>Home</button><button className="active" type="button" onClick={() => jump('thx-path')}>Events</button><button type="button" onClick={() => jump('thx-contact')}>Contact</button></nav>
+          <button className="thx-register" type="button" onClick={goRegister}>Register now</button>
+          <button className="thx-menu" type="button" aria-label="Toggle menu" aria-expanded={menuOpen} onClick={() => setMenuOpen((value) => !value)}>{menuOpen ? <X size={20} /> : <Menu size={20} />}</button>
+        </header>
+
+        <section className="thx-hero" id="thx-home">
+          <div className="thx-copy"><p><Flame size={14} /> Mega event</p><h1>TREASURE<br />HUNT</h1><h2>Single-round clue-solving &amp; treasure hunting challenge.</h2><span><Users size={16} /> Team Event · 60 Minutes</span></div>
+          <div className="thx-hero-image"><img src="/images/treasure-hunt-hero.png" alt="Treasure map, compass, and an open chest of gold" /></div>
+        </section>
+
+        <section className="thx-path" id="thx-path"><h2>Three-Stage Hunt Path</h2><ol>{PATH.map(([label, Icon], index) => <li key={label}><div className={index === PATH.length - 1 ? 'end' : ''}><Icon size={20} /></div><span>{label}</span>{index < PATH.length - 1 && <i aria-hidden="true" />}</li>)}</ol></section>
+
+        <section className="thx-rules"><article><header><span><Shield size={20} /></span><h2>Focus &amp; Rules</h2></header><div><ul>{DOS.map((rule) => <li key={rule}><i><Check size={14} /></i>{rule}</li>)}</ul><ul>{DONTS.map((rule) => <li key={rule}><i className="no"><X size={14} /></i>{rule}</li>)}</ul></div></article><aside><span><Trophy size={24} /></span><h2>Evaluation &amp; Winners</h2><p>Scores out of 100 consider clues solved, accuracy, completion time, and discovering the treasure. The top three teams are awarded.</p></aside></section>
+
+        <footer className="thx-footer" id="thx-contact"><div><button className="thx-brand" type="button" onClick={goHome}><img src="/images/treasure-hunt-logo.jpg" alt="" /><span>FENIX<i>'26</i></span></button><p>The annual techno-cultural fest. Chase the clues, crack the mystery, and claim the treasure.</p></div><div className="thx-footer-links"><h3>Quick links</h3><button type="button" onClick={goHome}>Home</button><button type="button" onClick={() => jump('thx-path')}>Hunt path</button><button type="button" onClick={() => jump('thx-contact')}>Contact</button></div><div><h3>Contact</h3><ul>{CONTACTS.map((contact) => <li key={contact.name}><b>{contact.name.split(' ').map((part) => part[0]).join('')}</b><span><strong>{contact.name}</strong><small><Phone size={12} /> {contact.phone}</small></span></li>)}</ul></div><div className="thx-copyline">© 2026 FENIX. All rights reserved.<span>Crafted for the thrill of the hunt.</span></div></footer>
+      </div>
     </main>
   );
 }

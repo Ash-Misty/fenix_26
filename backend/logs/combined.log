@@ -532,3 +532,48 @@
 {"level":"error","message":"Google Sheets initialization error: request to https://www.googleapis.com/oauth2/v4/token failed, reason: getaddrinfo ENOTFOUND www.googleapis.com","service":"fenix-26-backend","timestamp":"2026-09-15 23:27:11"}
 {"level":"warn","message":"Google Sheets initialization skipped: request to https://www.googleapis.com/oauth2/v4/token failed, reason: getaddrinfo ENOTFOUND www.googleapis.com","service":"fenix-26-backend","timestamp":"2026-09-15 23:27:11"}
 {"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-15 23:27:11"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 00:10:27"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 00:10:27"}
+{"level":"info","message":"Registration created: F26-2026-000008","service":"fenix-26-backend","timestamp":"2026-09-18 00:12:14"}
+{"level":"info","message":"Screenshot uploaded to Cloudinary: fenix26/payments/payment-screenshot-F26-2026-000008-1789670591933-33mi08 for F26-2026-000008","service":"fenix-26-backend","timestamp":"2026-09-18 00:13:15"}
+{"level":"info","message":"Payment screenshot uploaded for F26-2026-000008, status=PENDING_VERIFICATION","service":"fenix-26-backend","timestamp":"2026-09-18 00:13:15"}
+{"level":"info","message":"SMTP server ready for messages","service":"fenix-26-backend","timestamp":"2026-09-18 00:13:17"}
+{"level":"info","message":"Email sent to lutjan26@gmail.com: <06215d52-990d-7fd0-fa19-d2de177b0b76@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 00:13:20"}
+{"level":"info","message":"Pending registration email sent to lutjan26@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 00:13:20"}
+{"level":"info","message":"Email sent to charlinashini@gmail.com: <fc2f0029-99f1-eabb-63a0-584e1e85643b@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 00:13:24"}
+{"level":"info","message":"Admin notification email sent to charlinashini@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 00:13:24"}
+{"level":"info","message":"Payment verified for F26-2026-000008","service":"fenix-26-backend","timestamp":"2026-09-18 00:14:59"}
+{"level":"info","message":"Email sent to lutjan26@gmail.com: <ad801720-2082-2c15-0ef5-6a6d2045bae5@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 00:15:04"}
+{"level":"info","message":"Confirmation email sent to lutjan26@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 00:15:04"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 00:20:19"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 00:20:19"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 00:20:27"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 00:20:28"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 00:21:44"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 00:21:44"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:37"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:40"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:41"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:42"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:45"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:46"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:47"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:48"}
+{"level":"warn","message":"Validation failed: Invalid value","service":"fenix-26-backend","timestamp":"2026-09-18 00:23:55"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 00:26:45"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 00:26:45"}
+{"level":"warn","message":"Validation failed: selectedEvents: Invalid events: not-a-real-event","service":"fenix-26-backend","timestamp":"2026-09-18 00:27:03"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"fenix-26-backend","timestamp":"2026-09-18 00:28:16"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 00:28:22"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 00:28:22"}
+{"level":"info","message":"Registration created: F26-2026-000009","service":"fenix-26-backend","timestamp":"2026-09-18 00:28:58"}
+{"code":"DUPLICATE_REGISTRATION","level":"error","message":"Error 409: Registration already exists for this email","method":"POST","path":"/api/registrations","service":"fenix-26-backend","stack":"Error: Registration already exists for this email\n    at createRegistration (file:///C:/Users/charl/web%20dev/fenix-26/backend/src/controllers/registrationController.js:22:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","timestamp":"2026-09-18 00:29:33"}
+{"code":"DUPLICATE_REGISTRATION","level":"error","message":"Error 409: Registration already exists for this email","method":"POST","path":"/api/registrations","service":"fenix-26-backend","stack":"Error: Registration already exists for this email\n    at createRegistration (file:///C:/Users/charl/web%20dev/fenix-26/backend/src/controllers/registrationController.js:22:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","timestamp":"2026-09-18 00:29:34"}
+{"level":"info","message":"Registration created: F26-2026-000010","service":"fenix-26-backend","timestamp":"2026-09-18 00:29:46"}
+{"code":"DUPLICATE_REGISTRATION","level":"error","message":"Error 409: Registration already exists for this email","method":"POST","path":"/api/registrations","service":"fenix-26-backend","stack":"Error: Registration already exists for this email\n    at createRegistration (file:///C:/Users/charl/web%20dev/fenix-26/backend/src/controllers/registrationController.js:22:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","timestamp":"2026-09-18 00:29:52"}
+{"level":"info","message":"Registration created: F26-2026-000011","service":"fenix-26-backend","timestamp":"2026-09-18 00:30:10"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 00:43:59"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 00:43:59"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 10:52:21"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 10:52:21"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 11:00:00"}

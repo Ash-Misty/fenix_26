@@ -1,92 +1,28 @@
-import { useEffect, useState } from 'react';
+import { Award, Check, Clock3, Laptop, LayoutDashboard, Palette, Phone, Route, Sparkles, Wand2, X } from 'lucide-react';
 import { useEventNavigation } from '../components/EventNavigation';
 import './styles/pixel-perfect-exact.css';
 import './styles/pixel-perfect-spacing.css';
 
-const highlights = [
-  ['◈', 'Individual / Team', '2–4 Members'],
-  ['▣', 'Laptop', 'Required'],
-  ['◷', '2–2.5 Hours', ''],
-  ['✦', 'Figma Only', ''],
-  ['⌁', 'No AI Tools', ''],
-];
-
-const criteria = [
-  ['⬡', 'Layout Understanding'],
-  ['⬢', 'Visual Accuracy'],
-  ['◈', 'Spacing & Alignment'],
-  ['✦', 'Typography & Colors'],
-  ['◆', 'Speed of Execution'],
-];
-
-function Brand() {
-  return <div className="brand"><img className="brand-logo" src="/fenix-26-logo.jpg" alt="FENIX 2026" /><span>FENIX<span className="brand-year">’26</span></span></div>;
-}
+const flow = [['01', 'Understand the theme', '5 min', Sparkles], ['02', 'UI design & development', '45 min', Palette], ['03', 'Prototype & submit', '10 min', Route]];
+const focusAreas = ['Layout', 'Spacing & Alignment', 'Typography', 'Colors', 'Icons & Images', 'UI Components', 'Visual Consistency', 'Creativity & Design Thinking', 'User Flow & Navigation', 'Overall User Experience'];
+const evaluation = ['UI/UX quality & visual appeal', 'Layout, spacing & alignment', 'Typography & color selection', 'Component & design consistency', 'Creativity & theme interpretation', 'Prototype interactions & navigation', 'User flow & usability', 'Completion within 60 minutes'];
+function Brand() { return <div className="brand"><img className="brand-logo" src="/fenix-26-logo.jpg" alt="FENIX 2026" /><span>FENIX<span className="brand-year">’26</span></span></div>; }
 
 export function PixelPerfectExactPage() {
   const { goHome, goRegister } = useEventNavigation();
-  const [active, setActive] = useState('Home');
-  const [registered, setRegistered] = useState(false);
-
-  useEffect(() => {
-    const sections = ['home', 'rounds', 'gallery', 'criteria', 'contact'];
-    const onScroll = () => {
-      const current = sections.find((id) => {
-        const element = document.getElementById(`pixel-${id}`);
-        return element && element.getBoundingClientRect().top <= 130 && element.getBoundingClientRect().bottom > 130;
-      });
-      if (current) setActive(current[0].toUpperCase() + current.slice(1));
-    };
-    window.addEventListener('scroll', onScroll, { passive: true });
-    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
-      if (entry.isIntersecting) entry.target.classList.add('visible');
-    }), { threshold: 0.12 });
-    document.querySelectorAll('.pixel-exact-page .reveal').forEach((element) => observer.observe(element));
-    return () => {
-      window.removeEventListener('scroll', onScroll);
-      observer.disconnect();
-    };
-  }, []);
-
-  const jump = (id) => document.getElementById(`pixel-${id}`)?.scrollIntoView({ behavior: 'smooth' });
-  const register = () => { setRegistered(true); goRegister(); };
-
-  return (
-    <main className="pixel-exact-page">
-      <div className="site-shell">
-        <div className="ambient ambient-one" aria-hidden="true" />
-        <div className="ambient ambient-two" aria-hidden="true" />
-        <header className="topbar">
-          <button className="brand brand-button" onClick={goHome} type="button"><Brand /></button>
-          <nav aria-label="Main navigation">
-            {['Home', 'Events', 'Gallery', 'Contact'].map((item) => (
-              <button key={item} className={active === item ? 'nav-link active' : 'nav-link'} onClick={() => item === 'Home' ? goHome() : jump(item === 'Events' ? 'rounds' : item.toLowerCase())} type="button">{item}</button>
-            ))}
-          </nav>
-          <button className="register-button" onClick={register} type="button">Register Now <span>→</span></button>
-        </header>
-
-        <section id="pixel-home" className="hero reveal visible">
-          <div className="hero-grid" aria-hidden="true" />
-          <div className="hero-copy"><div className="eyebrow"><span>◉</span> TECH EVENT</div><h1>PIXEL PERFECT</h1><p className="hero-sub">Replicate. Refine. Perfect.</p><p className="hero-note">Test your design skills and recreate stunning interfaces with precision, creativity<br className="desktop-only" /> and attention to detail.</p></div>
-          <div className="figma-orbit" aria-hidden="true"><div className="figma-card"><span className="figma-dot pink" /><span className="figma-dot orange" /><span className="figma-dot purple" /><span className="figma-dot blue" /><span className="figma-dot green" /></div><span className="orbit-dot">✦</span><span className="cursor">◢</span></div>
-        </section>
-
-        <section className="highlight-row" aria-label="Event highlights">{highlights.map(([icon, title, detail]) => <div className="highlight" key={title}><span className="highlight-icon">{icon}</span><span><b>{title}</b>{detail && <small>{detail}</small>}</span></div>)}</section>
-
-        <div className="section-layout">
-          <section id="pixel-rounds" className="rounds-panel reveal"><div className="section-label"><span>◌</span> Rounds</div><div className="round-grid">
-            <article className="round-card"><div className="round-number">01</div><h2>The Blueprint Copy</h2><small>30 Minutes</small><ul><li>Receive a fixed design screenshot via Google Drive</li><li>Replicate the screen accurately in Figma</li><li>Prototype not required</li></ul><div className="mini-preview blueprint"><span /><span /><span /></div><strong>Focus on accuracy &amp; structure</strong></article>
-            <article className="round-card"><div className="round-number">02</div><h2>The Flow Mimic</h2><small>2 Hours</small><ul><li>Receive a 5-screen reference prototype</li><li>Recreate screens and interactions in Figma</li><li>Match animations and transitions</li><li>Working prototype required</li></ul><div className="mini-preview flow"><span /><span /><span /><span /></div><strong>Focus on flow &amp; interaction</strong></article>
-          </div><div className="final-callout">The final 5-screen design must be a working interactive prototype matching the reference flow.</div><div className="rules-strip"><b>Event Rules</b><span>Figma only</span><span>No AI tools</span><span>Submit Figma link through Google Form</span><span>All submissions are timestamped</span></div></section>
-
-          <aside id="pixel-criteria" className="criteria-panel reveal"><div className="section-label"><span>◈</span> Evaluation Criteria</div><div className="criteria-list">{criteria.map(([icon, item]) => <div key={item}><span>{icon}</span><b>{item}</b></div>)}</div><div className="criteria-glow" /></aside>
-          <section id="pixel-gallery" className="gallery-panel reveal"><div className="section-label"><span>✦</span> Event Gallery</div><div className="gallery-grid"><div className="gallery-tile tile-large"><span>PIXEL<br />PERFECT</span><small>Design in motion</small></div><div className="gallery-tile tile-purple"><span>FENIX<br />’26</span><small>Creative energy</small></div><div className="gallery-tile tile-cyan"><span>CREATE<br />BOLDLY</span><small>Make every pixel count</small></div></div></section>
-        </div>
-
-        <footer id="pixel-contact" className="footer reveal"><div><Brand /><p>More than an Event,<br />It&apos;s an Experience.</p><small>© 2025 FENIX’26. All rights reserved.</small></div><div className="footer-links"><b>Quick Links</b>{[['Home', 'home'], ['Rounds', 'rounds'], ['Gallery', 'gallery'], ['Criteria', 'criteria'], ['Contact', 'contact']].map(([label, id]) => <button key={id} onClick={() => jump(id)} type="button">{label}</button>)}</div><div className="contact-card"><b>Contact</b><span className="contact-person"><img src="/contact-team.png" alt="Aanya Sharma" /><span><strong>Aanya Sharma</strong><small>+91 9876 4310</small></span></span><span className="contact-person"><img src="/contact-team.png" alt="Rahul Mehta" /><span><strong>Rahul Mehta</strong><small>+91 9876 3210</small></span></span></div></footer>
-        {registered && <div className="toast" role="status">Registration interest noted. We&apos;ll see you at FENIX&apos;26.</div>}
-      </div>
-    </main>
-  );
+  const jump = (id) => document.getElementById(`pixel-${id}`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  return <main className="pixel-exact-page"><div className="site-shell">
+    <div className="ambient ambient-one" aria-hidden="true" /><div className="ambient ambient-two" aria-hidden="true" />
+    <header className="topbar"><button className="brand brand-button" onClick={() => jump('home')} type="button"><Brand /></button><nav aria-label="Pixel Perfect navigation"><button className="nav-link active" onClick={() => jump('home')} type="button">Home</button><button className="nav-link" onClick={() => jump('challenge')} type="button">Challenge</button><button className="nav-link" onClick={() => jump('rules')} type="button">Rules</button><button className="nav-link" onClick={() => jump('evaluation')} type="button">Evaluation</button></nav><button className="register-button" onClick={goRegister} type="button">Register Now <span>→</span></button></header>
+    <section id="pixel-home" className="hero reveal visible"><div className="hero-grid" aria-hidden="true" /><div className="hero-copy"><div className="eyebrow"><span>◉</span> TECHNICAL EVENT</div><h1>PIXEL PERFECT</h1><p className="hero-sub">Think It. Design It. Connect It.</p><p className="hero-note">Create a clear, connected 3–4 screen Figma prototype from a live theme.</p></div><div className="figma-orbit" aria-hidden="true"><div className="figma-card"><span className="figma-dot pink" /><span className="figma-dot orange" /><span className="figma-dot purple" /><span className="figma-dot blue" /><span className="figma-dot green" /></div><span className="orbit-dot">✦</span><span className="cursor">◢</span></div></section>
+    <section className="highlight-row" aria-label="Event highlights"><div className="highlight"><span className="highlight-icon"><Laptop size={15} /></span><span><b>Laptop</b><small>Required</small></span></div><div className="highlight"><span className="highlight-icon"><Clock3 size={15} /></span><span><b>60 Minutes</b><small>Single round</small></span></div><div className="highlight"><span className="highlight-icon"><Palette size={15} /></span><span><b>Figma only</b><small>Design + prototype</small></span></div><div className="highlight"><span className="highlight-icon"><LayoutDashboard size={15} /></span><span><b>3–4 screens</b><small>Connected flow</small></span></div></section>
+    <div className="section-layout pixel-rule-layout">
+      <section id="pixel-challenge" className="challenge-panel reveal"><div className="section-label"><span>◌</span> Challenge</div><h2>One theme. One working prototype.</h2><p>Use the organizer-provided theme to conceptualize, design, and connect a coherent 3–4 screen interface in Figma.</p><div className="flow-grid">{flow.map(([number, label, time, Icon]) => <article key={number}><span>{number}</span><Icon size={19} /><strong>{label}</strong><small>{time}</small></article>)}</div><div className="prototype-callout"><Route size={18} /><span><b>Prototype challenge</b>Connect screens with Figma Prototype interactions, navigation, and transitions to create a functional user flow.</span></div></section>
+      <aside className="criteria-panel reveal"><div className="section-label"><span>◈</span> Focus areas</div><div className="focus-list">{focusAreas.map((area) => <span key={area}>{area}</span>)}</div></aside>
+      <section id="pixel-rules" className="rules-panel reveal"><article><div className="section-label"><span>✦</span> Deliverable</div><h2>Design, connect, submit.</h2><ul><li><Check size={14} /> Build 3–4 screens in Figma.</li><li><Check size={14} /> Maintain one clear user flow.</li><li><Check size={14} /> Use interactions and transitions in Figma Prototype.</li><li><Check size={14} /> Complete and submit within 60 minutes.</li></ul></article><article className="ai-policy"><div className="section-label"><span>✦</span> AI policy</div><h2><X size={18} /> No AI assistance</h2><p>AI tools, AI-generated designs, design-generation tools, and external AI assistance are strictly prohibited. All work must be created during the event.</p></article></section>
+      <section id="pixel-evaluation" className="evaluation-panel reveal"><div className="section-label"><span>◈</span> Evaluation · 100 marks</div><div>{evaluation.map((item, index) => <span key={item}><b>{String(index + 1).padStart(2, '0')}</b>{item}</span>)}</div><p>Strong design thinking, visual consistency, prototype functionality, and timely completion determine the final ranking. The top three participants or teams receive 1st, 2nd, and 3rd place.</p></section>
+    </div>
+    <div className="pixel-final-callout"><Award size={20} /> Think It..!! Design It..!! Connect It..!! Make It Work..!! Think in Pixels..!!</div><button className="pixel-register-cta" type="button" onClick={goRegister}>Register for Pixel Perfect <span>→</span></button>
+    <footer className="footer pixel-footer-compact"><div><Brand /><p>Design the flow.<br />Make it work.</p><small>© 2026 FENIX’26. All rights reserved.</small></div><div className="footer-links"><b>Quick Links</b><button onClick={() => jump('home')} type="button">Home</button><button onClick={() => jump('challenge')} type="button">Challenge</button><button onClick={() => jump('rules')} type="button">Rules</button><button onClick={() => jump('evaluation')} type="button">Evaluation</button></div><div className="pixel-event-contacts"><b>Contact</b><a href="tel:+918489387739"><strong>Muthuraja P</strong><small><Phone size={12} /> +91 84893 87739</small></a><a href="tel:+916381429220"><strong>Indra Santhoshi B</strong><small><Phone size={12} /> +91 63814 29220</small></a></div></footer>
+  </div></main>;
 }

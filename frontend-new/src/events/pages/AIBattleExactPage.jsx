@@ -4,8 +4,8 @@ import { useEventNavigation } from '../components/EventNavigation';
 import './styles/ai-battle-exact.css';
 
 const pipeline = [
-  { label: 'Problem', icon: CircleDot }, { label: 'Ideate', icon: Sparkles }, { label: 'Build', icon: Braces },
-  { label: 'Test', icon: GitBranch }, { label: 'Complete', icon: Check }, { label: 'Demo', icon: ExternalLink },
+  { label: 'Theme', icon: CircleDot }, { label: 'Ideate', icon: Sparkles }, { label: 'Develop', icon: Braces },
+  { label: 'Test', icon: GitBranch }, { label: 'Submit', icon: Check }, { label: 'Demo', icon: ExternalLink },
 ];
 const tech = [
   { label: 'Programming\nLanguages', icon: Code2 }, { label: 'Frameworks', icon: Layers3 },
@@ -34,7 +34,7 @@ export function AIBattleExactPage() {
 
         <div className="page-content" id="top">
           <section className="hero-panel" id="events">
-            <div className="hero-copy"><div className="eyebrow"><span className="status-dot" /> TECH EVENT</div><h1>AI BATTLE</h1><p className="hero-tagline">Think Fast. Build Smart. Battle with AI.</p><p className="challenge-label">A Vibe Coding Challenge</p><p className="hero-description">Build intelligent solutions using AI tools, APIs and modern frameworks<br className="desktop-only" /> to solve real-world problems.</p><div className="hero-facts"><span><span className="fact-icon">◉</span> Team Event<br /><small>(3-5 Members)</small></span><span><span className="fact-icon">◫</span> Logic<br />Required</span><span><span className="fact-icon">◷</span> 2-3 Hours</span></div></div>
+            <div className="hero-copy"><div className="eyebrow"><span className="status-dot" /> TECH EVENT</div><h1>AI BATTLE</h1><p className="hero-tagline">Think Fast. Build Smart. Battle with AI.</p><p className="challenge-label">Rapid Application Development</p><p className="hero-description">Design, develop, test, and complete a working end-to-end application for the given theme or problem statement.</p><div className="hero-facts"><span><span className="fact-icon">◉</span> Laptop<br /><small>Required</small></span><span><span className="fact-icon">◫</span> Any Tech<br />Stack</span><span><span className="fact-icon">◷</span> 1 Hr 30 Mins</span></div></div>
             <div className="hero-art" aria-hidden="true"><div className="orb orb-a" /><div className="orb orb-b" /><div className="circuit circuit-a" /><div className="circuit circuit-b" /><div className="ai-face"><span>AI</span><div className="face-line line-one" /><div className="face-line line-two" /><div className="face-line line-three" /></div><div className="floating-code">&lt;/&gt;<br /><span>MODEL</span></div></div>
             <button className="hero-cta" onClick={goRegister} type="button"><span>Build a Solution <Rocket size={14} /></span></button>
           </section>
@@ -42,7 +42,7 @@ export function AIBattleExactPage() {
           <section className="main-grid"><div className="left-column">
             <section className="info-card pipeline-card"><h2><span className="section-pip" /> Development Pipeline</h2><div className="pipeline">{pipeline.map((step, index) => { const Icon = step.icon; return <div className="pipeline-step" key={step.label}><div className="step-icon"><Icon size={17} /></div><span>{step.label}</span>{index < pipeline.length - 1 && <ChevronRight className="pipeline-arrow" size={15} />}</div>; })}</div></section>
             <section className="info-card ecosystem-card" id="gallery"><h2><span className="section-pip" /> Technology Ecosystem</h2><div className="tech-grid">{tech.map((item) => { const Icon = item.icon; return <div className="tech-tile" key={item.label}><Icon size={20} /><span>{item.label.split('\n').map((line) => <span key={line}>{line}<br /></span>)}</span></div>; })}</div></section>
-            <section className="solution-banner" id="register"><Zap size={29} fill="currentColor" /><strong>Working end-to-end solution.</strong></section>
+            <section className="solution-banner" id="register"><Zap size={29} fill="currentColor" /><strong>Build, test, submit, and demonstrate a working end-to-end solution.</strong></section>
           </div><section className="info-card criteria-card"><h2><span className="section-pip" /> Evaluation Criteria</h2><div className="criteria-list">{criteria.map(([number, label]) => <div className="criteria-row" key={number}><span className="criteria-number">{number}</span><span>{label}</span></div>)}</div></section></section>
         </div>
 

@@ -16,6 +16,7 @@ import { FAQSection } from './components/sections/FAQSection';
 import { SocialSection } from './components/sections/SocialSection';
 import { EventPage } from './components/sections/EventPage';
 import { RegisterPage } from './components/sections/RegisterPage';
+import { WorkshopRegisterPage } from './components/sections/WorkshopRegisterPage';
 import { PhoenixCarousel } from './components/ui/PhoenixCarousel';
 import { FlightScene } from './components/ui/FlightScene';
 import { SiteLoader } from './components/ui/SiteLoader';
@@ -52,7 +53,7 @@ function App() {
     return () => window.removeEventListener('hashchange', handleHashChange);
   }, []);
 
-  useEffect(() => { window.scrollTo(0, 0); }, [page]);
+  useEffect(() => { window.scrollTo({ top: 0, left: 0, behavior: 'auto' }); }, [route, page]);
 
   const loadRegistrationStats = React.useCallback(async () => {
     const controller = new AbortController();
@@ -105,11 +106,11 @@ function App() {
     'paper-presentation': PaperPresentationPage,
     'code-arena': CodeArenaPage,
     'ipl-auction': IPLAuctionPage,
-    'free-fire': EventDashboardPage,
+    'free-fire': FreeFirePage,
     'game-event': GamesEventPage,
-    'mini-militia': EventDashboardPage,
-    'treasure-hunt': EventDashboardPage,
-    'meme-creation': EventDashboardPage,
+    'mini-militia': MiniMilitiaPage,
+    'treasure-hunt': TreasureHuntPage,
+    'meme-creation': MemeCreationPage,
   };
 
   const renderEventPage = (slug) => {
@@ -150,6 +151,10 @@ function App() {
         <RegisterPage setPage={setPage} onRegistrationComplete={completeRegistration} />
       </>
     );
+  }
+
+  if (page === 'workshop-register') {
+    return <><Header setPage={setPage} registerMode /><WorkshopRegisterPage setPage={setPage} /></>;
   }
 
   if (page.startsWith('event:')) {
