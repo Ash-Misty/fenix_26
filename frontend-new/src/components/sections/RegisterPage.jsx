@@ -68,6 +68,7 @@ export function RegisterPage({ setPage, onRegistrationComplete }) {
   });
   const generateQr = async () => {
     if (participants.some((participant) => !participant.preference)) return setErrors({ food: 'Choose food preference for every participant.' });
+    if (!window.confirm('Please verify all participant details and food preferences. Continuing creates your pending registration.')) return;
     setSubmitting(true); setErrors({});
     try { const response = await api('/registrations', { method: 'POST', body: JSON.stringify(buildPayload()) }); setDraft(response.data); }
     catch (error) { setErrors({ submit: error.message }); } finally { setSubmitting(false); }

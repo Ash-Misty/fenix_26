@@ -11,3 +11,10 @@
 @media (max-width: 760px) {
 	.iplx-page .iplx-contacts { grid-column: 1 / -1; }
 }
+.iplx-page .purse strong { font-size: 0; }
+.iplx-page .purse strong::after { content: '₹ 60 CR'; font-family: Syne, sans-serif; font-size: 2.5rem; }
+.iplx-page .purse p { font-size: 0; }
+.iplx-page .purse p::after { content: '₹ 60 CR  total purse'; color: var(--teal); font-size: .83rem; font-weight: 700; }
+.iplx-page .iplx-rule-meta span:last-child { font-size: 0; }
+.iplx-page .iplx-rule-meta span:last-child::after { content: '5 Members per Franchise'; font-size: .72rem; }
+.iplx-page .iplx-register-panel::after { content: 'Registration closed? WhatsApp 9025528451 · deepanraja23@gmail.com'; color: var(--muted); display: block; font-size: .78rem; margin-top: 15px; }

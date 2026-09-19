@@ -4,8 +4,8 @@ import { useEventNavigation } from '../../events/components/EventNavigation'
 import './styles/game-events-page.css'
 
 const GAME_EVENTS = [
-  { slug: 'free-fire', title: 'FREE FIRE', tagline: 'Survive. Strategize. Dominate.', image: '/images/free-fire.png', prize: '₹15,000', slots: '48 squads', icon: Flame, variant: 'fire' },
-  { slug: 'mini-militia', title: 'MINI MILITIA', tagline: 'Lock. Aim. Battle.', image: '/images/mini-militia.png', prize: '₹10,000', slots: '32 duos', icon: Crosshair, variant: 'militia' },
+  { slug: 'free-fire', title: 'FREE FIRE', tagline: 'Survive. Strategize. Dominate.', image: '/images/free-fire.png', icon: Flame, variant: 'fire' },
+  { slug: 'mini-militia', title: 'MINI MILITIA', tagline: 'Lock. Aim. Battle.', image: '/images/mini-militia.png', icon: Crosshair, variant: 'militia' },
 ]
 
 export function GameEventsPage() {
@@ -61,7 +61,7 @@ export function GameEventsPage() {
           <div className="gep-event-grid">
             {GAME_EVENTS.map(({ icon: Icon, ...event }) => <article className={`gep-event-card gep-event-${event.variant}`} key={event.slug}>
               <img className="gep-card-art" src={event.image} alt="" /><div className="gep-card-shade" aria-hidden="true" />
-              <div className="gep-card-content"><span className="gep-game-icon"><Icon size={18} /></span><div className="gep-card-meta"><span><Trophy size={14} /> {event.prize}</span><span><Users size={14} /> {event.slots}</span></div><h3>{event.title}</h3><p>{event.tagline}</p><button type="button" onClick={() => visitEvent(event.slug)}>View event <ArrowRight size={16} /></button></div>
+              <div className="gep-card-content"><span className="gep-game-icon"><Icon size={18} /></span><h3>{event.title}</h3><p>{event.tagline}</p><button type="button" onClick={() => visitEvent(event.slug)}>View event <ArrowRight size={16} /></button></div>
             </article>)}
           </div>
         </section>
@@ -69,7 +69,7 @@ export function GameEventsPage() {
         <section className="gep-note" aria-label="Competition information"><ShieldCheck size={28} /><div><strong>Bring your A-game.</strong><span>Fair play, verified registrations, and referee decisions keep every match competitive.</span></div><button type="button" onClick={goRegister}>Join the battle <ArrowRight size={16} /></button></section>
       </main>
 
-      <footer className="gep-footer"><p>FENIX<span>'26</span> · GAME ARENA</p><button type="button" onClick={() => handleNavigation('contact')}>Need help? Contact the team</button><small>© 2026 FENIX'26. All rights reserved.</small></footer>
+      <footer className="gep-footer"><p>FENIX<span>'26</span> · GAME ARENA</p><small>© 2026 FENIX'26. All rights reserved.</small></footer>
     </div>
   )
 }

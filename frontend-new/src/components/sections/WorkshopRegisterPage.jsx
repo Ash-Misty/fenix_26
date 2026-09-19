@@ -17,7 +17,7 @@ export function WorkshopRegisterPage({ setPage }) {
     if (!/^\S+@\S+\.\S+$/.test(form.email)) nextErrors.email = 'Enter a valid email address.';
     if (!/^\d{10}$/.test(form.phone)) nextErrors.phone = 'Enter a valid 10-digit mobile number.';
     setErrors(nextErrors);
-    if (!Object.keys(nextErrors).length) setStep('payment');
+    if (!Object.keys(nextErrors).length && window.confirm('Please verify your registration details and food preference before continuing to payment.')) setStep('payment');
   };
 
   if (step === 'done') return <main className="workshop-registration-page"><section className="workshop-confirmation"><div className="workshop-confirm-icon"><Check size={30} /></div><p className="eyebrow">WORKSHOP REGISTRATION</p><h1>Payment details<br /><span>submitted.</span></h1><p>Your workshop registration is ready for review. Join the WhatsApp community for updates.</p><div className="workshop-confirm-id"><span>Workshop fee</span><strong>₹250</strong><small>Data Science with AI Technology</small></div><a className="whatsapp-community" href={whatsappCommunityUrl} target="_blank" rel="noopener noreferrer"><MessageCircle size={18} /> Join the WhatsApp community</a><Button className="confirmation-home" onClick={() => setPage('home')}>Back to home</Button></section></main>;

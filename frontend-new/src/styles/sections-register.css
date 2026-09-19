@@ -166,3 +166,12 @@ footer a:hover{color:var(--red)}
 .event-select.event-color-blue,.event-select.event-color-violet,.event-select.event-color-cyan,.event-select-tech.event-color-pink,.event-select.event-color-orange,.event-select.event-color-purple,.event-select-nontech.event-color-pink,.event-select.event-color-yellow { border-color:rgba(var(--select-rgb),.42); background:linear-gradient(145deg,rgba(var(--select-rgb),.14),rgba(5,3,3,.56)); }
 .event-select.event-color-blue:hover,.event-select.event-color-violet:hover,.event-select.event-color-cyan:hover,.event-select-tech.event-color-pink:hover,.event-select.event-color-orange:hover,.event-select.event-color-purple:hover,.event-select-nontech.event-color-pink:hover,.event-select.event-color-yellow:hover,.event-select.chosen { border-color:var(--select-accent); background:linear-gradient(145deg,rgba(var(--select-rgb),.24),rgba(5,3,3,.56)); box-shadow:0 8px 22px rgba(var(--select-rgb),.12); }
 .event-select .badge { color:var(--select-accent); }.event-select.is-limit-reached { cursor:not-allowed; opacity:.46; filter:saturate(.55); }.event-select:disabled:hover { border-color:rgba(var(--select-rgb),.42); box-shadow:none; transform:none; }
+.confirmation .whatsapp-community::before,
+.workshop-confirmation .whatsapp-community::before {
+  content: 'Check your inbox and spam folder for the verification email.';
+  display: block;
+  margin: 0 0 12px;
+  color: #ffe0a3;
+  font-size: .78rem;
+  line-height: 1.4;
+}

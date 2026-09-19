@@ -577,3 +577,24 @@
 {"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 10:52:21"}
 {"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 10:52:21"}
 {"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 11:00:00"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-18 22:42:25"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-18 22:42:25"}
+{"level":"info","message":"Registration created: F26-2026-000012","service":"fenix-26-backend","timestamp":"2026-09-18 22:46:25"}
+{"code":"DUPLICATE_REGISTRATION","level":"error","message":"Error 409: Registration already exists for this email","method":"POST","path":"/api/registrations","service":"fenix-26-backend","stack":"Error: Registration already exists for this email\n    at createRegistration (file:///C:/Users/charl/web%20dev/fenix-26/backend/src/controllers/registrationController.js:22:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","timestamp":"2026-09-18 22:48:18"}
+{"level":"info","message":"Registration created: F26-2026-000013","service":"fenix-26-backend","timestamp":"2026-09-18 22:48:45"}
+{"level":"info","message":"Screenshot uploaded to Cloudinary: fenix26/payments/payment-screenshot-F26-2026-000013-1789751976197-rigwil for F26-2026-000013","service":"fenix-26-backend","timestamp":"2026-09-18 22:49:48"}
+{"level":"info","message":"Payment screenshot uploaded for F26-2026-000013, status=PENDING_VERIFICATION","service":"fenix-26-backend","timestamp":"2026-09-18 22:49:48"}
+{"level":"info","message":"SMTP server ready for messages","service":"fenix-26-backend","timestamp":"2026-09-18 22:49:51"}
+{"level":"info","message":"Email sent to aruljasminedcse@gmail.com: <7ebe7b64-efea-d276-2637-f52bbe4af70f@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 22:49:52"}
+{"level":"info","message":"Pending registration email sent to aruljasminedcse@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 22:49:52"}
+{"level":"info","message":"Email sent to charlinashini@gmail.com: <cb001b48-2e20-05fb-9836-3d475ebad27c@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 22:49:56"}
+{"level":"info","message":"Admin notification email sent to charlinashini@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 22:49:56"}
+{"level":"info","message":"Payment verified for F26-2026-000013","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:08"}
+{"level":"warn","message":"Payment already verified for F26-2026-000013","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:11"}
+{"level":"warn","message":"Payment already verified for F26-2026-000013","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:12"}
+{"level":"info","message":"Email sent to aruljasminedcse@gmail.com: <d3edd04d-8a79-fe8d-ecbd-7f4727766155@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:12"}
+{"level":"info","message":"Confirmation email sent to aruljasminedcse@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:12"}
+{"level":"info","message":"Email sent to aruljasminedcse@gmail.com: <8611668c-0868-d863-f94d-91fef8fe5945@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:15"}
+{"level":"info","message":"Confirmation email sent to aruljasminedcse@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:15"}
+{"level":"info","message":"Email sent to aruljasminedcse@gmail.com: <1d142d91-9d9c-7c97-b1f9-e1a92d15717b@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:16"}
+{"level":"info","message":"Confirmation email sent to aruljasminedcse@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:16"}
