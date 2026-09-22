@@ -14,7 +14,7 @@ export function configureCloudinary() {
   configured = true;
 }
 
-export async function uploadScreenshot(file, registrationId) {
+export async function uploadScreenshot(file, registrationId, folder = 'payments') {
   try {
     if (!process.env.CLOUDINARY_CLOUD_NAME || !process.env.CLOUDINARY_API_KEY || !process.env.CLOUDINARY_API_SECRET) {
       const wrapped = new Error('Cloudinary not configured');
@@ -29,7 +29,7 @@ export async function uploadScreenshot(file, registrationId) {
       const stream = cloudinary.uploader.upload_stream(
         {
           public_id: publicId,
-          folder: 'fenix26/payments',
+          folder: `fenix26/${folder}`,
           resource_type: 'image',
           transformation: [{ quality: 'auto:good' }],
         },

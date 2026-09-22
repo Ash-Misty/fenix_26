@@ -598,3 +598,59 @@
 {"level":"info","message":"Confirmation email sent to aruljasminedcse@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:15"}
 {"level":"info","message":"Email sent to aruljasminedcse@gmail.com: <1d142d91-9d9c-7c97-b1f9-e1a92d15717b@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:16"}
 {"level":"info","message":"Confirmation email sent to aruljasminedcse@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-18 22:53:16"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-22 20:45:35"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-22 20:45:35"}
+{"level":"info","message":"Registration created: F26-2026-000014","service":"fenix-26-backend","timestamp":"2026-09-22 20:47:36"}
+{"level":"error","message":"Cloudinary upload error: Request Timeout","service":"fenix-26-backend","timestamp":"2026-09-22 20:51:26"}
+{"code":"UPLOAD_FAILED","level":"error","message":"Error 503: Failed to upload screenshot","method":"POST","path":"/api/registrations/F26-2026-000014/payment-screenshot","service":"fenix-26-backend","stack":"Error: Failed to upload screenshot\n    at uploadPaymentScreenshot (file:///C:/Users/charl/web%20dev/fenix-26/backend/src/controllers/registrationController.js:127:13)","timestamp":"2026-09-22 20:51:26"}
+{"level":"error","message":"Cloudinary upload error: Request Timeout","service":"fenix-26-backend","timestamp":"2026-09-22 20:51:38"}
+{"code":"UPLOAD_FAILED","level":"error","message":"Error 503: Failed to upload screenshot","method":"POST","path":"/api/registrations/F26-2026-000014/payment-screenshot","service":"fenix-26-backend","stack":"Error: Failed to upload screenshot\n    at uploadPaymentScreenshot (file:///C:/Users/charl/web%20dev/fenix-26/backend/src/controllers/registrationController.js:127:13)","timestamp":"2026-09-22 20:51:38"}
+{"level":"error","message":"Cloudinary upload error: Request Timeout","service":"fenix-26-backend","timestamp":"2026-09-22 20:51:58"}
+{"code":"UPLOAD_FAILED","level":"error","message":"Error 503: Failed to upload screenshot","method":"POST","path":"/api/registrations/F26-2026-000014/payment-screenshot","service":"fenix-26-backend","stack":"Error: Failed to upload screenshot\n    at uploadPaymentScreenshot (file:///C:/Users/charl/web%20dev/fenix-26/backend/src/controllers/registrationController.js:127:13)","timestamp":"2026-09-22 20:51:58"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-22 22:05:50"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-22 22:05:50"}
+{"code":"DUPLICATE_REGISTRATION","level":"error","message":"Error 409: Registration already exists for this email","method":"POST","path":"/api/registrations","service":"fenix-26-backend","stack":"Error: Registration already exists for this email\n    at createRegistration (file:///C:/Users/charl/web%20dev/fenix-26/backend/src/controllers/registrationController.js:22:13)\n    at process.processTicksAndRejections (node:internal/process/task_queues:104:5)","timestamp":"2026-09-22 22:06:49"}
+{"level":"info","message":"Registration created: F26-2026-000015","service":"fenix-26-backend","timestamp":"2026-09-22 22:07:12"}
+{"level":"info","message":"Screenshot uploaded to Cloudinary: fenix26/payments/payment-screenshot-F26-2026-000015-1790095039841-69g95a for F26-2026-000015","service":"fenix-26-backend","timestamp":"2026-09-22 22:07:46"}
+{"level":"info","message":"Payment screenshot uploaded for F26-2026-000015, status=PENDING_VERIFICATION","service":"fenix-26-backend","timestamp":"2026-09-22 22:07:46"}
+{"level":"info","message":"SMTP server ready for messages","service":"fenix-26-backend","timestamp":"2026-09-22 22:07:50"}
+{"level":"info","message":"Email sent to ashinicharlin@gmail.com: <8cb77a3a-3f60-753d-5074-07fbc817f033@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-22 22:07:52"}
+{"level":"info","message":"Pending registration email sent to ashinicharlin@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-22 22:07:52"}
+{"level":"info","message":"Email sent to charlinashini@gmail.com: <ab61aed4-ca5e-e93b-1374-d047f4c0847a@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-22 22:07:58"}
+{"level":"info","message":"Admin notification email sent to charlinashini@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-22 22:07:58"}
+{"level":"info","message":"Payment verified for F26-2026-000015","service":"fenix-26-backend","timestamp":"2026-09-22 22:08:50"}
+{"level":"info","message":"Email sent to ashinicharlin@gmail.com: <3903c567-e147-9d84-e46c-1b05b7c6eff6@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-22 22:08:54"}
+{"level":"info","message":"Confirmation email sent to ashinicharlin@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-22 22:08:54"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-22 22:29:07"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-22 22:29:07"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-22 22:47:52"}
+{"level":"error","message":"Failed to start server: Cannot read properties of undefined (reading 'some')","service":"fenix-26-backend","timestamp":"2026-09-22 22:47:52"}
+{"level":"info","message":"Registration created: F26-2026-000016","service":"fenix-26-backend","timestamp":"2026-09-22 22:50:50"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-22 23:14:33"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-22 23:14:33"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-22 23:18:41"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-22 23:18:41"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-22 23:25:25"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-22 23:25:25"}
+{"level":"info","message":"MongoDB connected: localhost:27017","service":"fenix-26-backend","timestamp":"2026-09-22 23:35:02"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-22 23:35:02"}
+{"level":"info","message":"Screenshot uploaded to Cloudinary: fenix26/workshop-payments/payment-screenshot-WS26-1E5E9412-1790102262274-8ifvsc for WS26-1E5E9412","service":"fenix-26-backend","timestamp":"2026-09-23 00:07:46"}
+{"level":"info","message":"SMTP server ready for messages","service":"fenix-26-backend","timestamp":"2026-09-23 00:07:48"}
+{"level":"info","message":"Email sent to ashinicharlin@gmail.com: <16113db8-55d3-93fa-8765-0dba5824130c@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-23 00:07:50"}
+{"level":"info","message":"Email sent to charlinashini@gmail.com: <db5e0a0e-1fbf-04d5-cabe-5999ae034122@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-23 00:07:50"}
+{"level":"info","message":"Workshop updated: ai-workshop","service":"fenix-26-backend","timestamp":"2026-09-23 00:09:09"}
+{"level":"info","message":"Email sent to ashinicharlin@gmail.com: <77930230-1582-9341-0a8e-876bacc2ed93@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-23 00:09:27"}
+{"level":"info","message":"Registration created: F26-2026-000017","service":"fenix-26-backend","timestamp":"2026-09-23 00:38:15"}
+{"level":"info","message":"Screenshot uploaded to Cloudinary: fenix26/payments/payment-screenshot-F26-2026-000017-1790104107097-17f365 for F26-2026-000017","service":"fenix-26-backend","timestamp":"2026-09-23 00:38:37"}
+{"level":"info","message":"Payment screenshot uploaded for F26-2026-000017, status=PENDING_VERIFICATION","service":"fenix-26-backend","timestamp":"2026-09-23 00:38:37"}
+{"level":"info","message":"Email sent to santhoshiindhira@gmail.com: <ae22706e-d066-1dd4-c352-41d866ff7843@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-23 00:38:43"}
+{"level":"info","message":"Pending registration email sent to santhoshiindhira@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-23 00:38:43"}
+{"level":"info","message":"Email sent to charlinashini@gmail.com: <dca2c2b6-cd5c-d90f-e0e6-06dede8f069c@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-23 00:38:48"}
+{"level":"info","message":"Admin notification email sent to charlinashini@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-23 00:38:48"}
+{"level":"info","message":"Payment verified for F26-2026-000017","service":"fenix-26-backend","timestamp":"2026-09-23 00:43:36"}
+{"level":"warn","message":"Payment already verified for F26-2026-000017","service":"fenix-26-backend","timestamp":"2026-09-23 00:43:37"}
+{"level":"info","message":"Email sent to santhoshiindhira@gmail.com: <fb42bebd-bf32-a3d8-1b31-69840e937c9e@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-23 00:43:41"}
+{"level":"info","message":"Confirmation email sent to santhoshiindhira@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-23 00:43:41"}
+{"level":"info","message":"Email sent to santhoshiindhira@gmail.com: <2f75bc7a-1f02-a32d-b479-f668fe27ce27@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-23 00:43:42"}
+{"level":"info","message":"Confirmation email sent to santhoshiindhira@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-23 00:43:42"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"fenix-26-backend","timestamp":"2026-09-23 01:58:29"}

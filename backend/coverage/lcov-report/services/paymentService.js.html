@@ -23,16 +23,16 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">1.07% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>0/91</span>
+                <span class='fraction'>1/93</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">0% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>0/49</span>
+                <span class='fraction'>0/45</span>
             </div>
         
             
@@ -44,9 +44,9 @@
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">0% </span>
+                <span class="strong">1.11% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>0/88</span>
+                <span class='fraction'>1/90</span>
             </div>
         
             
@@ -219,12 +219,30 @@
 <a name='L154'></a><a href='#L154'>154</a>
 <a name='L155'></a><a href='#L155'>155</a>
 <a name='L156'></a><a href='#L156'>156</a>
-<a name='L157'></a><a href='#L157'>157</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L157'></a><a href='#L157'>157</a>
+<a name='L158'></a><a href='#L158'>158</a>
+<a name='L159'></a><a href='#L159'>159</a>
+<a name='L160'></a><a href='#L160'>160</a>
+<a name='L161'></a><a href='#L161'>161</a>
+<a name='L162'></a><a href='#L162'>162</a>
+<a name='L163'></a><a href='#L163'>163</a>
+<a name='L164'></a><a href='#L164'>164</a>
+<a name='L165'></a><a href='#L165'>165</a>
+<a name='L166'></a><a href='#L166'>166</a>
+<a name='L167'></a><a href='#L167'>167</a>
+<a name='L168'></a><a href='#L168'>168</a>
+<a name='L169'></a><a href='#L169'>169</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -234,8 +252,10 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -248,7 +268,6 @@
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -272,10 +291,14 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
@@ -375,10 +398,17 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import Registration from '../models/Registration.js';
 import PricingConfig from '../models/Event.js';
 import { generateUPIPayload } from './qrService.js';
 import logger from '../utils/logger.js';
+&nbsp;
+const REGISTRATION_FEES = Object.freeze({
+  Individual: 300,
+  Team2: 550,
+  Team3: 800,
+});
 &nbsp;
 export async function <span class="fstat-no" title="function not covered" >calculateAmount(</span>selectedEvents = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> workshops = <span class="branch-0 cbranch-no" title="branch not covered" >[],</span> registrationType = <span class="branch-0 cbranch-no" title="branch not covered" >'Individual',</span> participantCount = <span class="branch-0 cbranch-no" title="branch not covered" >0)</span> {
 <span class="cstat-no" title="statement not covered" >  try {</span>
@@ -392,6 +422,8 @@ export async function <span class="fstat-no" title="function not covered" >calcu
 <span class="cstat-no" title="statement not covered" >      eventMap.set(e.slug, e);</span>
     });
 &nbsp;
+    // Event choices are included in the registration fee. They must never alter
+    // the QR amount, even if a legacy pricing record has an event base price.
     let totalAmount = <span class="cstat-no" title="statement not covered" >0;</span>
     const eventDetails = <span class="cstat-no" title="statement not covered" >[];</span>
 &nbsp;
@@ -403,12 +435,11 @@ export async function <span class="fstat-no" title="function not covered" >calcu
 <span class="cstat-no" title="statement not covered" >      if (!event.isActive) {</span>
 <span class="cstat-no" title="statement not covered" >        throw new Error(`Event is not active: ${slug}`);</span>
       }
-<span class="cstat-no" title="statement not covered" >      totalAmount += event.basePrice;</span>
 <span class="cstat-no" title="statement not covered" >      eventDetails.push({</span>
         eventId: event.slug,
         eventName: event.name,
         category: event.category,
-        amount: event.basePrice,
+        amount: 0,
       });
     }
 &nbsp;
@@ -432,14 +463,18 @@ export async function <span class="fstat-no" title="function not covered" >calcu
     const nonTechCount = <span class="cstat-no" title="statement not covered" >eventDetails.filter(<span class="fstat-no" title="function not covered" >(e</span>) =&gt; <span class="cstat-no" title="statement not covered" >e.category === 'Non-Technical')</span>.length;</span>
     const exceedsLimit = <span class="cstat-no" title="statement not covered" >techCount &gt; config.maxTechPerRegistration || nonTechCount &gt; config.maxNonTechPerRegistration;</span>
 &nbsp;
+<span class="cstat-no" title="statement not covered" >    if (exceedsLimit) {</span>
+<span class="cstat-no" title="statement not covered" >      throw new Error(`A registration can include up to ${config.maxTechPerRegistration} Technical and ${config.maxNonTechPerRegistration} Non-Technical events`);</span>
+    }
+&nbsp;
     let registrationFee = <span class="cstat-no" title="statement not covered" >0;</span>
 <span class="cstat-no" title="statement not covered" >    if (registrationType === 'Individual') {</span>
-<span class="cstat-no" title="statement not covered" >      registrationFee = exceedsLimit ? config.individualBaseFee + config.individualExtraFee : config.individualBaseFee;</span>
+<span class="cstat-no" title="statement not covered" >      registrationFee = REGISTRATION_FEES.Individual;</span>
     } else <span class="cstat-no" title="statement not covered" >if (registrationType === 'Team') {</span>
 <span class="cstat-no" title="statement not covered" >      if (participantCount === 2) {</span>
-<span class="cstat-no" title="statement not covered" >        registrationFee = exceedsLimit ? config.team2BaseFee + config.team2ExtraFee : config.team2BaseFee;</span>
+<span class="cstat-no" title="statement not covered" >        registrationFee = REGISTRATION_FEES.Team2;</span>
       } else <span class="cstat-no" title="statement not covered" >if (participantCount === 3) {</span>
-<span class="cstat-no" title="statement not covered" >        registrationFee = exceedsLimit ? config.team3BaseFee + config.team3ExtraFee : config.team3BaseFee;</span>
+<span class="cstat-no" title="statement not covered" >        registrationFee = REGISTRATION_FEES.Team3;</span>
       } else {
 <span class="cstat-no" title="statement not covered" >        throw new Error('Team registration must have exactly 2 or 3 participants');</span>
       }
@@ -531,14 +566,15 @@ export async function <span class="fstat-no" title="function not covered" >getRe
 &nbsp;
 export async function <span class="fstat-no" title="function not covered" >checkDuplicateRegistration(</span>email) {
 <span class="cstat-no" title="statement not covered" >  return await Registration.findOne({ email }).lean();</span>
-}</pre></td></tr></table></pre>
+}
+&nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
             </div><!-- /wrapper -->
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2026-09-14T04:08:45.723Z
+                at 2026-09-22T17:17:53.199Z
             </div>
         <script src="../prettify.js"></script>
         <script>

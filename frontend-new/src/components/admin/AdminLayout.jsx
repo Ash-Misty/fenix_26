@@ -1,11 +1,12 @@
 import React from 'react';
-import { LogOut, LayoutDashboard, Users, CreditCard, Calendar, Megaphone, MessageCircle, X } from 'lucide-react';
+import { LogOut, LayoutDashboard, Users, CreditCard, Calendar, ClipboardCheck, Megaphone, MessageCircle, X } from 'lucide-react';
 
 const NAV = [
   { label: 'Dashboard', icon: LayoutDashboard, to: '/admin' },
   { label: 'Registrations', icon: Users, to: '/admin/registrations' },
   { label: 'Payments', icon: CreditCard, to: '/admin/payments' },
   { label: 'Workshops', icon: Calendar, to: '/admin/workshops' },
+  { label: 'Workshop review', icon: ClipboardCheck, to: '/admin/workshop-registrations' },
   { label: 'Announcements', icon: Megaphone, to: '/admin/announcements' },
   { label: 'Enquiries', icon: MessageCircle, to: '/admin/enquiries' },
 ];

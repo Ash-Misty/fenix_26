@@ -3,6 +3,22 @@ import logger from '../utils/logger.js';
 
 const detailsList = (registration) => registration.foodPreferences?.map((item) => `${item.name}: ${item.preference}`).join('<br>') || registration.foodPreference;
 
+const workshopDetails = (registration) => `<p><strong>Name:</strong> ${registration.name}</p><p><strong>College:</strong> ${registration.college}</p><p><strong>Year:</strong> ${registration.year}</p><p><strong>Food:</strong> ${registration.foodPreference}</p><p><strong>Amount:</strong> ₹${registration.totalAmount}</p>`;
+
+export async function sendWorkshopPendingEmail(registration) {
+  await sendEmail(registration.email, `FENIX'26 workshop registration under review — ${registration.registrationId}`, `<div style="font-family:Arial,sans-serif;line-height:1.6"><h2>Workshop registration received</h2><p>Your ₹250 payment screenshot has been received. Your workshop registration is under review and we will contact you after verification.</p><p><strong>Registration ID:</strong> ${registration.registrationId}</p></div>`);
+}
+
+export async function sendWorkshopAdminNotification(registration) {
+  if (!process.env.ADMIN_EMAIL) return false;
+  await sendEmail(process.env.ADMIN_EMAIL, `FENIX'26 workshop payment review — ${registration.registrationId}`, `<div style="font-family:Arial,sans-serif;line-height:1.6"><h2>Workshop registration needs approval</h2><p><strong>Registration ID:</strong> ${registration.registrationId}</p>${workshopDetails(registration)}<p><a href="${registration.payment.screenshotUrl}">View payment screenshot</a></p><p>Open the admin panel to approve this workshop slot.</p></div>`);
+  return true;
+}
+
+export async function sendWorkshopConfirmationEmail(registration) {
+  await sendEmail(registration.email, `FENIX'26 workshop slot confirmed — ${registration.registrationId}`, `<div style="font-family:Arial,sans-serif;line-height:1.6"><h2>Your workshop slot is confirmed</h2><p>Your payment has been verified for <strong>Data Science with AI Technology</strong>.</p><p><strong>Registration ID:</strong> ${registration.registrationId}</p>${workshopDetails(registration)}<p>We look forward to seeing you at FENIX'26.</p></div>`);
+}
+
 export async function sendRegistrationPendingEmail(registration) {
   const html = `
 <!DOCTYPE html><html><body style="font-family:Arial,sans-serif;background:#050303;color:#f1e1d6;padding:32px;line-height:1.7"><div style="max-width:600px;margin:auto"><p style="display:inline-block;padding:4px 12px;background:#3f2c09;color:#fbbf24;border-radius:4px;font-weight:700">UNDER VERIFICATION</p><h1 style="color:#fbbf24">Registration received</h1><p>We received your payment screenshot for registration <strong>${registration.registrationId}</strong>.</p><p>Your registration is under verification. Our team will contact you after review.</p><p><strong>Amount:</strong> ₹${registration.totalAmount}</p><p style="color:#a8a29e;font-size:.85rem">This is an automated FENIX'26 message. Please do not reply.</p></div></body></html>`.trim();

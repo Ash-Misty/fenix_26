@@ -43,9 +43,7 @@ export function PricingSection({ setPage }) {
       <div className="prize-board" aria-label="Overall winner cash prizes">
         <div className="prize-copy"><p className="eyebrow">OVERALL CHAMPIONS</p><h3>Win the<br /><span>constellation.</span></h3></div>
         <div className="prize-list">
-          <article><span>01</span><strong>₹10,000</strong><small>Overall winner</small></article>
-          <article><span>02</span><strong>₹7,500</strong><small>Overall runner-up</small></article>
-          <article><span>03</span><strong>₹5,000</strong><small>Overall third place</small></article>
+          <article className="prize-total"><span>★</span><strong>₹15,000</strong><small>Prizes worth</small></article>
         </div>
       </div>
     </section>

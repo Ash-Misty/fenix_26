@@ -21,8 +21,26 @@ async function downloadVerifiedRegistrations() {
   URL.revokeObjectURL(url);
 }
 
+async function downloadConfirmedWorkshops() {
+  const response = await fetch(`${API_BASE}/workshop-registrations/admin/export.xlsx`, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } });
+  if (!response.ok) throw new Error('Could not create the confirmed workshops spreadsheet.');
+  const url = URL.createObjectURL(await response.blob());
+  const link = document.createElement('a'); link.href = url; link.download = 'fenix26-confirmed-workshops.xlsx'; document.body.appendChild(link); link.click(); link.remove(); URL.revokeObjectURL(url);
+}
+
 function Notice({ error }) {
   return error ? <p className="admin-error">{error}</p> : null;
+}
+
+function ScreenshotModal({ url, onClose }) {
+  React.useEffect(() => {
+    if (!url) return undefined;
+    const onKeyDown = (event) => { if (event.key === 'Escape') onClose(); };
+    window.addEventListener('keydown', onKeyDown);
+    return () => window.removeEventListener('keydown', onKeyDown);
+  }, [url, onClose]);
+  if (!url) return null;
+  return <div className="admin-screenshot-backdrop" role="presentation" onMouseDown={onClose}><div className="admin-screenshot-modal" role="dialog" aria-modal="true" aria-label="Payment screenshot" onMouseDown={(event) => event.stopPropagation()}><button className="admin-modal-close" type="button" onClick={onClose} aria-label="Close screenshot"><X size={20} /></button><img src={url} alt="Uploaded payment screenshot" /></div></div>;
 }
 
 function useRequest(loader, dependencies = []) {
@@ -100,15 +118,16 @@ function Dashboard() {
   </>;
 }
 
-function RegistrationTable({ registrations = [], compact = false, onAction }) {
+function RegistrationTable({ registrations = [], compact = false, onAction, onPreview }) {
   if (!registrations.length) return <div className="admin-empty">No registrations found.</div>;
-  return <div className="admin-table-wrap"><table className="admin-table"><thead><tr><th>ID</th><th>Team / leader</th><th>College</th><th>Amount</th><th>Status</th>{!compact && <th>Payment</th>}{onAction && <th>Action</th>}</tr></thead><tbody>{registrations.map((registration) => <tr key={registration._id || registration.registrationId}><td><strong>{registration.registrationId}</strong><small>{new Date(registration.createdAt).toLocaleDateString()}</small></td><td>{registration.teamName}<small>{registration.teamLeader} · {registration.email}</small></td><td>{registration.college}</td><td>{money(registration.totalAmount)}</td><td><span className={`admin-badge ${formatStatus(registration.registrationStatus).replaceAll(' ', '-')}`}>{formatStatus(registration.registrationStatus)}</span></td>{!compact && <td><span className={`admin-badge ${formatStatus(registration.payment?.status).replaceAll(' ', '-')}`}>{formatStatus(registration.payment?.status)}</span>{registration.payment?.screenshotUrl && <a className="admin-link" href={registration.payment.screenshotUrl} target="_blank" rel="noreferrer">View screenshot</a>}</td>}{onAction && <td><button className="admin-secondary" onClick={() => onAction(registration)}>{registration.payment?.status === 'PENDING_VERIFICATION' ? 'Review' : 'View'}</button></td>}</tr>)}</tbody></table></div>;
+  return <div className="admin-table-wrap"><table className="admin-table"><thead><tr><th>ID</th><th>Team / leader</th><th>College</th><th>Amount</th><th>Status</th>{!compact && <th>Payment</th>}{onAction && <th>Action</th>}</tr></thead><tbody>{registrations.map((registration) => <tr key={registration._id || registration.registrationId}><td><strong>{registration.registrationId}</strong><small>{new Date(registration.createdAt).toLocaleDateString()}</small></td><td>{registration.teamName}<small>{registration.teamLeader} · {registration.email}</small></td><td>{registration.college}</td><td>{money(registration.totalAmount)}</td><td><span className={`admin-badge ${formatStatus(registration.registrationStatus).replaceAll(' ', '-')}`}>{formatStatus(registration.registrationStatus)}</span></td>{!compact && <td><span className={`admin-badge ${formatStatus(registration.payment?.status).replaceAll(' ', '-')}`}>{formatStatus(registration.payment?.status)}</span>{registration.payment?.screenshotUrl && <button className="admin-link" type="button" onClick={() => onPreview(registration.payment.screenshotUrl)}>View screenshot</button>}</td>}{onAction && <td><button className="admin-secondary" onClick={() => onAction(registration)}>{registration.payment?.status === 'PENDING_VERIFICATION' ? 'Review' : 'View'}</button></td>}</tr>)}</tbody></table></div>;
 }
 
 function Registrations({ paymentsOnly = false }) {
   const endpoint = paymentsOnly ? '/admin/registrations?status=payment_submitted&limit=100' : '/admin/registrations?limit=100';
   const request = useRequest(() => api(endpoint), [endpoint]);
   const [selected, setSelected] = React.useState(null);
+  const [previewUrl, setPreviewUrl] = React.useState('');
   const [actionError, setActionError] = React.useState('');
   const [exportError, setExportError] = React.useState('');
   if (request.loading) return <Loading />;
@@ -125,8 +144,9 @@ function Registrations({ paymentsOnly = false }) {
   return <>
     <div className="admin-page-heading"><div><p className="admin-kicker">{paymentsOnly ? 'FINANCE' : 'PEOPLE'}</p><h2>{paymentsOnly ? 'Payment verification' : 'Registrations'}</h2></div><div className="admin-heading-actions">{!paymentsOnly && <button className="admin-secondary" onClick={async () => { setExportError(''); try { await downloadVerifiedRegistrations(); } catch (error) { setExportError(error.message); } }}>Download verified .xlsx</button>}<button className="admin-icon-button" title="Refresh" onClick={request.reload}><RefreshCw size={17} /></button></div></div>
     <Notice error={exportError} />
-    <section className="admin-panel"><RegistrationTable registrations={registrations} onAction={setSelected} /></section>
-    {selected && <div className="admin-modal-backdrop"><div className="admin-modal"><button className="admin-modal-close" onClick={() => setSelected(null)}><X size={18} /></button><p className="admin-kicker">{selected.registrationId}</p><h3>{selected.teamName}</h3><p>{selected.teamLeader} · {selected.email} · {selected.phone}</p><p>{selected.college} · {selected.department} · Year {selected.year}</p><h4>Participants</h4><p>{selected.participants?.map((participant) => participant.name).join(', ') || selected.teamLeader}</p><h4>Food preferences</h4><p>{selected.foodPreferences?.map((item) => `${item.name}: ${item.preference}`).join(' · ') || selected.foodPreference}</p><h4>Selected events</h4><ul>{selected.selectedEvents?.map((event) => <li key={event.eventId}>{event.eventName}</li>)}</ul>{selected.payment?.screenshotUrl && <a className="admin-link" href={selected.payment.screenshotUrl} target="_blank" rel="noreferrer">Open payment screenshot</a>}<Notice error={actionError} />{selected.payment?.status === 'PENDING_VERIFICATION' && <div className="admin-modal-actions"><button className="admin-primary" onClick={() => review(selected)}><Check size={15} /> Verify payment</button><button className="admin-danger" onClick={() => { const reason = window.prompt('Reason for rejection:', 'Payment could not be verified'); if (reason) review(selected, reason); }}>Reject</button></div>}</div></div>}
+    <section className="admin-panel"><RegistrationTable registrations={registrations} onAction={setSelected} onPreview={setPreviewUrl} /></section>
+    {selected && <div className="admin-modal-backdrop"><div className="admin-modal"><button className="admin-modal-close" onClick={() => setSelected(null)}><X size={18} /></button><p className="admin-kicker">{selected.registrationId}</p><h3>{selected.teamName}</h3><p>{selected.teamLeader} · {selected.email} · {selected.phone}</p><p>{selected.college} · {selected.department} · Year {selected.year}</p><h4>Participants</h4><p>{selected.participants?.map((participant) => participant.name).join(', ') || selected.teamLeader}</p><h4>Food preferences</h4><p>{selected.foodPreferences?.map((item) => `${item.name}: ${item.preference}`).join(' · ') || selected.foodPreference}</p><h4>Selected events</h4><ul>{selected.selectedEvents?.map((event) => <li key={event.eventId}>{event.eventName}</li>)}</ul>{selected.payment?.screenshotUrl && <button className="admin-link" type="button" onClick={() => setPreviewUrl(selected.payment.screenshotUrl)}>View payment screenshot</button>}<Notice error={actionError} />{selected.payment?.status === 'PENDING_VERIFICATION' && <div className="admin-modal-actions"><button className="admin-primary" onClick={() => review(selected)}><Check size={15} /> Verify payment</button><button className="admin-danger" onClick={() => { const reason = window.prompt('Reason for rejection:', 'Payment could not be verified'); if (reason) review(selected, reason); }}>Reject</button></div>}</div></div>}
+    <ScreenshotModal url={previewUrl} onClose={() => setPreviewUrl('')} />
   </>;
 }
 
@@ -136,6 +156,17 @@ function Workshops() {
   const toggle = async (workshop) => { setError(''); try { await api(`/admin/workshops/${workshop.slug}`, { method: 'PUT', body: JSON.stringify({ isActive: !workshop.isActive }) }); request.reload(); } catch (requestError) { setError(requestError.message); } };
   if (request.loading) return <Loading />;
   return <><div className="admin-page-heading"><div><p className="admin-kicker">PROGRAMME</p><h2>Workshops</h2></div><button className="admin-icon-button" title="Refresh" onClick={request.reload}><RefreshCw size={17} /></button></div><Notice error={request.error || error} /><section className="admin-panel"><div className="admin-list">{request.data?.data.workshops?.map((workshop) => <div className="admin-list-row" key={workshop.slug}><div><strong>{workshop.name}</strong><small>{workshop.slug} · {money(workshop.price)}</small></div><button className={workshop.isActive ? 'admin-secondary' : 'admin-danger'} onClick={() => toggle(workshop)}>{workshop.isActive ? 'Active' : 'Inactive'}</button></div>)}</div></section></>;
+}
+
+function WorkshopRegistrations() {
+  const request = useRequest(() => api('/workshop-registrations/admin/list'));
+  const [error, setError] = React.useState('');
+  const [previewUrl, setPreviewUrl] = React.useState('');
+  const approve = async (registration) => { setError(''); try { await api(`/workshop-registrations/admin/${registration.registrationId}/approve`, { method: 'PATCH' }); request.reload(); } catch (requestError) { setError(requestError.message); } };
+  if (request.loading) return <Loading />;
+  if (request.error) return <><Notice error={request.error} /><button className="admin-secondary" onClick={request.reload}>Retry</button></>;
+  const registrations = request.data.data.registrations || [];
+  return <><div className="admin-page-heading"><div><p className="admin-kicker">WORKSHOP</p><h2>Workshop payment review</h2></div><div className="admin-heading-actions"><button className="admin-secondary" onClick={async () => { try { await downloadConfirmedWorkshops(); } catch (downloadError) { setError(downloadError.message); } }}>Download confirmed .xlsx</button><button className="admin-icon-button" onClick={request.reload}><RefreshCw size={17} /></button></div></div><Notice error={error} /><section className="admin-panel"><div className="admin-list">{registrations.length ? registrations.map((registration) => <div className="admin-list-row" key={registration.registrationId}><div><strong>{registration.name}</strong><small>{registration.registrationId} · {registration.email}</small><p>{registration.college} · Year {registration.year} · {registration.foodPreference} · ₹{registration.totalAmount}</p>{registration.payment?.screenshotUrl && <button className="admin-link" type="button" onClick={() => setPreviewUrl(registration.payment.screenshotUrl)}>View payment screenshot</button>}</div><div><span className={`admin-badge ${formatStatus(registration.registrationStatus).replaceAll(' ', '-')}`}>{formatStatus(registration.registrationStatus)}</span>{registration.payment?.status === 'PENDING_VERIFICATION' && <button className="admin-primary" onClick={() => approve(registration)}><Check size={15} /> Approve</button>}</div></div>) : <div className="admin-empty">No workshop registrations found.</div>}</div></section><ScreenshotModal url={previewUrl} onClose={() => setPreviewUrl('')} /></>;
 }
 
 function Enquiries() {
@@ -164,6 +195,7 @@ export function AdminApp() {
   if (path === '/admin/registrations') content = <Registrations />;
   if (path === '/admin/payments') content = <Registrations paymentsOnly />;
   if (path === '/admin/workshops') content = <Workshops />;
+  if (path === '/admin/workshop-registrations') content = <WorkshopRegistrations />;
   if (path === '/admin/enquiries') content = <Enquiries />;
   if (path === '/admin/announcements') content = <Announcements />;
   return <AdminLayout>{content}</AdminLayout>;

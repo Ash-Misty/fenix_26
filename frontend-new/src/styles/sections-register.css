@@ -175,3 +175,15 @@ footer a:hover{color:var(--red)}
   font-size: .78rem;
   line-height: 1.4;
 }
+.event-select { border-width: 2px; min-height: 132px; transform: translateZ(0); }
+.event-select:hover:not(:disabled) { border-color: var(--select-accent); box-shadow: 0 12px 30px rgba(var(--select-rgb), .24); transform: translateY(-4px); }
+.event-select.chosen { border-width: 3px; box-shadow: 0 0 0 2px rgba(var(--select-rgb), .2), 0 15px 32px rgba(var(--select-rgb), .28); transform: translateY(-2px); }
+.event-select.chosen::after { content: 'SELECTED'; position: absolute; top: 11px; right: 11px; border: 1px solid var(--select-accent); border-radius: 999px; color: var(--select-accent); font: 800 .55rem 'DM Mono', monospace; letter-spacing: .08em; padding: 4px 6px; }
+.payment-dropzone { margin-top: 16px; border: 2px dashed rgba(255, 189, 102, .6); border-radius: 12px; background: linear-gradient(135deg, rgba(255, 189, 102, .12), rgba(255, 45, 26, .08)); transition: border-color .2s, background .2s, transform .2s; }
+.payment-dropzone:hover, .payment-dropzone.is-dragging { border-color: var(--gold); background: rgba(255, 189, 102, .18); transform: translateY(-2px); }
+.payment-dropzone.has-file { border-color: #55d68a; background: rgba(85, 214, 138, .11); }
+.payment-dropzone input { position: absolute; width: 1px; height: 1px; opacity: 0; }
+.payment-dropzone label { min-height: 148px; display: grid; place-items: center; align-content: center; gap: 8px; padding: 20px; color: var(--gold); cursor: pointer; text-align: center; }
+.payment-dropzone strong { color: var(--ink); font-size: .96rem; overflow-wrap: anywhere; }
+.payment-dropzone small { color: var(--muted); font-size: .72rem; }
+@media (max-width: 700px) { .event-select { min-height: 116px; } .payment-dropzone label { min-height: 130px; } }

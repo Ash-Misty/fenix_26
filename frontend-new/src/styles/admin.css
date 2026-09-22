@@ -81,6 +81,12 @@
 .admin-modal li { margin-left: 18px; color: #d8c4bd; font-size: .82rem; }
 .admin-modal-close { position: absolute; top: 14px; right: 14px; border: 0; background: none; color: var(--muted); cursor: pointer; }
 .admin-modal-actions { display: flex; gap: 10px; margin-top: 22px; }
+.admin-link { background: transparent; border: 0; cursor: pointer; padding: 0; text-align: left; }
+.admin-screenshot-backdrop { align-items: center; background: rgba(8,3,5,.86); display: flex; inset: 0; justify-content: center; padding: clamp(12px,3vw,32px); position: fixed; z-index: 50; }
+.admin-screenshot-modal { background: #170811; border: 1px solid var(--line); border-radius: 14px; box-shadow: 0 24px 80px rgba(0,0,0,.58); max-height: calc(100dvh - 24px); max-width: min(980px, 100%); overflow: auto; padding: 42px 14px 14px; position: relative; width: max-content; }
+.admin-screenshot-modal img { display: block; height: auto; max-height: calc(100dvh - 94px); max-width: 100%; object-fit: contain; width: auto; }
+.admin-screenshot-modal .admin-modal-close { align-items: center; background: rgba(42,13,23,.92); border: 1px solid var(--line); border-radius: 50%; display: inline-flex; height: 32px; justify-content: center; right: 10px; top: 8px; width: 32px; z-index: 1; }
+@media (max-width: 600px) { .admin-screenshot-backdrop { padding: 10px; } .admin-screenshot-modal { border-radius: 10px; max-height: calc(100dvh - 20px); padding: 40px 8px 8px; width: 100%; } .admin-screenshot-modal img { max-height: calc(100dvh - 78px); width: 100%; } }
 .admin-success { color: #7ee2a7; font-size: .78rem; }
 .admin-profile-form { max-width: 560px; display: grid; gap: 16px; }
 .admin-profile-form label { display: grid; gap: 7px; color: #d8c4bd; font-size: .75rem; }

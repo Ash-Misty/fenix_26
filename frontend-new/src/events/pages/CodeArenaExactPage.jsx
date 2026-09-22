@@ -8,7 +8,7 @@ const topics = ['Arrays', 'Strings', 'Hash Maps', 'Two Pointers', 'Sliding Windo
 const criteria = [[Target, 'Correctness'], [Timer, 'Time Taken'], [Gauge, 'Problem-Solving Accuracy'], [Cpu, 'Algorithm Efficiency'], [Layers3, 'Time Complexity'], [HardDrive, 'Space Complexity']];
 const rounds = [['01', '2 PROBLEMS', 'Solve two algorithmic and data-structure challenges within the time limit.', 'emerald'], ['02', 'MIXED LEVELS', 'Problems may be Easy, Medium, or Hard to test fundamental and advanced skills.', 'orange'], ['03', 'SMART SCORING', 'Efficient, correct, and faster solutions earn higher scores.', 'red']];
 const rules = ['This is a single-round algorithmic coding challenge lasting 30 minutes.', 'Every participant must bring a laptop for the challenge.', 'Participants receive two coding problems drawn from the published topics.', 'Any programming language supported by the judge may be used.', 'Solutions are evaluated for correctness, speed, algorithm efficiency, and time and space complexity.', 'The top three performers are ranked by their overall score across both problems.'];
-const contacts = [['Overall Coordinator', 'Indra Santhoshi B', '6381429220'], ['Overall Coordinator', 'Maha Shree R', '6369546337']];
+const contacts = [['Event Incharge', 'Vaishnavi P', '9344095495'], ['Tech Coordinator', 'Muthuraja P', '8489387739']];
 const twoSumExample = `function twoSum(nums, target) {
   const map = new Map();
 

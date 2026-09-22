@@ -60,6 +60,17 @@ html,body,#root{max-width:100%;overflow-x:clip}img,svg{max-width:100%}
 @media(max-width:700px){.register{padding-top:88px}.register-intro .back{position:static;margin:0 0 18px}.register-intro{padding:28px 18px 24px}.register-intro h1{font-size:clamp(3rem,15vw,4.4rem)}.register-form{padding:0 14px 54px}.form-card{padding:21px 16px}.form-actions{flex-wrap:wrap}.form-actions .btn{flex:1;min-width:130px}.event-select-grid{grid-template-columns:1fr}.event-summary{gap:8px}.event-summary .fee-preview{margin-left:0;width:100%}.radio-group{grid-template-columns:1fr;gap:10px}.radio-option{width:100%}.carousel-mock{width:158px;right:18px;top:31%;padding:.9rem;border-radius:14px;transform:rotate(6deg)}.carousel-mock-1{transform:rotate(-6deg)}.carousel-mock-2{transform:rotate(5deg)}.carousel-mock strong{font-size:1.3rem}.carousel-copy{bottom:93px!important;max-width:290px}.carousel-copy h2{font-size:clamp(3.15rem,15vw,4.5rem)!important}  .prize-board{grid-template-columns:1fr;padding:26px 19px;gap:34px}.prize-list{grid-template-columns:1fr;gap:7px}.prize-list article{min-height:0;padding:13px 9px}.prize-list strong{font-size:1.4rem}.prize-list small{font-size:.57rem}.prize-list article:first-child{transform:translateY(-6px)}}
 
 .site-header,header.site-header{height:68px}
+
+/* Overall champions: one clear, celebratory prize pool card. */
+.prize-board .prize-list { grid-template-columns: minmax(0, 1fr); }
+.prize-board .prize-total { align-items: center; isolation: isolate; justify-content: center; min-height: 180px; overflow: hidden; position: relative; text-align: center; }
+.prize-board .prize-total::before { background: radial-gradient(circle at 50% 50%, rgba(255, 181, 80, .35), transparent 64%); content: ''; inset: 0; opacity: .85; pointer-events: none; position: absolute; }
+.prize-board .prize-total::after { border: 1px solid rgba(255, 224, 150, .42); border-radius: 999px; content: ''; height: 125%; left: 50%; pointer-events: none; position: absolute; top: 50%; transform: translate(-50%, -50%) rotate(-8deg); width: 55%; }
+.prize-board .prize-total > * { position: relative; z-index: 1; }
+.prize-board .prize-total > span { align-items: center; background: linear-gradient(135deg, #fff0b5, #f8b84a); border-radius: 50%; box-shadow: 0 0 28px rgba(255, 190, 83, .62); color: #351304; display: grid; font-size: 1rem; height: 34px; margin-bottom: 8px; width: 34px; }
+.prize-board .prize-total strong { font-size: clamp(2.7rem, 6vw, 5rem); letter-spacing: -.055em; text-shadow: 0 0 28px rgba(255, 207, 113, .44); }
+.prize-board .prize-total small { color: #ffe5a5; font: 700 clamp(.72rem, 1.3vw, .9rem) 'DM Mono', monospace; letter-spacing: .16em; margin-top: 8px; text-transform: uppercase; }
+@media (max-width: 700px) { .prize-board .prize-total { min-height: 165px; padding: 22px 16px; } .prize-board .prize-total::after { width: 76%; } .prize-board .prize-total strong { font-size: clamp(2.45rem, 14vw, 3.6rem); } }
 header.site-header.scrolled{height:68px}
 .mobile-menu{top:68px}
 .event-page{margin:0;padding:76px 0 0}
@@ -205,3 +216,55 @@ footer .footer-links button:focus-visible,.site-header button:focus-visible{outl
 .timeline{width:min(920px,100%)}.timeline-wrap{width:100%}.timeline-item>div{min-width:0}.timeline-item small{display:block;line-height:1.45;overflow-wrap:anywhere}
 @media(max-width:800px){.timeline{padding-inline:clamp(16px,4vw,28px)!important}.timeline-wrap::before{left:126px}.timeline-item{grid-template-columns:98px 28px minmax(0,1fr);gap:12px;padding:16px 14px}.timeline-item span{font-size:.68rem}.timeline-item span b{height:21px;width:21px;font-size:.5rem}}
 @media(max-width:640px){.timeline{padding-inline:16px!important}.timeline-wrap{gap:10px}.timeline-wrap::before{left:24px;top:26px;bottom:26px}.timeline-item{grid-template-columns:18px minmax(0,1fr)!important;column-gap:13px;row-gap:7px;padding:17px 14px!important}.timeline-item span{grid-column:2;grid-row:1;min-width:0}.timeline-item i{grid-column:1;grid-row:1;position:static!important;align-self:center;justify-self:center;width:10px!important;height:10px!important}.timeline-item>div{grid-column:2;grid-row:2}.timeline-item strong{font-size:.96rem;line-height:1.2}.timeline-item small{font-size:.7rem;margin-top:3px}.timeline-item:hover{transform:none}}
+.gpay-qr img { display: block; height: 150px; max-width: 100%; object-fit: contain; width: 150px; }
+.workshop-reserve,
+.workshop-form-fields > .btn,
+.workshop-payment-actions > .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 20px;
+  border: 1px solid var(--gold);
+  border-radius: 5px;
+  background: var(--gold);
+  color: #1a0b12;
+  box-shadow: 0 12px 28px rgba(255, 189, 102, .24);
+  cursor: pointer;
+  font: 800 .72rem 'Syne', sans-serif;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  transition: transform .2s, background .2s, opacity .2s;
+}
+.workshop-reserve:hover,
+.workshop-form-fields > .btn:hover,
+.workshop-payment-actions > .btn:hover { background: var(--red); border-color: var(--red); color: var(--ink); transform: translateY(-2px); }
+.workshop-payment-actions > .btn.secondary { background: transparent; border-color: var(--line); color: var(--ink); box-shadow: none; }
+.workshop-form-fields > .btn:disabled,
+.workshop-payment-actions > .btn:disabled { cursor: wait; opacity: .65; transform: none; }
+.workshop-form-fields > .btn[aria-busy="true"]::after,
+.workshop-payment-actions > .btn[aria-busy="true"]::after,
+.form-actions > .btn[aria-busy="true"]::after { content: ' · Please wait, do not reload'; font-size: .58rem; }
+.confirmation-next-steps { display: grid; gap: 12px; width: min(100%, 420px); margin: 0 0 22px; }
+.confirmation-next-steps > p { margin: 0 !important; padding: 12px 14px; border: 1px solid rgba(255,189,102,.52); background: rgba(255,189,102,.1); color: #ffe2ad !important; font-size: .82rem !important; line-height: 1.45; }
+.confirmation-next-steps .whatsapp-community { width: 100%; margin: 0; justify-content: center; }
+.confirmation-next-steps .whatsapp-community::before { content: none !important; display: none !important; }
+@media (max-width: 700px) {
+  .workshop-registration-page { padding: 76px 12px 42px; overflow-x: clip; }
+  .workshop-registration-shell, .workshop-registration-intro, .workshop-form-card, .workshop-confirmation { min-width: 0; width: 100%; }
+  .workshop-back { margin: 10px 0 22px; }
+  .workshop-registration-intro { margin-bottom: 24px; }
+  .workshop-registration-intro h1 { font-size: clamp(2.1rem, 10vw, 3rem) !important; line-height: 1 !important; letter-spacing: -.055em; overflow-wrap: anywhere; }
+  .workshop-registration-intro > p:not(.eyebrow) { font-size: .94rem; line-height: 1.55; }
+  .workshop-registration-meta { display: grid; grid-template-columns: 1fr auto; align-items: center; }
+  .workshop-registration-meta span:last-child { grid-column: 1 / -1; justify-self: start; }
+  .workshop-form-progress { align-items: flex-start; gap: 7px; font-size: .56rem; white-space: nowrap; }
+  .workshop-form-progress span { gap: 5px; }
+  .workshop-form-progress i { flex: 1; min-width: 16px; width: auto; margin-top: 8px; }
+  .workshop-form-fields h2, .workshop-payment-step h2 { font-size: clamp(1.65rem, 9vw, 2.25rem); }
+  .workshop-reserve, .workshop-form-fields > .btn, .workshop-payment-actions > .btn { width: 100%; min-height: 50px; }
+  .workshop-confirmation { padding: 92px 8px 30px; }
+  .workshop-confirmation h1 { font-size: clamp(2.1rem, 11vw, 3rem) !important; }
+  .workshop-confirmation > p:not(.eyebrow) { font-size: .94rem; margin: 16px 0; }
+  .confirmation-next-steps { margin-bottom: 18px; }
+}

@@ -14,6 +14,7 @@ import eventRoutes from './routes/eventRoutes.js';
 import adminProfileRoutes from './routes/adminProfileRoutes.js';
 import contactRoutes from './routes/contactRoutes.js';
 import announcementRoutes from './routes/announcementRoutes.js';
+import workshopRegistrationRoutes from './routes/workshopRegistrationRoutes.js';
 import logger from './utils/logger.js';
 import swaggerOptions from './swagger.js';
 
@@ -70,6 +71,7 @@ export function createApp() {
 
   app.use('/api', apiLimiter);
   app.use('/api/registrations', registrationRoutes);
+  app.use('/api/workshop-registrations', workshopRegistrationRoutes);
   app.use('/api/payments', paymentRoutes);
   app.use('/api/admin', adminRoutes);
   app.use('/api/admin', dashboardRoutes);

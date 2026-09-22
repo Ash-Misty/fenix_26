@@ -6,6 +6,10 @@
   gap: 7px;
 }
 
+/* Contact cards are text-only: no reserved avatar column. */
+.meme-contacts a { grid-template-columns: minmax(0, 1fr) 16px; }
+.meme-contacts small { grid-column: 1; }
+
 .meme-brand-logo {
   border-radius: 50%;
   display: inline-block;

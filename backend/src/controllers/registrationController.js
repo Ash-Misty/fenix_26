@@ -7,7 +7,7 @@ import { sendAdminNotification, sendRegistrationPendingEmail } from '../services
 import { AppError } from '../middleware/errorHandler.js';
 import logger from '../utils/logger.js';
 
-const REGISTRATION_CAPACITY = 260;
+const REGISTRATION_COUNT_BASELINE = 60;
 
 export async function createRegistration(req, res, next) {
   try {
@@ -158,13 +158,12 @@ export async function uploadPaymentScreenshot(req, res, next) {
 
 export async function getRegistrationCount(req, res, next) {
   try {
-    const count = await Registration.countDocuments({ registrationStatus: { $ne: 'rejected' } });
+    const storedCount = await Registration.countDocuments({ registrationStatus: { $ne: 'rejected' } });
     res.status(200).json({
       success: true,
       data: {
-        count,
-        capacity: REGISTRATION_CAPACITY,
-        slotsLeft: Math.max(0, REGISTRATION_CAPACITY - count),
+        count: REGISTRATION_COUNT_BASELINE + storedCount,
+        storedCount,
       },
     });
   } catch (err) {

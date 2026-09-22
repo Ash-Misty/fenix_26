@@ -25,11 +25,6 @@ export function TeamSection() {
             </h2>
           </Reveal>
         </div>
-        <Reveal delay={200}>
-          <p className="side-copy">
-            A driven crew turning a shared vision into an experience worth remembering.
-          </p>
-        </Reveal>
       </div>
       <div className="team-grid">
         {makers.map(([position, name, mobile], index) => (

@@ -61,9 +61,8 @@ function App() {
     try {
       const response = await api('/registrations/count', { signal: controller.signal });
       const count = Number(response?.data?.count);
-      const capacity = Number(response?.data?.capacity);
-      if (!Number.isFinite(count) || !Number.isFinite(capacity)) throw new Error('Invalid registration totals');
-      setRegistrationStats({ count: Math.max(0, count), capacity: Math.max(0, capacity) });
+      if (!Number.isFinite(count)) throw new Error('Invalid registration totals');
+      setRegistrationStats({ count: Math.max(0, count) });
       setRegistrationStatsError(false);
     } catch {
       setRegistrationStatsError(true);

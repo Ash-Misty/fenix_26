@@ -39,7 +39,7 @@ export function WorkshopSection({ setPage }) {
           </div>
         </Reveal>
         <Reveal delay={450}>
-          <Button onClick={() => setPage('workshop-register')}>Reserve a spot</Button>
+          <Button className="workshop-reserve" onClick={() => setPage('workshop-register')}>Reserve a spot</Button>
         </Reveal>
       </div>
     </section>
