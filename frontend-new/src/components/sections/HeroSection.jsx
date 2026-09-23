@@ -35,6 +35,9 @@ export function HeroSection({ setPage, registrationStats, hasRegistrationStatsEr
             <Clock size={16} /> OCTOBER 07, 2026 <b /> ANNA UNIVERSITY, TRICHY
           </p>
         </Reveal>
+        <Reveal delay={350}>
+          <p className="spot-registration-notice"><span>●</span> Spot registrations also available</p>
+        </Reveal>
         <Reveal delay={400}>
           <div className="hero-actions">
             <Button onClick={() => setPage('register')}>Register now</Button>

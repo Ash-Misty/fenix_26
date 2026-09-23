@@ -26,9 +26,14 @@ export function Footer({ setPage }) {
       <div className="footer-contact">
         <small>GET IN TOUCH</small>
         <p>
-          [College Address]<br />
-          [Email]<br />
-          [Phone Number]
+          <strong>President</strong><br />
+          Vivekanandan A<br />
+          <a href="tel:+919080737731">+91 9080737731</a>
+        </p>
+        <p>
+          <strong>President</strong><br />
+          Shobika B<br />
+          <a href="tel:+919150705612">+91 9150705612</a>
         </p>
       </div>
       <div className="footer-bottom">

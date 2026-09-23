@@ -23,6 +23,7 @@ html,body,#root{max-width:100%;overflow-x:clip}img,svg{max-width:100%}
 .hero .tagline{margin:14px 0 12px;color:var(--ink);font-weight:600;text-shadow:0 2px 18px rgba(0,0,0,.7)}
 .hero-date{display:inline-flex;align-items:center;flex-wrap:wrap;gap:8px;margin:0 0 20px;padding:8px 12px;border:1px solid rgba(255,189,102,.42);border-radius:6px;background:rgba(11,6,16,.72);color:var(--ink);font:700 .72rem/1.35 'DM Mono',monospace;letter-spacing:.03em;box-shadow:0 8px 20px rgba(0,0,0,.25)}
 .hero-date svg{color:var(--gold);flex:none}.hero-date b{width:4px;height:4px;border-radius:50%;background:var(--gold);flex:none}
+.spot-registration-notice{align-items:center;background:linear-gradient(90deg,rgba(255,45,26,.24),rgba(255,189,102,.13));border:1px solid var(--gold);border-radius:999px;box-shadow:0 0 24px rgba(255,69,36,.25);color:var(--ink);display:inline-flex;font:800 clamp(.62rem,1.2vw,.78rem) 'DM Mono',monospace;gap:8px;letter-spacing:.08em;margin:0 0 16px;padding:9px 13px;text-transform:uppercase}.spot-registration-notice span{animation:spotRegistrationPulse 1.5s ease-in-out infinite;color:var(--gold);font-size:.9rem;text-shadow:0 0 14px var(--gold)}@keyframes spotRegistrationPulse{50%{opacity:.4;transform:scale(.8)}}
 .hero-actions{display:flex;flex-wrap:wrap;gap:12px;margin:0 0 22px}
 .hero-actions .btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;min-height:46px;padding:12px 18px;border:1px solid var(--gold);background:var(--gold);color:#1a0b12;font:800 .72rem 'Syne',sans-serif;letter-spacing:.07em;text-transform:uppercase;box-shadow:0 10px 26px rgba(255,189,102,.25);transition:transform .2s,background .2s,color .2s}
 .hero-actions .btn.secondary{background:rgba(11,6,16,.82);color:var(--ink);border-color:rgba(255,240,224,.62);box-shadow:0 10px 26px rgba(0,0,0,.26)}
@@ -37,6 +38,7 @@ html,body,#root{max-width:100%;overflow-x:clip}img,svg{max-width:100%}
   .hero-date{width:fit-content;max-width:100%;gap:5px 7px;padding:8px 10px;font-size:.61rem!important;line-height:1.4}
   .hero-date b{display:none}
   .hero-date svg{width:14px;height:14px}
+  .spot-registration-notice{font-size:.57rem;gap:6px;line-height:1.35;margin-bottom:14px;padding:8px 10px}
   .hero-actions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));width:100%;gap:8px;margin-bottom:18px}
   .hero-actions .btn{min-width:0;min-height:44px;padding:10px 8px;font-size:.61rem!important;letter-spacing:.04em}
   .hero-actions .btn svg{width:14px;height:14px;flex:none}

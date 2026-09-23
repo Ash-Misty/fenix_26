@@ -116,6 +116,9 @@ footer small{color:var(--gold);font-size:.68rem;letter-spacing:.12em;text-transf
 footer a{display:block;color:var(--muted);font-size:.85rem;padding:6px 0;transition:.25s;cursor:pointer;background:none;text-decoration:none}
 footer a:hover{color:var(--red)}
 .footer-contact p{overflow-wrap:anywhere}
+.footer-contact p{margin:0 0 14px;line-height:1.55}
+.footer-contact p strong{color:var(--gold);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+.footer-contact p a{color:var(--cream);font-size:.8rem;padding:0}
 .footer-bottom{grid-column:1/-1;text-align:center;padding-top:24px;border-top:1px solid var(--line);color:var(--muted);font-size:.78rem;letter-spacing:.08em;display:flex;flex-direction:column;gap:6px}
 .footer-bottom span{color:var(--gold)}
 
