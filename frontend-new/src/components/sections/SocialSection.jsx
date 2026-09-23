@@ -15,10 +15,8 @@ export function SocialSection() {
       </Reveal>
       <Reveal delay={200}>
         <div>
-          <a href="#">Instagram ↗</a>
-          <a href="#">LinkedIn ↗</a>
-          <a href="#">YouTube ↗</a>
-          <a href="#">WhatsApp ↗</a>
+          <a href="https://www.instagram.com/feni.x_offl_2k26" target="_blank" rel="noreferrer">Instagram · feni.x_offl_2k26 ↗</a>
+          <a href="https://chat.whatsapp.com/C3GlXtVStxqEd5iws5dyK6" target="_blank" rel="noreferrer">WhatsApp ↗</a>
         </div>
       </Reveal>
     </section>

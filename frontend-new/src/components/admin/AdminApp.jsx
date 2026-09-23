@@ -5,7 +5,7 @@ import { Check, LoaderCircle, LogIn, Plus, RefreshCw, X } from 'lucide-react';
 
 const formatStatus = (value = '') => value.replaceAll('_', ' ').toLowerCase();
 const money = (value = 0) => `₹${Number(value).toLocaleString('en-IN')}`;
-const API_BASE = import.meta.env.VITE_API_BASE || 'http://localhost:5000/api';
+const API_BASE = import.meta.env.VITE_API_BASE || 'https://fenix-26.onrender.com/api';
 
 async function downloadVerifiedRegistrations() {
   const response = await fetch(`${API_BASE}/admin/registrations/export.xlsx`, { headers: { Authorization: `Bearer ${localStorage.getItem('adminToken')}` } });
