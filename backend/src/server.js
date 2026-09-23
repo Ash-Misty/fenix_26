@@ -77,7 +77,7 @@ async function startServer() {
     await seedPricingConfig();
     await initRegistrationIdCounter(Registration);
 
-    const server = app.listen(PORT, () => {
+    const server = app.listen(PORT, '0.0.0.0', () => {
       logger.info(`FENIX26 Backend running on port ${PORT} (${NODE_ENV})`);
     });
 
