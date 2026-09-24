@@ -29,7 +29,7 @@ export function Header({ setPage, registerMode = false }) {
         </a>
         <div className="college-lockup" aria-label="University College of Engineering, BIT Campus, Anna University, Trichy">
           <img className="college-crest" src="/anna-university-logo.png" alt="" />
-          <span className="college-name">University College of Engineering<small>BIT Campus · Anna University · Trichy</small></span>
+          <span className="college-name">University College of Engineering<small>BIT Campus · Anna University</small></span>
         </div>
         <nav className="desktop-nav" aria-label="Main navigation">
           {navItems.map((item) => (
