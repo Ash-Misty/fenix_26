@@ -1,60 +1,43 @@
-import React from 'react';
-import { Download, Image } from 'lucide-react';
-import { Button } from '../ui/Button';
+import React, { useEffect, useState } from 'react';
+import { createPortal } from 'react-dom';
+import { Download, Expand, X } from 'lucide-react';
 import { Reveal } from '../ui/Reveal';
 
+const brochureUrl = '/fenix26-brochure.pdf';
+
 export function BrochureSection() {
+  const [posterOpen, setPosterOpen] = useState(false);
+
+  useEffect(() => {
+    if (!posterOpen) return undefined;
+    const onKeyDown = (event) => { if (event.key === 'Escape') setPosterOpen(false); };
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    window.addEventListener('keydown', onKeyDown);
+    return () => { window.removeEventListener('keydown', onKeyDown); document.body.style.overflow = previousOverflow; };
+  }, [posterOpen]);
+
   return (
     <section id="brochure" className="section brochure">
-      <Reveal>
-        <p className="eyebrow">EVERY DETAIL, ONE PLACE</p>
-      </Reveal>
-      <Reveal delay={100}>
-        <h2>
-          The FENIX'26<br />
-          <span>brochure.</span>
-        </h2>
-      </Reveal>
-      <Reveal delay={200}>
-        <p>Download the official event guide with complete schedule, rules, and venue details.</p>
-      </Reveal>
+      <Reveal><p className="eyebrow">EVERY DETAIL, ONE PLACE</p></Reveal>
+      <Reveal delay={100}><h2>The FENIX&apos;26<br /><span>brochure.</span></h2></Reveal>
+      <Reveal delay={200}><p>Explore the official brochure and download a copy for event details.</p></Reveal>
       <Reveal delay={300}>
-        <div className="hero-actions">
-          <Button secondary onClick={() => {}}>
-            <Download size={16} /> Download Brochure (PDF)
-          </Button>
-          <Button secondary onClick={() => {}}>
-            <Image size={16} /> View Poster
-          </Button>
+        <div className="hero-actions brochure-actions"><a className="brochure-action" href={brochureUrl} download="FENIX26-Brochure.pdf"><Download size={16} /> Download brochure PDF</a></div>
+      </Reveal>
+      <Reveal delay={350}>
+        <div className="brochure-covers" aria-label="FENIX'26 brochure previews">
+          <figure><img src="/brochure-front.png" alt="FENIX'26 brochure front" /><figcaption>Brochure front</figcaption></figure>
+          <figure><img src="/brochure-back.png" alt="FENIX'26 brochure back" /><figcaption>Brochure back</figcaption></figure>
         </div>
       </Reveal>
       <Reveal delay={400}>
-        <div className="brochure-paper">
-          <small>FENIX'26</small>
-          <strong>
-            MAKE<br />
-            YOUR<br />
-            MARK<span>.</span>
-          </strong>
-          <i>OCT / 07 / 26</i>
-        </div>
+        <button className="poster-preview" type="button" onClick={() => setPosterOpen(true)} aria-label="Open FENIX'26 poster in full screen">
+          <img src="/fenix26-poster.png" alt="FENIX'26 official event poster" />
+          <span><Expand size={18} /> View poster full screen</span>
+        </button>
       </Reveal>
-      <Reveal delay={500}>
-        <div className="poster-placeholder">
-          <Image size={48} style={{opacity: 0.4, marginBottom: 16}} />
-          <p className="eyebrow">POSTER PREVIEW</p>
-          <p style={{color: 'var(--muted)', fontSize: '0.9rem', marginBottom: 16}}>
-            Official event poster will be displayed here
-          </p>
-          <div className="poster-frame">
-            <div className="poster-upload-area">
-              <Image size={32} />
-              <p>Attach poster image (PNG/JPG, max 5MB)</p>
-              <small style={{color: 'var(--muted)'}}>Drag & drop or click to upload</small>
-            </div>
-          </div>
-        </div>
-      </Reveal>
+      {posterOpen && createPortal(<div className="poster-modal-backdrop" role="presentation" onMouseDown={() => setPosterOpen(false)}><div className="poster-modal" role="dialog" aria-modal="true" aria-label="FENIX'26 event poster" onMouseDown={(event) => event.stopPropagation()}><button type="button" onClick={() => setPosterOpen(false)} aria-label="Close poster"><X size={22} /></button><img src="/fenix26-poster.png" alt="FENIX'26 official event poster" /></div></div>, document.body)}
     </section>
   );
 }

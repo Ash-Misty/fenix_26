@@ -35,6 +35,7 @@ export function Footer({ setPage }) {
           Shobika B<br />
           <a href="tel:+919150705612">+91 9150705612</a>
         </p>
+        <a className="footer-location" href="https://maps.app.goo.gl/oyjrYSU11LB7aCQR6?g_st=ac" target="_blank" rel="noreferrer">📍 Find UCE BIT Campus on Google Maps ↗</a>
       </div>
       <div className="footer-bottom">
         © 2026 FENIX'26. All rights reserved.
