@@ -50,6 +50,7 @@ const registrationSchema = new mongoose.Schema({
     unique: true,
     sparse: true,
   },
+  submissionKey: { type: String, unique: true, sparse: true, immutable: true },
   teamName: { type: String, required: true, trim: true },
   teamLeader: { type: String, required: true, trim: true },
   email: { type: String, required: true, lowercase: true, trim: true },

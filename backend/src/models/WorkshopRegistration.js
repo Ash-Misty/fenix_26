@@ -3,6 +3,7 @@ import { randomUUID } from 'crypto';
 
 const workshopRegistrationSchema = new mongoose.Schema({
   registrationId: { type: String, required: true, unique: true, immutable: true },
+  submissionKey: { type: String, unique: true, sparse: true, immutable: true },
   name: { type: String, required: true, trim: true },
   email: { type: String, required: true, lowercase: true, trim: true },
   college: { type: String, required: true, trim: true },

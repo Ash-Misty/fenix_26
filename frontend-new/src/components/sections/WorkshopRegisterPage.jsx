@@ -10,6 +10,7 @@ export function WorkshopRegisterPage({ setPage }) {
   const [step, setStep] = useState('details');
   const [errors, setErrors] = useState({});
   const [draft, setDraft] = useState(null);
+  const [paymentUploadToken, setPaymentUploadToken] = useState('');
   const [submitting, setSubmitting] = useState(false);
   const edit = (key, value) => { setForm((current) => ({ ...current, [key]: value })); setErrors({}); };
 
@@ -19,10 +20,10 @@ export function WorkshopRegisterPage({ setPage }) {
     if (!form.college.trim()) nextErrors.college = 'Enter your college name.';
     if (!/^\S+@\S+\.\S+$/.test(form.email)) nextErrors.email = 'Enter a valid email address.';
     setErrors(nextErrors);
-    if (Object.keys(nextErrors).length || !window.confirm('Please verify your details and food preference before creating your pending workshop registration.')) return;
+    if (Object.keys(nextErrors).length) return;
     setSubmitting(true);
     try {
-      const response = await api('/workshop-registrations', { method: 'POST', body: JSON.stringify({ name: form.name.trim(), college: form.college.trim(), email: form.email.trim(), year: Number(form.year), foodPreference: form.food }) });
+      const response = await api('/workshop-registrations/payment-quote', { method: 'POST', body: JSON.stringify({ name: form.name.trim(), college: form.college.trim(), email: form.email.trim(), year: Number(form.year), foodPreference: form.food }) });
       setDraft(response.data); setStep('payment');
     } catch (error) { setErrors({ submit: error.message }); } finally { setSubmitting(false); }
   };
@@ -30,7 +31,12 @@ export function WorkshopRegisterPage({ setPage }) {
   const submitScreenshot = async () => {
     if (!form.screenshot) return setErrors({ screenshot: 'Upload the payment screenshot before submitting.' });
     setSubmitting(true); setErrors({});
-    try { const body = new FormData(); body.append('screenshot', form.screenshot); await apiUpload(`/workshop-registrations/${draft.registrationId}/payment-screenshot`, body); setStep('done'); }
+    try {
+      let token = paymentUploadToken;
+      if (!token) { const body = new FormData(); body.append('screenshot', form.screenshot); const uploaded = await apiUpload('/workshop-registrations/payment-screenshot', body); token = uploaded.data.paymentUploadToken; setPaymentUploadToken(token); }
+      await api('/workshop-registrations', { method: 'POST', body: JSON.stringify({ name: form.name.trim(), college: form.college.trim(), email: form.email.trim(), year: Number(form.year), foodPreference: form.food, paymentUploadToken: token }) });
+      setStep('done');
+    }
     catch (error) { setErrors({ submit: error.message }); } finally { setSubmitting(false); }
   };
 

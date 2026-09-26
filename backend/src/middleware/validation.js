@@ -92,6 +92,16 @@ export const validateRegistration = [
   validate,
 ];
 
+// QR generation validates the same registration details, but intentionally has
+// no payment reference because it must not create a registration document.
+export const validateRegistrationQuote = [...validateRegistration.slice(0, -1), validate];
+
+export const validateFinalRegistration = [
+  ...validateRegistration.slice(0, -1),
+  body('paymentUploadToken').isString().trim().notEmpty().withMessage('Upload the payment screenshot before final submission'),
+  validate,
+];
+
 export const validatePaymentScreenshotUpload = [
   param('registrationId').trim().notEmpty().withMessage('Registration ID is required'),
   validate,
