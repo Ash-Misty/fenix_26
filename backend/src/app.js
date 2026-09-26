@@ -38,8 +38,21 @@ export function createApp() {
     },
   }));
 
+  const productionOrigin = 'https://fenix26.netlify.app';
+  const configuredOrigins = (process.env.CLIENT_URL || productionOrigin)
+    .split(',')
+    .map((origin) => origin.trim().replace(/\/$/, ''))
+    .filter(Boolean);
+  const allowedOrigins = process.env.NODE_ENV === 'production'
+    ? configuredOrigins
+    : [...new Set([...configuredOrigins, 'http://localhost:5173'])];
+
   const corsOptions = {
-    origin: process.env.CLIENT_URL || 'https://fenix26.netlify.app',
+    origin(origin, callback) {
+      // Server-to-server calls and health checks have no browser Origin header.
+      if (!origin || allowedOrigins.includes(origin.replace(/\/$/, ''))) return callback(null, true);
+      return callback(new Error('CORS origin is not allowed'));
+    },
     methods: ['GET', 'POST', 'PATCH', 'PUT', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,

@@ -714,3 +714,26 @@
 {"level":"info","message":"MongoDB connected: ac-kqnr4wr-shard-00-02.uycibn6.mongodb.net:27017","service":"fenix-26-backend","timestamp":"2026-09-24 00:16:38"}
 {"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-24 00:16:38"}
 {"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"fenix-26-backend","timestamp":"2026-09-24 00:18:08"}
+{"level":"info","message":"MongoDB connected: ac-kqnr4wr-shard-00-00.uycibn6.mongodb.net:27017","service":"fenix-26-backend","timestamp":"2026-09-26 17:38:11"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (production)","service":"fenix-26-backend","timestamp":"2026-09-26 17:38:12"}
+{"level":"info","message":"MongoDB connected: ac-kqnr4wr-shard-00-00.uycibn6.mongodb.net:27017","service":"fenix-26-backend","timestamp":"2026-09-26 17:40:02"}
+{"address":"0.0.0.0","code":"EADDRINUSE","errno":-4091,"level":"error","message":"Uncaught Exception: listen EADDRINUSE: address already in use 0.0.0.0:5000 listen EADDRINUSE: address already in use 0.0.0.0:5000","port":5000,"service":"fenix-26-backend","stack":"Error: listen EADDRINUSE: address already in use 0.0.0.0:5000\n    at Server.setupListenHandle [as _listen2] (node:net:1948:16)\n    at listenInCluster (node:net:2005:12)\n    at node:net:2214:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)","syscall":"listen","timestamp":"2026-09-26 17:40:03"}
+{"level":"info","message":"MongoDB connected: ac-kqnr4wr-shard-00-00.uycibn6.mongodb.net:27017","service":"fenix-26-backend","timestamp":"2026-09-26 17:52:34"}
+{"address":"0.0.0.0","code":"EADDRINUSE","errno":-4091,"level":"error","message":"Uncaught Exception: listen EADDRINUSE: address already in use 0.0.0.0:5000 listen EADDRINUSE: address already in use 0.0.0.0:5000","port":5000,"service":"fenix-26-backend","stack":"Error: listen EADDRINUSE: address already in use 0.0.0.0:5000\n    at Server.setupListenHandle [as _listen2] (node:net:1948:16)\n    at listenInCluster (node:net:2005:12)\n    at node:net:2214:7\n    at process.processTicksAndRejections (node:internal/process/task_queues:90:21)","syscall":"listen","timestamp":"2026-09-26 17:52:35"}
+{"level":"info","message":"MongoDB connected: ac-kqnr4wr-shard-00-00.uycibn6.mongodb.net:27017","service":"fenix-26-backend","timestamp":"2026-09-26 17:53:47"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-26 17:53:48"}
+{"level":"info","message":"Screenshot uploaded to Cloudinary: fenix26/temporary-event-payments/payment-screenshot-event-temp-1790425603098-1790425603100-x7v4d2 for event-temp-1790425603098","service":"fenix-26-backend","timestamp":"2026-09-26 17:56:46"}
+{"level":"info","message":"Final registration created: F26-2026-000038","service":"fenix-26-backend","timestamp":"2026-09-26 17:56:46"}
+{"level":"info","message":"SMTP server ready for messages","service":"fenix-26-backend","timestamp":"2026-09-26 17:56:48"}
+{"level":"info","message":"Email sent to charlinashini@gmail.com: <c63c1e26-5b6c-dc74-9dc3-1ece19e200cc@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-26 17:56:50"}
+{"level":"info","message":"Admin notification email sent to charlinashini@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-26 17:56:50"}
+{"level":"info","message":"Email sent to subega66@gmail.com: <2724c9e5-4ee6-805e-4c3d-c45b16931472@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-26 17:56:50"}
+{"level":"info","message":"Pending registration email sent to subega66@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-26 17:56:50"}
+{"level":"info","message":"Payment verified for F26-2026-000038","service":"fenix-26-backend","timestamp":"2026-09-26 17:58:05"}
+{"level":"info","message":"Email sent to subega66@gmail.com: <519ed1ef-3e92-c780-280f-ebe3d2600adb@gmail.com>","service":"fenix-26-backend","timestamp":"2026-09-26 17:58:09"}
+{"level":"info","message":"Confirmation email sent to subega66@gmail.com","service":"fenix-26-backend","timestamp":"2026-09-26 17:58:09"}
+{"level":"info","message":"MongoDB connected: ac-kqnr4wr-shard-00-00.uycibn6.mongodb.net:27017","service":"fenix-26-backend","timestamp":"2026-09-26 18:03:10"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-26 18:03:11"}
+{"level":"info","message":"SIGINT received. Shutting down gracefully...","service":"fenix-26-backend","timestamp":"2026-09-26 18:11:10"}
+{"level":"info","message":"MongoDB connected: ac-kqnr4wr-shard-00-00.uycibn6.mongodb.net:27017","service":"fenix-26-backend","timestamp":"2026-09-26 18:11:16"}
+{"level":"info","message":"FENIX26 Backend running on port 5000 (development)","service":"fenix-26-backend","timestamp":"2026-09-26 18:11:17"}
