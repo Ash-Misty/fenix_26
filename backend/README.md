@@ -25,7 +25,7 @@ Complete Node.js + Express backend for the FENIX26 Symposium registration system
 - **npm** v9 or later
 - **MongoDB** v6.0 or later (local or Atlas)
 - A **Cloudinary** account for payment-screenshot storage
-- An **SMTP** email service (Gmail with App Passwords, or any SMTP provider)
+- A **Brevo** account for transactional email delivery over HTTPS
 
 ## 2. Installation
 
@@ -44,7 +44,7 @@ This installs all dependencies:
 - `bcryptjs` — Password hashing
 - `jsonwebtoken` — JWT authentication
 - `multer` — File uploads
-- `nodemailer` — Email sending
+- Brevo HTTPS API — Transactional email sending (uses Node's built-in `fetch`)
 - `qrcode` — QR code generation
 - `winston` — Logging
 - `xlsx` — SheetJS Excel workbook generation for verified registrations
@@ -108,12 +108,10 @@ CLIENT_URL=http://localhost:5173
 ADMIN_EMAIL=admin@fenix26.in
 ADMIN_PASSWORD=change-this-to-a-secure-password
 
-# SMTP (Gmail example)
-SMTP_HOST=smtp.gmail.com
-SMTP_PORT=587
-SMTP_USER=your-email@gmail.com
-SMTP_PASSWORD=your-gmail-app-password
-EMAIL_FROM=FENIX26 <your-email@gmail.com>
+# Brevo transactional email (HTTPS API)
+BREVO_API_KEY=xkeysib-your-brevo-api-key
+BREVO_SENDER_EMAIL=no-reply@your-verified-domain.com
+BREVO_SENDER_NAME=FENIX'26
 
 # Cloudinary (payment screenshot storage)
 CLOUDINARY_CLOUD_NAME=your-cloud-name
@@ -131,19 +129,18 @@ JWT_SECRET=change-this-to-a-super-secret-key
 WORKSHOP_RULES=
 ```
 
-### Getting Gmail App Password
+### Configuring Brevo
 
-1. Go to [Google Account Security](https://myaccount.google.com/security)
-2. Enable **2-Step Verification**
-3. Go to **App Passwords**
-4. Select **Mail** and **Other** → Name it `FENIX26 Backend`
-5. Copy the 16-character password → Paste as `SMTP_PASSWORD`
+1. Create a Brevo account and verify the sender email address (or, preferably, authenticate your sending domain).
+2. In **SMTP & API**, create an API key for the backend.
+3. Add `BREVO_API_KEY`, `BREVO_SENDER_EMAIL`, and `BREVO_SENDER_NAME` to the backend environment.
+4. Keep the API key only on the backend. Do not add it to Netlify or any frontend `.env` file.
 
 ### Important
 
 - **Never commit `.env`** — it's already in `.gitignore`
 - Use `.env.example` as a template
-- Keep SMTP, Cloudinary, UPI, and JWT credentials private in `.env`
+- Keep Brevo, Cloudinary, UPI, and JWT credentials private in `.env`
 
 ## 6. Starting the Server
 
@@ -654,14 +651,24 @@ Set all environment variables in your hosting platform:
 
 - `NODE_ENV=production`
 - `MONGODB_URI` — Your production MongoDB connection string
+- `CLIENT_URL=https://fenix26.netlify.app`
+- `BREVO_API_KEY` — a backend-only API key generated in Brevo
+- `BREVO_SENDER_EMAIL` — a sender email verified in Brevo
+- `BREVO_SENDER_NAME=FENIX'26`
 - All other variables from `.env.example`
+
+### Render setup
+
+- Use `npm install` as the build command and `npm start` as the start command. Do not use `npm run dev` or Nodemon in production.
+- Configure the values above in Render's **Environment** page; never commit them to Git or place `BREVO_API_KEY` in Netlify.
+- Brevo uses outbound HTTPS, so it works on Render where SMTP ports are unavailable.
 
 ### Building and Running
 
 ```bash
 cd backend
 npm install --production
-npm run start
+npm start
 ```
 
 ### Process Manager (Recommended)
@@ -723,9 +730,9 @@ MongoDB connection error: ...
 Failed to send confirmation email: ...
 ```
 
-- Verify SMTP credentials in `.env`
-- For Gmail: Use App Password, not regular password
-- Check `EMAIL_FROM` format: `Name <email@domain.com>`
+- Verify `BREVO_API_KEY` is set on the backend host
+- Verify `BREVO_SENDER_EMAIL` is a sender verified in Brevo
+- Check Brevo's transactional email log for a rejected or suppressed recipient
 
 ### CORS Error
 

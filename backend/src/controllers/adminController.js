@@ -3,7 +3,6 @@ import bcrypt from 'bcryptjs';
 import Admin from '../models/Admin.js';
 import Registration from '../models/Registration.js';
 import Contact from '../models/Contact.js';
-import { getTransporter } from '../config/mail.js';
 import { buildVerifiedRegistrationsWorkbook } from '../services/registrationExportService.js';
 import { AppError } from '../middleware/errorHandler.js';
 import logger from '../utils/logger.js';
