@@ -23,6 +23,10 @@ const swaggerDocs = swaggerJsDoc(swaggerOptions);
 export function createApp() {
   const app = express();
 
+  // Render terminates TLS at one reverse proxy and forwards the client IP.
+  // Trust exactly that proxy so express-rate-limit can safely use the header.
+  app.set('trust proxy', 1);
+
   app.use(helmet({
     contentSecurityPolicy: {
       directives: {
