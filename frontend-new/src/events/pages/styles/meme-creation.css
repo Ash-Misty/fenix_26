@@ -19,6 +19,10 @@
   width: 25px !important;
 }
 
+@media (max-width: 480px) {
+  .meme-hero h1 { max-width: 100%; font-size: clamp(2.2rem, 13vw, 2.8rem); letter-spacing: -0.055em; overflow-wrap: anywhere; }
+}
+
 .meme-footer strong {
   align-items: center;
   display: flex;

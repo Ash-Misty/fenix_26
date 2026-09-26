@@ -35,3 +35,11 @@
   .pixel-footer-compact { grid-template-columns:1.1fr .8fr 1fr; }.pixel-event-contacts { display:grid; align-content:start; gap:9px; }.pixel-event-contacts b { color:#f0b0ff; font-size:14px; }.pixel-event-contacts a { color:#fff; display:grid; gap:4px; text-decoration:none; }.pixel-event-contacts strong { font-size:14px; }.pixel-event-contacts small { align-items:center; color:#aab3d2; display:flex; gap:5px; }.pixel-event-contacts svg { color:#ffbd58; }
   @media (max-width:760px) { .pixel-rule-layout { grid-template-columns:1fr; }.flow-grid,.rules-panel,.evaluation-panel>div:not(.section-label) { grid-template-columns:1fr; }.pixel-final-callout,.pixel-register-cta { width:min(100% - 28px,540px); }.pixel-footer-compact { grid-template-columns:1fr 1fr; }.pixel-event-contacts { grid-column:1/-1; } }
 }
+
+/* Keep the Back control and event badge immediately below the mobile header. */
+@media (max-width: 760px) {
+  .pixel-exact-page .hero { min-height: auto !important; padding: 22px 18px 30px !important; }
+  .pixel-exact-page .hero-copy { display: flex; flex-direction: column; align-items: flex-start; }
+  .pixel-exact-page .hero-copy .event-back-button { margin: 0 0 12px; }
+  .pixel-exact-page .hero-copy .eyebrow { margin: 0; }
+}

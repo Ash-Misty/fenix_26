@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Check, Flag, Flame, MapPin, Menu, Phone, Shield, Trophy, Users, X } from 'lucide-react';
 import { useEventNavigation } from '../components/EventNavigation';
+import { EventBackButton } from '../components/EventBackButton';
 import './styles/treasure-hunt.css';
 
 const PATH = [['Rules & First Clue · 5 min', Flag], ['Clue Hunting & Challenges · 45 min', MapPin], ['Final Treasure & Submission · 10 min', Trophy]];
@@ -25,7 +26,7 @@ export function TreasureHuntPage() {
         </header>
 
         <section className="thx-hero" id="thx-home">
-          <div className="thx-copy"><p><Flame size={14} /> Mega event</p><h1>TREASURE<br />HUNT</h1><h2>Single-round clue-solving &amp; treasure hunting challenge.</h2><span><Users size={16} /> Team Event · 60 Minutes</span></div>
+          <div className="thx-copy"><EventBackButton /><p><Flame size={14} /> Mega event</p><h1>TREASURE<br />HUNT</h1><h2>Single-round clue-solving &amp; treasure hunting challenge.</h2><span><Users size={16} /> Team Event · 60 Minutes</span></div>
           <div className="thx-hero-image"><img src="/images/treasure-hunt-hero.png" alt="Treasure map, compass, and an open chest of gold" /></div>
         </section>
 

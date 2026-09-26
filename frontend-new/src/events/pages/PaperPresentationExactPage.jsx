@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { ArrowRight, Award, CheckCircle2, Clock3, Image as ImageIcon, Laptop, Lightbulb, Mail, Menu, MessagesSquare, Phone, Plus, Sparkles, Timer, Users, X } from 'lucide-react';
 import { useEventNavigation } from '../components/EventNavigation';
+import { EventBackButton } from '../components/EventBackButton';
 import './styles/paper-presentation-exact.css';
 
 const topics = [
@@ -43,7 +44,7 @@ export function PaperPresentationExactPage() {
         </header>
 
         <section className="pp-hero" id="pp-home">
-          <div className="pp-hero-copy"><span className="pp-pill"><Sparkles size={14} /> Tech Event</span><h1>PAPER<br /><em>PRESENTATION</em></h1><p className="pp-tagline">Research. Analyze. Present.</p><p className="pp-description">Explore future technologies and present your research with clarity, depth and innovation.</p><div className="pp-facts"><div><span><Users size={17} /></span><b>Individual / Team</b><small>Maximum 3 members</small></div><div><span><Laptop size={17} /></span><b>Laptop + PPT</b><small>Required</small></div><div><span><Clock3 size={17} /></span><b>10 Minutes</b><small>+2 min buffer</small></div><button type="button" onClick={() => scrollTo('rules')}>Rules &amp; Details <ArrowRight size={15} /></button></div></div>
+          <div className="pp-hero-copy"><EventBackButton /><span className="pp-pill"><Sparkles size={14} /> Tech Event</span><h1>PAPER<br /><em>PRESENTATION</em></h1><p className="pp-tagline">Research. Analyze. Present.</p><p className="pp-description">Explore future technologies and present your research with clarity, depth and innovation.</p><div className="pp-facts"><div><span><Users size={17} /></span><b>Individual / Team</b><small>Maximum 3 members</small></div><div><span><Laptop size={17} /></span><b>Laptop + PPT</b><small>Required</small></div><div><span><Clock3 size={17} /></span><b>10 Minutes</b><small>+2 min buffer</small></div><button type="button" onClick={() => scrollTo('rules')}>Rules &amp; Details <ArrowRight size={15} /></button></div></div>
           <div className="pp-hero-image"><img src="/images/hero-book.png" alt="An open book on a desk lit by a warm amber lamp" /></div>
         </section>
 

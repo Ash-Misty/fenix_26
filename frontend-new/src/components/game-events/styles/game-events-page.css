@@ -26,3 +26,8 @@
 @media (max-width:420px) { .gep-hero-art { min-height:250px; }.gep-hero-art img { width:290px; }.gep-primary-action,.gep-quiet-action { width:100%; justify-content:center; }.gep-card-content h3 { font-size:29px; }.gep-card-content > p { font-size:17px; } }
 .gep-brand-mark { display:block; object-fit:cover; }
 @media (prefers-reduced-motion:reduce) { .gep-hero-art img { animation:none; }.gep-event-card:hover .gep-card-art { transform:none; } }
+
+.gep-back { position: absolute; top: 18px; left: 0; z-index: 4; }
+@media (max-width: 760px) {
+  .gep-back { position: relative; top: auto; left: auto; order: -2; justify-self: start; margin: 0 0 2px; }
+}

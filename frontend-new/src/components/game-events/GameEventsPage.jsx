@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { ArrowLeft, ArrowRight, Crosshair, Flame, Gamepad2, Menu, ShieldCheck, Trophy, Users, X } from 'lucide-react'
 import { useEventNavigation } from '../../events/components/EventNavigation'
+import { EventBackButton } from '../../events/components/EventBackButton'
 import './styles/game-events-page.css'
 
 const GAME_EVENTS = [
@@ -46,6 +47,7 @@ export function GameEventsPage() {
 
       <main>
         <section className="gep-hero" aria-labelledby="gep-title">
+          <EventBackButton className="gep-back" />
           <div className="gep-hero-copy">
             <p className="gep-eyebrow"><Gamepad2 size={15} /> FENIX'26 · NON-TECH ARENA</p>
             <h1 id="gep-title">GAME<br /><span>EVENTS</span></h1>

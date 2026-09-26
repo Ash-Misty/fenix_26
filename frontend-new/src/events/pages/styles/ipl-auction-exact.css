@@ -18,3 +18,9 @@
 .iplx-page .iplx-rule-meta span:last-child { font-size: 0; }
 .iplx-page .iplx-rule-meta span:last-child::after { content: '5 Members per Franchise'; font-size: .72rem; }
 .iplx-page .iplx-register-panel::after { content: 'Registration closed? WhatsApp 9025528451 · deepanraja23@gmail.com'; color: var(--muted); display: block; font-size: .78rem; margin-top: 15px; }
+
+.iplx-hero-topline { display: flex; align-items: center; flex-wrap: wrap; gap: 10px; }
+.iplx-hero-topline .event-back-button { margin: 0; }
+@media (max-width: 420px) {
+  .iplx-hero-topline { align-items: flex-start; gap: 8px; }
+}

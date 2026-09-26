@@ -3,6 +3,7 @@ import { ArrowRight, BrainCircuit, CalendarDays, Clock3, Code2, FileText, Gamepa
 import { getEventBySlug } from '../config';
 import { eventDetails } from '../../eventDetails';
 import { useEventNavigation } from '../components/EventNavigation';
+import { EventBackButton } from '../components/EventBackButton';
 
 const contacts = [
   { name: 'Charlin Ashini', phone: '+91 86194 43715', initials: 'CA' },
@@ -102,7 +103,7 @@ export function EventDashboardPage({ slug }) {
       </nav>
 
       <section className="ref-hero" id="top" data-reveal>
-        <button className="ref-back" type="button" onClick={goHome}><House size={12} /> Events</button>
+        <EventBackButton className="ref-back" />
         <div className="ref-hero-copy"><p className="ref-kicker">{event.category} EVENT</p><h1>{event.title}</h1><h2>{copy.tagline || event.subtitle}</h2><p>{description}</p></div>
         <div className="ref-art"><EventIcon size={84} strokeWidth={1.1} /><span>{event.tagline}</span><i /><b /></div>
         <div className="ref-stats">{stats.map((value, index) => { const Icon = [UserRound, Laptop, Clock3, Trophy][index] || CalendarDays; return <article key={`${value}-${index}`}><Icon size={15} /><small>{['Format', 'Team size', 'Requirement', 'Duration'][index]}</small><strong>{value}</strong></article>; })}</div>
