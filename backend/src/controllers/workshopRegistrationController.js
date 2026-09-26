@@ -6,6 +6,7 @@ import { createTemporaryPaymentUploadToken, verifyTemporaryPaymentUploadToken } 
 import { sendWorkshopAdminNotification, sendWorkshopConfirmationEmail, sendWorkshopPendingEmail } from '../services/emailService.js';
 import { buildVerifiedWorkshopRegistrationsWorkbook } from '../services/workshopRegistrationExportService.js';
 import { AppError } from '../middleware/errorHandler.js';
+import logger from '../utils/logger.js';
 
 const WORKSHOP_FEE = 250;
 
@@ -43,7 +44,8 @@ export async function createWorkshopRegistration(req, res, next) {
       payment: { status: 'PENDING_VERIFICATION', qrPayload: upiPayload, screenshotUrl: screenshot.url, screenshotPublicId: screenshot.publicId, uploadedAt: new Date() },
       registrationStatus: 'payment_submitted',
     });
-    await Promise.allSettled([sendWorkshopPendingEmail(registration), sendWorkshopAdminNotification(registration)]);
+    const notifications = await Promise.allSettled([sendWorkshopPendingEmail(registration), sendWorkshopAdminNotification(registration)]);
+    notifications.filter((result) => result.status === 'rejected').forEach((result) => logger.error(`Workshop registration email failed: ${result.reason?.message || result.reason}`));
     res.status(201).json({ success: true, data: { registrationId: registration.registrationId, totalAmount: WORKSHOP_FEE, paymentStatus: registration.payment.status, registrationStatus: registration.registrationStatus }, message: 'Workshop registration submitted and is under review.' });
   } catch (error) {
     if (error?.code === 11000) return next(new AppError('This workshop registration was already submitted', 409, 'DUPLICATE_REGISTRATION'));

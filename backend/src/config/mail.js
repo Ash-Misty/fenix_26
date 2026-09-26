@@ -6,6 +6,12 @@ let transporter = null;
 export function getTransporter() {
   if (transporter) return transporter;
 
+  const required = ['SMTP_HOST', 'SMTP_USER', 'SMTP_PASSWORD'];
+  const missing = required.filter((key) => !process.env[key]);
+  if (missing.length) {
+    throw new Error(`SMTP configuration is incomplete: ${missing.join(', ')}`);
+  }
+
   transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
     port: parseInt(process.env.SMTP_PORT, 10) || 587,
