@@ -28,7 +28,7 @@ export function BrochureSection() {
       <Reveal delay={350}>
         <div className="brochure-covers" aria-label="FENIX'26 brochure previews">
           <figure><img src="/brochure-front.jpg" alt="FENIX'26 brochure front" /><figcaption>Brochure front</figcaption></figure>
-          <figure><img src="/brochure-back.jpg" alt="FENIX'26 brochure back" /><figcaption>Brochure back</figcaption></figure>
+          <figure><img src="/brochure-back.png" alt="FENIX'26 brochure back" /><figcaption>Brochure back</figcaption></figure>
         </div>
       </Reveal>
       <Reveal delay={400}>
