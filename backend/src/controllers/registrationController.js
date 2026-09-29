@@ -1,6 +1,7 @@
 import { createHash } from 'crypto';
 import Registration from '../models/Registration.js';
 import PricingConfig from '../models/Event.js';
+import { generateRegistrationId } from '../utils/generateRegistrationId.js';
 import { calculateAmount, getRegistrationByRegId, checkDuplicateRegistration } from '../services/paymentService.js';
 import { uploadScreenshot } from '../services/cloudinaryService.js';
 import { generateUPIPayload, generateQRCode } from '../services/qrService.js';
@@ -10,6 +11,10 @@ import { AppError } from '../middleware/errorHandler.js';
 import logger from '../utils/logger.js';
 
 const REGISTRATION_COUNT_BASELINE = 60;
+
+function duplicateField(error) {
+  return Object.keys(error?.keyPattern || {})[0] || '';
+}
 
 async function quote(input) {
   const { selectedEvents = [], workshops = [], registrationType, participants = [] } = input;
@@ -51,6 +56,7 @@ export async function createRegistration(req, res, next) {
     if (!config) throw new AppError('Pricing configuration not found', 503, 'CONFIG_MISSING');
     const { totalAmount, eventDetails, upiPayload } = await quote({ selectedEvents, workshops, registrationType, participants });
     const registration = new Registration({
+      registrationId: await generateRegistrationId(Registration),
       teamName, teamLeader, email, phone, college, department, year, registrationType,
       participants: registrationType === 'Team' ? participants : [], foodPreferences, selectedEvents: eventDetails,
       workshops: workshops.map((id) => ({ workshopId: id, workshopName: id, amount: config.workshops.find((item) => item.slug === id)?.price || 0 })),
@@ -65,7 +71,13 @@ export async function createRegistration(req, res, next) {
     results.filter((result) => result.status === 'rejected').forEach((result) => logger.error(`Registration email failed: ${result.reason?.message || result.reason}`));
     res.status(201).json({ success: true, data: { registrationId: registration.registrationId, totalAmount, paymentStatus: registration.payment.status, registrationStatus: registration.registrationStatus }, message: 'Registration submitted successfully and is under review.' });
   } catch (error) {
-    if (error?.code === 11000) return next(new AppError('This registration was already submitted', 409, 'DUPLICATE_REGISTRATION'));
+    if (error?.code === 11000) {
+      const field = duplicateField(error);
+      if (field === 'submissionKey') return next(new AppError('This payment screenshot was already used for a registration.', 409, 'DUPLICATE_PAYMENT_SUBMISSION'));
+      if (field === 'email') return next(new AppError('Registration already exists for this email.', 409, 'DUPLICATE_REGISTRATION'));
+      logger.error(`Registration unique-key conflict on ${field || 'an unknown field'}: ${error.message}`);
+      return next(new AppError('Registration could not be completed due to an ID conflict. Please try submitting again.', 409, 'REGISTRATION_ID_CONFLICT'));
+    }
     next(error);
   }
 }

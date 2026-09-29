@@ -48,7 +48,13 @@ export async function createWorkshopRegistration(req, res, next) {
     notifications.filter((result) => result.status === 'rejected').forEach((result) => logger.error(`Workshop registration email failed: ${result.reason?.message || result.reason}`));
     res.status(201).json({ success: true, data: { registrationId: registration.registrationId, totalAmount: WORKSHOP_FEE, paymentStatus: registration.payment.status, registrationStatus: registration.registrationStatus }, message: 'Workshop registration submitted and is under review.' });
   } catch (error) {
-    if (error?.code === 11000) return next(new AppError('This workshop registration was already submitted', 409, 'DUPLICATE_REGISTRATION'));
+    if (error?.code === 11000) {
+      const field = Object.keys(error.keyPattern || {})[0] || '';
+      if (field === 'submissionKey') return next(new AppError('This payment screenshot was already used for a workshop registration.', 409, 'DUPLICATE_PAYMENT_SUBMISSION'));
+      if (field === 'email') return next(new AppError('Workshop registration already exists for this email.', 409, 'DUPLICATE_REGISTRATION'));
+      logger.error(`Workshop registration unique-key conflict on ${field || 'an unknown field'}: ${error.message}`);
+      return next(new AppError('Workshop registration could not be completed due to an ID conflict. Please try submitting again.', 409, 'REGISTRATION_ID_CONFLICT'));
+    }
     next(error);
   }
 }

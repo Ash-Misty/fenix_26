@@ -1,5 +1,4 @@
 import mongoose from 'mongoose';
-import { generateRegistrationId } from '../utils/generateRegistrationId.js';
 
 const participantSchema = new mongoose.Schema({
   name: { type: String, required: true, trim: true },
@@ -91,13 +90,6 @@ registrationSchema.index({ phone: 1 });
 registrationSchema.index({ 'payment.transactionId': 1 }, { sparse: true });
 registrationSchema.index({ registrationStatus: 1 });
 registrationSchema.index({ createdAt: -1 });
-
-registrationSchema.pre('save', function (next) {
-  if (!this.registrationId) {
-    this.registrationId = generateRegistrationId();
-  }
-  next();
-});
 
 const Registration = mongoose.model('Registration', registrationSchema);
 export default Registration;

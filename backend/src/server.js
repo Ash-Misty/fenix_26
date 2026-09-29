@@ -1,8 +1,6 @@
 import { createApp } from './app.js';
 import { connectDB, disconnectDB } from './config/db.js';
 import PricingConfig from './models/Event.js';
-import Registration from './models/Registration.js';
-import { initRegistrationIdCounter } from './utils/generateRegistrationId.js';
 import logger from './utils/logger.js';
 import { config } from 'dotenv';
 
@@ -75,8 +73,6 @@ async function startServer() {
   try {
     await connectDB();
     await seedPricingConfig();
-    await initRegistrationIdCounter(Registration);
-
     const server = app.listen(PORT, '0.0.0.0', () => {
       logger.info(`FENIX26 Backend running on port ${PORT} (${NODE_ENV})`);
     });
