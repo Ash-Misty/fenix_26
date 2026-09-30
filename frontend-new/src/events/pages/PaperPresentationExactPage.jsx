@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ArrowRight, Award, CheckCircle2, Clock3, Image as ImageIcon, Laptop, Lightbulb, Mail, Menu, MessagesSquare, Phone, Plus, Sparkles, Timer, Users, X } from 'lucide-react';
+import { ArrowRight, Award, CheckCircle2, Clock3, Download, Image as ImageIcon, Laptop, Lightbulb, Mail, Menu, MessagesSquare, Phone, Plus, Sparkles, Timer, Users, X } from 'lucide-react';
 import { useEventNavigation } from '../components/EventNavigation';
 import { EventBackButton } from '../components/EventBackButton';
 import './styles/paper-presentation-exact.css';
@@ -10,12 +10,12 @@ const topics = [
   ['03', 'Neuromorphic Computing', 'Building Brain-Inspired Hardware'],
 ];
 const timeline = [
-  ['Abstract', '250–300 words · PDF', 'Sep 30', false], ['Final PPT', 'PPT / paper', 'Oct 3 · 6 PM', false],
+  ['Abstract + PPT', 'Submit both files · use the official PPT template', 'On or before Oct 5', false],
   ['Presentation', 'Venue & time on website', 'Event day', false],
 ];
 const criteria = ['Content & Technical Depth', 'Innovation & Originality', 'Style of Presentation', 'Communication Skill', 'Implementation', 'PPT Design & Structure', 'Q&A Handling'];
 const ruleGroups = [
-  ['01', 'Submission', ['Choose one listed topic or an approved sub-topic', 'Original paper + PPT', 'Submit PDF abstract to ksharinimoorthy0151@gmail.com', 'Final PPT / paper before the deadline']],
+  ['01', 'Submission', ['Choose one listed topic or an approved sub-topic', 'Original paper + PPT', 'Submit the abstract and final PPT on or before October 5', 'Use the official PPT template for the final presentation']],
   ['02', 'Presentation', ['Individual or team · maximum 3 members', '10 minutes: presentation + Q&A', '+2 minutes buffer', 'Bring laptop, charger and required internet access']],
   ['03', 'Event rules', ['Cross-department teams allowed', 'At least one team member must present', 'No proxy presentation', 'Late arrival may forfeit the slot']],
   ['04', 'Integrity policy', ['No plagiarized or previously published work', 'Plagiarism check applies', 'Disclose AI-generated content', 'Fully AI-written papers are disqualified']],
@@ -48,7 +48,7 @@ export function PaperPresentationExactPage() {
           <div className="pp-hero-image"><img src="/images/hero-book.png" alt="An open book on a desk lit by a warm amber lamp" /></div>
         </section>
 
-        <section className="pp-section pp-grid-section" id="pp-events"><div className="pp-topics"><SectionHeading icon={Lightbulb} title="Research Topics" /><div className="pp-topic-grid">{topics.map(([num, title, desc]) => <article key={num}><b>{num}</b><h3>{title}</h3><p>{desc}</p></article>)}</div></div><div className="pp-timeline"><SectionHeading icon={CheckCircle2} title="Submission Timeline" small /><ol>{timeline.map(([title, sub, date, done], index) => <li key={title}><span className={done ? 'done' : ''}>{done ? <CheckCircle2 size={14} /> : <i />}</span>{index < timeline.length - 1 && <i className="line" />}<div><b>{title}</b>{sub && <small>{sub}</small>}</div>{date && <strong>{date}</strong>}</li>)}</ol></div></section>
+        <section className="pp-section pp-grid-section" id="pp-events"><div className="pp-topics"><SectionHeading icon={Lightbulb} title="Research Topics" /><div className="pp-topic-grid">{topics.map(([num, title, desc]) => <article key={num}><b>{num}</b><h3>{title}</h3><p>{desc}</p></article>)}</div></div><div className="pp-timeline"><SectionHeading icon={CheckCircle2} title="Submission Timeline" small /><ol>{timeline.map(([title, sub, date, done], index) => <li key={title}><span className={done ? 'done' : ''}>{done ? <CheckCircle2 size={14} /> : <i />}</span>{index < timeline.length - 1 && <i className="line" />}<div><b>{title}</b>{sub && <small>{sub}</small>}</div>{date && <strong>{date}</strong>}</li>)}</ol><a className="pp-template-download" href="/paper-presentation-template.pptx" download><Download size={17} /><span><b>Download PPT template</b><small>Required for the final presentation</small></span></a></div></section>
 
         <section className="pp-section pp-presentation" id="pp-about"><div className="pp-presentation-main"><SectionHeading icon={Timer} title="Presentation" /><div className="pp-presentation-card"><div><strong>10 <small>MINUTES</small></strong><p>Total Time</p></div><div><MessagesSquare size={24} /><b>Presentation <span>+ Q&amp;A</span></b></div><div><Plus size={24} /><b>+2 Minutes <small>Buffer</small></b></div></div></div><div className="pp-evaluation"><SectionHeading icon={Award} title="Evaluation Criteria" small /><ul>{criteria.map((item) => <li key={item}><CheckCircle2 size={19} />{item}</li>)}</ul></div></section>
         <section className="pp-section pp-rules-section" id="pp-rules"><SectionHeading icon={CheckCircle2} title="Rules & Guidelines" /><div className="pp-rule-grid">{ruleGroups.map(([number, title, rules]) => <article key={title}><span>{number}</span><h3>{title}</h3><ul>{rules.map((rule) => <li key={rule}><CheckCircle2 size={14} />{rule}</li>)}</ul></article>)}</div><div className="pp-rules-note">Venue and assigned time slot: check the official website. Judges&apos; decision is final.</div></section>
